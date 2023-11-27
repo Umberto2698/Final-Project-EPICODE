@@ -1,0 +1,69 @@
+import { Col, Container, Navbar, Row } from "react-bootstrap";
+
+import { Link, useLocation } from "react-router-dom";
+import { Calendar2Plus, InfoCircle, HouseDoor, Person } from "react-bootstrap-icons";
+
+const Bottom_NavBar = () => {
+  const location = useLocation();
+  return (
+    <>
+      <Navbar fixed="bottom" expand="lg" style={{ height: "52px" }} className="z-5 bg-white p-0 pt-1">
+        <Container fluid="xl" className="h-100">
+          <Row className="flex-grow-1 h-100">
+            <Col xs={10} lg={7} className="d-flex align-items-center flex-grow-1">
+              <Row className="flex-grow-1 h-100">
+                <Col className="h-100">
+                  <Link
+                    to="/"
+                    className={`nav-link d-flex flex-column h-100 p-0 align-items-center bottom_bar-text justify-content-center ${
+                      location.pathname === "/a" ? "active-xs" : ""
+                    }`}
+                  >
+                    <HouseDoor size={20}></HouseDoor>
+                    <span>Home</span>
+                  </Link>
+                </Col>
+                <Col className="h-100">
+                  <Link
+                    to="/mynetwork"
+                    className={`h-100 nav-link d-flex flex-column p-0 align-items-center bottom_bar-text justify-content-center ${
+                      location.pathname === "/" ? "active-xs" : ""
+                    }`}
+                  >
+                    <Calendar2Plus size={20}></Calendar2Plus>
+                    <span>Appointment</span>
+                  </Link>
+                </Col>
+                <Col className="h-100">
+                  <Link
+                    to="/publish"
+                    className={`h-100 nav-link d-flex flex-column p-0 align-items-center bottom_bar-text justify-content-center ${
+                      location.pathname === "/" ? "active-xs" : ""
+                    }`}
+                  >
+                    <InfoCircle size={20}></InfoCircle>
+                    <span>About</span>
+                  </Link>
+                </Col>
+
+                <Col className="h-100">
+                  <Link
+                    to="/notifications"
+                    className={`h-100 nav-link d-flex flex-column p-0 align-items-center bottom_bar-text justify-content-center ${
+                      location.pathname === "/" ? "active-xs" : ""
+                    }`}
+                  >
+                    <Person size={20}></Person>
+                    <span>Profile</span>
+                  </Link>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
+      </Navbar>
+    </>
+  );
+};
+
+export default Bottom_NavBar;

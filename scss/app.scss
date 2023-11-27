@@ -106,6 +106,18 @@ textarea:not([rows]) {
   border-bottom: 2px solid $accent-400;
 }
 
+.top_bar-text:hover {
+  border-bottom: 2px solid $accent-400;
+}
+
+.active-xs {
+  color: $accent-400;
+}
+
+.bottom_bar-text:hover {
+  color: $accent-400;
+}
+
 .nav-shadow {
   box-shadow: 6px 0px 4px 6px #ffffff, -9px 0px 20px 1px $accent-100;
 }
