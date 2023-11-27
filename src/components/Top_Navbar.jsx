@@ -1,7 +1,7 @@
 import { Col, Container, Navbar, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Home = () => {
+const Top_Navbar = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -13,4 +13,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Top_Navbar;
