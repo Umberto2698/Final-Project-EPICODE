@@ -4,6 +4,7 @@ $primary-400: #ff4747;
 $primary-300: #ff8686;
 
 $accent-400: #0eb242;
+$accent-100: #aae8be;
 
 $salmons: (
   "salmons-400": $primary-400,
@@ -12,6 +13,7 @@ $salmons: (
 
 $accents: (
   "green-400": $accent-400,
+  "green-100": $accent-100,
 );
 
 $custom-colors: (
@@ -20,7 +22,8 @@ $custom-colors: (
   "accent": $accent-400,
 );
 
-$font-family-sans-serif: "GFS Didot", serif, "Sen", sans-serif;
+$font-family-sans-serif: "Sen", sans-serif;
+$font-headers: "GFS Didot", serif;
 
 $custom-fs: (
   7: 2rem,

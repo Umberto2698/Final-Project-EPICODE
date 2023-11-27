@@ -47,6 +47,7 @@ button,
 input,
 label {
   line-height: 1.1;
+  font-family: $font-headers;
 }
 
 /* Balance text wrapping on headings */
@@ -92,4 +93,19 @@ textarea:not([rows]) {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+.rounded-droplet {
+  border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
+  transform: rotate(-75deg);
+  height: 20px;
+  width: 20px;
+}
+
+.active {
+  border-bottom: 2px solid $accent-400;
+}
+
+.nav-shadow {
+  box-shadow: 6px 0px 4px 6px #ffffff, -9px 0px 20px 1px $accent-100;
 }

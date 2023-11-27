@@ -68,7 +68,7 @@
   --bs-dark-border-subtle: #adb5bd;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
-  --bs-font-sans-serif: "GFS Didot", serif, "Sen", sans-serif;
+  --bs-font-sans-serif: "Sen", sans-serif;
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
   --bs-body-font-family: var(--bs-font-sans-serif);
@@ -2275,6 +2275,7 @@ button,
 input,
 label {
   line-height: 1.1;
+  font-family: "GFS Didot", serif;
 }
 
 /* Balance text wrapping on headings */
@@ -2323,6 +2324,20 @@ textarea:not([rows]) {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+.rounded-droplet {
+  border-radius: 80% 0 55% 50%/55% 0 80% 50%;
+  transform: rotate(-75deg);
+  height: 20px;
+  width: 20px;
+}
+
+.active {
+  border-bottom: 2px solid #0eb242;
+}
+
+.nav-shadow {
+  box-shadow: 6px 0px 4px 6px #ffffff, -9px 0px 20px 1px #aae8be;
 }
 
 /*# sourceMappingURL=app.css.map */
