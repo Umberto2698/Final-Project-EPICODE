@@ -1,0 +1,48 @@
+@import "../node_modules/bootstrap/scss/functions";
+
+$primary-400: #ff4747;
+$primary-300: #ff8686;
+
+$accent-400: #0eb242;
+
+$salmons: (
+  "salmons-400": $primary-400,
+  "salmons-300": $primary-300,
+);
+
+$accents: (
+  "green-400": $accent-400,
+);
+
+$custom-colors: (
+  "primary": $primary-400,
+  "secondary": $primary-300,
+  "accent": $accent-400,
+);
+
+$font-family-sans-serif: "GFS Didot", serif, "Sen", sans-serif;
+
+$custom-fs: (
+  7: 2rem,
+  8: 1.5rem,
+  9: 1.125rem,
+  10: 1rem,
+);
+
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables-dark";
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+$display-font-sizes: map-merge($display-font-sizes, $custom-fs);
+
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/maps";
+@import "../node_modules/bootstrap/scss/root";
+
+@import "../node_modules/bootstrap/scss/utilities";
+@import "../node_modules/bootstrap/scss/reboot";
+@import "../node_modules/bootstrap/scss/type";
+@import "../node_modules/bootstrap/scss/images";
+@import "../node_modules/bootstrap/scss/containers";
+@import "../node_modules/bootstrap/scss/grid";
+@import "../node_modules/bootstrap/scss/helpers";
