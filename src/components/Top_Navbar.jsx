@@ -15,7 +15,7 @@ const Top_Navbar = () => {
                   to="/"
                   className="text-decoration-none text-dark d-flex align-items-center justify-content-center"
                 >
-                  <div className="d-inline-block rounded-droplet bg-danger me-2"></div>
+                  <div className="d-inline-block rounded-droplet-sm bg-danger me-2"></div>
                   <h2 className="d-inline-block fs-5 m-0">Blood Deft</h2>
                 </Link>
                 <Col className="h-100 d-flex d-md-none align-items-center justify-content-end">
@@ -40,7 +40,7 @@ const Top_Navbar = () => {
                   to="/"
                   className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center "
                 >
-                  <span className={`${location.pathname.includes("/") ? "active" : "top_bar-text"} `}>Home</span>
+                  <span className={`${location.pathname.includes("/home") ? "active" : "top_bar-text"} `}>Home</span>
                 </Link>
               </Col>
               <Col md={3} className="h-100">
@@ -48,7 +48,7 @@ const Top_Navbar = () => {
                   to="/"
                   className="h-100 text-decoration-none text-dark d-flex  align-items-center justify-content-center"
                 >
-                  <span className={`${location.pathname.includes("/a") ? "active" : "top_bar-text"} `}>
+                  <span className={`${location.pathname.includes("/") ? "active" : "top_bar-text"} `}>
                     Make an appointment
                   </span>
                 </Link>

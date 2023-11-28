@@ -26,6 +26,7 @@ $font-family-sans-serif: "Sen", sans-serif;
 $font-headers: "GFS Didot", serif;
 
 $custom-fs: (
+  1: 5rem,
   7: 2rem,
   8: 1.5rem,
   9: 1.125rem,
@@ -36,7 +37,7 @@ $custom-fs: (
 @import "../node_modules/bootstrap/scss/variables-dark";
 
 $theme-colors: map-merge($theme-colors, $custom-colors);
-$display-font-sizes: map-merge($display-font-sizes, $custom-fs);
+$display-font-sizes: map-merge($font-sizes, $custom-fs);
 
 @import "../node_modules/bootstrap/scss/mixins";
 @import "../node_modules/bootstrap/scss/maps";
