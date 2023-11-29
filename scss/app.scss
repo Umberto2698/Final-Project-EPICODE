@@ -125,9 +125,15 @@ textarea:not([rows]) {
   }
 }
 
-.custom-fs-6 {
+.custom-fs-5 {
   font-size: 1rem;
   @media (max-width: 375px) {
+    font-size: 0.875rem;
+  }
+}
+.custom-fs-6 {
+  font-size: 1rem;
+  @media (max-width: 992px) {
     font-size: 0.875rem;
   }
 }
@@ -140,7 +146,7 @@ textarea:not([rows]) {
 .custom-section {
   background: linear-gradient(to right, $primary-400, $red);
   border-top-right-radius: 100px;
-  margin-left: -100px;
+  margin-left: -110px;
   @media (max-width: 767px) {
     border-top-right-radius: 0;
   }
@@ -154,6 +160,57 @@ textarea:not([rows]) {
       font-size: 0.875rem;
     }
   }
+}
+
+.step::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: -64px;
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.step::after {
+  font-family: $font-family-sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  position: absolute;
+  top: -64px;
+  left: 27.5px;
+}
+
+.step:nth-of-type(1)::before {
+  background-color: #c7c5f6;
+}
+
+.step:nth-of-type(1)::after {
+  content: "1";
+  color: #5d5be2;
+}
+.step:nth-of-type(2)::before {
+  background-color: #ffe8b2;
+}
+
+.step:nth-of-type(2)::after {
+  content: "2";
+  color: #ffb607;
+}
+.step:nth-of-type(3)::before {
+  background-color: #b0e2fa;
+}
+
+.step:nth-of-type(3)::after {
+  content: "3";
+  color: #5a9cfa;
+}
+.step:nth-of-type(4)::before {
+  background-color: #fadcc4;
+}
+
+.step:nth-of-type(4)::after {
+  content: "4";
+  color: #f08e45;
 }
 
 .custom-border-radius {
