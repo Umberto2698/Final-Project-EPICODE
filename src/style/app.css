@@ -2319,7 +2319,7 @@ textarea:not([rows]) {
   font-size: 5rem;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   .custom-fs-1 {
     font-size: 4.25rem;
   }
@@ -2329,7 +2329,10 @@ textarea:not([rows]) {
     font-size: 3.25rem;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+  main {
+    padding-bottom: 60px;
+  }
   .custom-fs-1 {
     font-size: 2.25rem;
   }
@@ -2343,7 +2346,7 @@ textarea:not([rows]) {
   font-size: 2rem;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   .custom-fs-7 {
     font-size: 1.7rem;
   }
@@ -2353,7 +2356,10 @@ textarea:not([rows]) {
     font-size: 1.3rem;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+  main {
+    padding-bottom: 60px;
+  }
   .custom-fs-7 {
     font-size: 0.9rem;
   }
@@ -2367,7 +2373,7 @@ textarea:not([rows]) {
   font-size: 1.5rem;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   .custom-fs-8 {
     font-size: 1.275rem;
   }
@@ -2377,7 +2383,10 @@ textarea:not([rows]) {
     font-size: 0.975rem;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+  main {
+    padding-bottom: 60px;
+  }
   .custom-fs-8 {
     font-size: 0.675rem;
   }
@@ -2391,7 +2400,7 @@ textarea:not([rows]) {
   font-size: 1.125rem;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   .custom-fs-9 {
     font-size: 0.95625rem;
   }
@@ -2401,7 +2410,10 @@ textarea:not([rows]) {
     font-size: 0.73125rem;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+  main {
+    padding-bottom: 60px;
+  }
   .custom-fs-9 {
     font-size: 0.50625rem;
   }
@@ -2415,7 +2427,7 @@ textarea:not([rows]) {
   font-size: 1rem;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   .custom-fs-10 {
     font-size: 0.85rem;
   }
@@ -2425,7 +2437,10 @@ textarea:not([rows]) {
     font-size: 0.65rem;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+  main {
+    padding-bottom: 60px;
+  }
   .custom-fs-10 {
     font-size: 0.45rem;
   }
@@ -2442,6 +2457,45 @@ textarea:not([rows]) {
   .custom-fs-6 {
     font-size: 0.875rem;
   }
+}
+
+.custom-bg-primary {
+  background-color: #ff4747;
+}
+
+.custom-bg-secondary {
+  background-color: #ff8686;
+}
+
+.custom-bg-accent {
+  background-color: #0eb242;
+}
+
+.custom-section {
+  background: linear-gradient(to right, #ff4747, #dc3545);
+  border-top-right-radius: 100px;
+  margin-left: -100px;
+}
+@media (max-width: 767px) {
+  .custom-section {
+    border-top-right-radius: 0;
+  }
+}
+
+.custom-section > div {
+  margin-left: 100px;
+}
+.custom-section > div p {
+  font-size: 1rem;
+}
+@media (max-width: 992px) {
+  .custom-section > div p {
+    font-size: 0.875rem;
+  }
+}
+
+.custom-border-radius {
+  border-bottom-right-radius: 500px;
 }
 
 .rounded-droplet-sm {

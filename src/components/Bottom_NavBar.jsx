@@ -7,7 +7,7 @@ const Bottom_NavBar = () => {
   const location = useLocation();
   return (
     <>
-      <Navbar fixed="bottom" expand="lg" style={{ height: "52px" }} className="z-5 bg-white p-0 pt-1">
+      <Navbar expand="lg" style={{ height: "52px" }} className="position-fixed bottom-0 z-5 w-100 bg-white p-0 pt-1">
         <Container fluid="xl" className="h-100">
           <Row className="flex-grow-1 h-100">
             <Col className="d-flex align-items-center flex-grow-1">

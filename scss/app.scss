@@ -95,11 +95,12 @@ textarea:not([rows]) {
   }
 }
 
+// UTILITY CLASSES
 @each $n, $size in $custom-fs {
   .custom-fs-#{$n} {
     font-size: $size;
   }
-  @media (max-width: 1200px) {
+  @media (max-width: 1199px) {
     .custom-fs-#{$n} {
       font-size: calc($size * 0.85);
     }
@@ -109,7 +110,10 @@ textarea:not([rows]) {
       font-size: calc($size * 0.65);
     }
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
+    main {
+      padding-bottom: 60px;
+    }
     .custom-fs-#{$n} {
       font-size: calc($size * 0.45);
     }
@@ -126,6 +130,34 @@ textarea:not([rows]) {
   @media (max-width: 375px) {
     font-size: 0.875rem;
   }
+}
+
+@each $name, $color in $custom-colors {
+  .custom-bg-#{$name} {
+    background-color: $color;
+  }
+}
+.custom-section {
+  background: linear-gradient(to right, $primary-400, $red);
+  border-top-right-radius: 100px;
+  margin-left: -100px;
+  @media (max-width: 767px) {
+    border-top-right-radius: 0;
+  }
+}
+
+.custom-section > div {
+  margin-left: 100px;
+  & p {
+    font-size: 1rem;
+    @media (max-width: 992px) {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+.custom-border-radius {
+  border-bottom-right-radius: 500px;
 }
 
 .rounded-droplet-sm {
