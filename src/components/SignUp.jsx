@@ -130,7 +130,7 @@ const SignUp = () => {
               <div style={{ width: "50px" }} className="border-bottom border-black"></div>
             </div>
             <p>
-              Alredy have an account?&nbsp;
+              Already have an account?&nbsp;
               <Link to="/" className="text-decoration-none custom-link  clr-primary fw-bold">
                 <span>Log In</span>
               </Link>
