@@ -143,8 +143,7 @@ textarea:not([rows]) {
     background-color: $color;
   }
 }
-main,
-nav {
+.linear-gradient-acc-100 {
   background: linear-gradient(to right, $accent-100 -60%, white);
   @media (max-width: 767px) {
     background: white;
@@ -167,6 +166,10 @@ nav {
       font-size: 0.875rem;
     }
   }
+}
+
+.sign-up-decoration {
+  background-color: $primary-400;
 }
 
 .step::before {
@@ -211,6 +214,27 @@ nav {
   border-bottom-right-radius: 500px;
 }
 
+.droplet::before {
+  content: "";
+  background-color: $primary-300;
+  position: absolute;
+  border-radius: 55% 0 55% 50% / 55% 0 55% 50%;
+  transform: rotate(-45deg);
+  margin: auto;
+  inset: -60% 0 0 0;
+  aspect-ratio: 1;
+  width: 300px;
+  @media (max-width: 1199px) {
+    width: 250px;
+  }
+  @media (max-width: 992px) {
+    width: 225px;
+  }
+  @media (max-width: 767px) {
+    width: 200px;
+  }
+}
+
 .rounded-droplet-sm {
   border-radius: 55% 0 55% 50% / 55% 0 55% 50%;
   transform: rotate(-75deg);
@@ -251,9 +275,11 @@ nav {
 .active {
   border-bottom: 2px solid $accent-400;
 }
-
-.top_bar-text:hover {
-  border-bottom: 2px solid $accent-400;
+.top_bar-text {
+  border-bottom: 2px solid white;
+  &:hover {
+    border-bottom: 2px solid $accent-400;
+  }
 }
 
 .active-xs {

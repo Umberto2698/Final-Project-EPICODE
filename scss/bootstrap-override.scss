@@ -34,6 +34,8 @@ $custom-fs: (
   10: 1rem,
 );
 
+$enable-grid-classes: false;
+$enable-cssgrid: true;
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/variables-dark";
 

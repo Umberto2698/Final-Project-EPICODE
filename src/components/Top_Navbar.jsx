@@ -4,9 +4,11 @@ import Bottom_NavBar from "./Bottom_NavBar";
 
 const Top_Navbar = () => {
   const location = useLocation();
-  return (
+  return location.pathname.includes("/signUp") ? (
+    <span className="d-none"></span>
+  ) : (
     <>
-      <Navbar expand="md" className="h-100 z-5 bg-body-tertiary px-3">
+      <Navbar expand="md" className="h-100 z-5 bg-body-tertiary linear-gradient-acc-100 px-3">
         <Container fluid="xl" className="h-100 rounded-start-pill nav-shadow">
           <Row className="flex-grow-1 h-100">
             <Col lg={2} className="pe-1 align-items-center justify-content-center d-md-flex me-auto my-2 my-lg-0">
@@ -20,10 +22,10 @@ const Top_Navbar = () => {
                 </Link>
                 <Col className="h-100 d-flex d-md-none align-items-center justify-content-end">
                   <Link
-                    to="/"
+                    to="/signUp"
                     className="h-100 mx-3 text-decoration-none text-dark d-flex align-items-center justify-content-center"
                   >
-                    <span className={`${location.pathname.includes("/") ? "active" : "top_bar-text"} `}>Sign Up</span>
+                    <span className="top_bart-text">Sign Up</span>
                   </Link>
                   <Link
                     to="/"
@@ -71,10 +73,10 @@ const Top_Navbar = () => {
               </Col>
               <Col className="h-100">
                 <Link
-                  to="/"
+                  to="/signUp"
                   className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
                 >
-                  <span className={`${location.pathname.includes("/") ? "active" : "top_bar-text"} `}>Sign Up</span>
+                  <span className="top_bar-text">Sign Up</span>
                 </Link>
               </Col>
               <Col className="h-100">
