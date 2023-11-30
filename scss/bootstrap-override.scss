@@ -21,6 +21,7 @@ $custom-colors: (
   "primary": $primary-400,
   "secondary": $primary-300,
   "accent": $accent-400,
+  "accent-l": $accent-300,
 );
 
 $font-family-sans-serif: "Sen", sans-serif;
@@ -34,13 +35,25 @@ $custom-fs: (
   10: 1rem,
 );
 
+$custom-w: (
+  1: 80%,
+  2: 70%,
+  3: 60%,
+);
+
+$custom-table-variants: (
+  "black": black,
+);
+
 $enable-grid-classes: false;
 $enable-cssgrid: true;
+
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/variables-dark";
 
 $theme-colors: map-merge($theme-colors, $custom-colors);
 $display-font-sizes: map-merge($font-sizes, $custom-fs);
+$table-variants: map-merge($table-variants, $custom-table-variants);
 
 @import "../node_modules/bootstrap/scss/mixins";
 @import "../node_modules/bootstrap/scss/maps";

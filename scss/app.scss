@@ -96,6 +96,20 @@ textarea:not([rows]) {
 }
 
 // UTILITY CLASSES
+@each $n, $width in $custom-w {
+  .custom-w-#{$n} {
+    width: $width;
+  }
+}
+
+@each $name, $clr in $custom-colors {
+  .clr-#{$name} {
+    color: $clr;
+  }
+  .border-#{$name} {
+    border: 2px solid $clr;
+  }
+}
 @each $n, $size in $custom-fs {
   .custom-fs-#{$n} {
     font-size: $size;
@@ -170,6 +184,7 @@ textarea:not([rows]) {
 
 .sign-up-decoration {
   background-color: $primary-400;
+  box-shadow: 2px 0px 10px 0px #a3a3a3;
 }
 
 .step::before {
@@ -293,4 +308,24 @@ textarea:not([rows]) {
 .nav-shadow {
   background-color: white;
   box-shadow: 6px 0px 4px 6px #ffffff, -9px 0px 20px 1px $accent-100;
+}
+form {
+  .custom-input:focus {
+    box-shadow: 0 0 0 0.25rem $primary-300;
+    border-color: $primary-300;
+  }
+  .btn {
+    background-color: black;
+    border-color: black;
+    box-shadow: 1px 4px 7px 0px #00000066;
+    font-size: 1.5rem;
+    &:hover {
+      background-color: black;
+      border-color: black;
+    }
+    &:active {
+      background-color: rgba(0, 0, 0, 0.93) !important;
+      border-color: rgba(0, 0, 0, 0.93) !important;
+    }
+  }
 }
