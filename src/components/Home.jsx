@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <main>
-      <Container className="my-5">
+      <Container className="py-5">
         <section>
           <Row>
             <Col className="d-flex align-items-center justify-content-center">
