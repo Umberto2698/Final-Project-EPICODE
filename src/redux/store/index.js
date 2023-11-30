@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import loadingReducer from "../reducers/loadingReducer";
+import stateReducer from "../reducers/stateReducer";
 import { configureStore } from "@reduxjs/toolkit";
 const finalReducer = combineReducers({
-  loading: loadingReducer,
+  state: stateReducer,
 });
 
 const store = configureStore({

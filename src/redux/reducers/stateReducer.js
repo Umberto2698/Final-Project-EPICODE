@@ -4,9 +4,12 @@ const initialState = {
   loading: {
     content: false,
   },
+  error: {
+    content: "",
+  },
 };
 
-const loadingReducer = (state = initialState, action) => {
+const stateReducer = (state = initialState, action) => {
   switch (action.type) {
     case IS_LOADING:
       return {
@@ -20,4 +23,4 @@ const loadingReducer = (state = initialState, action) => {
   }
 };
 
-export default loadingReducer;
+export default stateReducer;
