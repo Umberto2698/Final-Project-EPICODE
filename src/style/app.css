@@ -1694,13 +1694,43 @@ textarea:not([rows]) {
 .custom-w-1 {
   width: 80%;
 }
+@media (max-width: 1024px) {
+  .custom-w-1 {
+    width: 90%;
+  }
+}
+@media (max-width: 767px) {
+  .custom-w-1 {
+    width: 100%;
+  }
+}
 
 .custom-w-2 {
   width: 70%;
 }
+@media (max-width: 1024px) {
+  .custom-w-2 {
+    width: 80%;
+  }
+}
+@media (max-width: 767px) {
+  .custom-w-2 {
+    width: 90%;
+  }
+}
 
 .custom-w-3 {
   width: 60%;
+}
+@media (max-width: 1024px) {
+  .custom-w-3 {
+    width: 70%;
+  }
+}
+@media (max-width: 767px) {
+  .custom-w-3 {
+    width: 80%;
+  }
 }
 
 .clr-primary {
@@ -2009,6 +2039,11 @@ textarea:not([rows]) {
     width: 200px;
   }
 }
+@media (max-width: 425px) {
+  .droplet::before {
+    width: 150px;
+  }
+}
 
 .rounded-droplet-sm {
   border-radius: 55% 0 55% 50%/55% 0 55% 50%;
@@ -2098,6 +2133,27 @@ form .btn:hover {
 form .btn:active {
   background-color: rgba(0, 0, 0, 0.93) !important;
   border-color: rgba(0, 0, 0, 0.93) !important;
+}
+
+#goggleBtn {
+  box-shadow: 3px 4px 7px 0px rgba(0, 0, 0, 0.4);
+  transition: box-shadow 500ms;
+}
+#goggleBtn:hover {
+  box-shadow: 3px 8px 8px 0px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 767px) {
+  .signUp-img {
+    width: 400px;
+  }
+}
+
+.custom-link {
+  border-bottom: 2px solid white;
+}
+.custom-link:hover {
+  border-bottom: 2px solid #ff8686;
 }
 
 /*# sourceMappingURL=app.css.map */

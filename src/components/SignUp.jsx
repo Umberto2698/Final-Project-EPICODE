@@ -1,32 +1,60 @@
-import { useState } from "react";
-import { Button, Col, FloatingLabel, Form, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Col, FloatingLabel, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { fetchRegister } from "../redux/actions/loginActions";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  const handleCallbackResponse = (response) => {
+    const userObject = jwtDecode(response.credential);
+    console.log(userObject);
+    setGoogleProfile({ name: userObject.given_name, surname: userObject.family_name, email: userObject.email });
+  };
+
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id: "599974988971-h22f3b3fpjq0dl5s7faadh1u37aanb4l.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+    google.accounts.id.renderButton(document.getElementById("goggleBtn"), {
+      theme: "outline",
+      size: "large",
+    });
+  }, []);
+
   const [newProfile, setNewProfile] = useState({
     name: "",
     surname: "",
     email: "",
     password: "",
   });
+
+  const [googleProfile, setGoogleProfile] = useState({
+    name: "",
+    surname: "",
+    email: "",
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch();
+    dispatch(fetchRegister(newProfile.name, newProfile.surname, newProfile.email, newProfile.password));
   };
+
   return (
     <main style={{ height: "100vh", paddingBottom: "0" }}>
       <div className="grid text-center h-100">
         <div className="g-col-12 g-col-md-6 sign-up-decoration d-flex align-items-center justify-content-center ">
-          <div className="position-relative text-black z-1 px-2">
+          <div className="position-relative text-black z-1 px-2 mt-5">
             <div className="droplet"></div>
-            <div className="position-relative pt-md-5 pb-5 mb-5">
+            <div className="position-relative pt-5 pb-5 mb-5">
               <h3 className="fw-bold custom-fs-1 mb-2 ">Donate Blood</h3>
               <p className="fs-3">A drop for you, an ocean for someone else.</p>
             </div>
-            <img src="./assets/Sign-up2.png" alt="" />
+            <img className="signUp-img mx-auto" src="./assets/Sign-up2.png" alt="" />
           </div>
         </div>
         <div className="g-col-12 g-col-md-6 d-flex align-items-center justify-content-center">
@@ -94,19 +122,22 @@ const SignUp = () => {
                 Sign Up
               </Button>
             </Form>
-            <div className="mb-3 d-flex align-items-end justify-content-center">
+            <div className="mb-4 d-flex align-items-end justify-content-center">
               <div style={{ width: "50px" }} className="border-bottom border-black"></div>
               <p style={{ lineHeight: "3px" }} className="mb-0 mx-3">
                 Or
               </p>
               <div style={{ width: "50px" }} className="border-bottom border-black"></div>
             </div>
-            <Row>
-              <Col></Col>
-            </Row>
             <p>
-              Alredy have an account? <span>Log In</span>
+              Alredy have an account?&nbsp;
+              <Link to="/" className="text-decoration-none custom-link  clr-primary fw-bold">
+                <span>Log In</span>
+              </Link>
             </p>
+            <Col className="d-flex align-items-center justify-content-center mb-5">
+              <div id="goggleBtn" className="mx-auto"></div>
+            </Col>
           </div>
         </div>
       </div>

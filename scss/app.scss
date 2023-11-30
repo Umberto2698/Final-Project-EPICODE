@@ -99,6 +99,12 @@ textarea:not([rows]) {
 @each $n, $width in $custom-w {
   .custom-w-#{$n} {
     width: $width;
+    @media (max-width: 1024px) {
+      width: $width + 10%;
+    }
+    @media (max-width: 767px) {
+      width: $width + 20%;
+    }
   }
 }
 
@@ -248,6 +254,9 @@ textarea:not([rows]) {
   @media (max-width: 767px) {
     width: 200px;
   }
+  @media (max-width: 425px) {
+    width: 150px;
+  }
 }
 
 .rounded-droplet-sm {
@@ -309,6 +318,7 @@ textarea:not([rows]) {
   background-color: white;
   box-shadow: 6px 0px 4px 6px #ffffff, -9px 0px 20px 1px $accent-100;
 }
+
 form {
   .custom-input:focus {
     box-shadow: 0 0 0 0.25rem $primary-300;
@@ -327,5 +337,26 @@ form {
       background-color: rgba(0, 0, 0, 0.93) !important;
       border-color: rgba(0, 0, 0, 0.93) !important;
     }
+  }
+}
+
+#goggleBtn {
+  box-shadow: 3px 4px 7px 0px #00000066;
+  transition: box-shadow 500ms;
+  &:hover {
+    box-shadow: 3px 8px 8px 0px #00000066;
+  }
+}
+
+.signUp-img {
+  @media (max-width: 767px) {
+    width: 400px;
+  }
+}
+
+.custom-link {
+  border-bottom: 2px solid white;
+  &:hover {
+    border-bottom: 2px solid $primary-300;
   }
 }
