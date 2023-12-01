@@ -1,10 +1,11 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { ArrowRight } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
+import Footer from "./Footer";
 const Home = () => {
   return (
     <main className="linear-gradient-acc-100">
-      <Container className="py-5">
+      <Container className="pt-5">
         <section>
           <Row>
             <Col className="d-flex align-items-center justify-content-center">
@@ -102,6 +103,9 @@ const Home = () => {
             </Col>
           </Row>
         </section>
+        <footer className="d-none justify-content-center align-items-center d-md-flex">
+          <Footer></Footer>
+        </footer>
       </Container>
       {/* MOBILE ONLY */}
       <section className="d-block d-md-none custom-section mt-5 mb-5 px-4">
@@ -178,6 +182,9 @@ const Home = () => {
             </Col>
           </Row>
         </section>
+        <footer className="d-flex justify-content-center align-items-center d-md-none">
+          <Footer></Footer>
+        </footer>
       </Container>
     </main>
   );

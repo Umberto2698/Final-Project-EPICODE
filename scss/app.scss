@@ -115,7 +115,11 @@ textarea:not([rows]) {
   .border-#{$name} {
     border: 2px solid $clr;
   }
+  .custom-bg-#{$name} {
+    background-color: $clr;
+  }
 }
+
 @each $n, $size in $custom-fs {
   .custom-fs-#{$n} {
     font-size: $size;
@@ -158,11 +162,6 @@ textarea:not([rows]) {
   }
 }
 
-@each $name, $color in $custom-colors {
-  .custom-bg-#{$name} {
-    background-color: $color;
-  }
-}
 .linear-gradient-acc-100 {
   background: linear-gradient(to right, $accent-100 -60%, white);
   @media (max-width: 767px) {
@@ -367,4 +366,8 @@ form {
   &:hover {
     border-bottom: 2px solid $primary-300;
   }
+}
+
+.footer-text:hover {
+  text-decoration: underline;
 }

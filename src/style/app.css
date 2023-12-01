@@ -1741,12 +1741,20 @@ textarea:not([rows]) {
   border: 2px solid #ff4747;
 }
 
+.custom-bg-primary {
+  background-color: #ff4747;
+}
+
 .clr-secondary {
   color: #ff8686;
 }
 
 .border-secondary {
   border: 2px solid #ff8686;
+}
+
+.custom-bg-secondary {
+  background-color: #ff8686;
 }
 
 .clr-accent {
@@ -1757,12 +1765,20 @@ textarea:not([rows]) {
   border: 2px solid #0eb242;
 }
 
+.custom-bg-accent {
+  background-color: #0eb242;
+}
+
 .clr-accent-l {
   color: #aae8be;
 }
 
 .border-accent-l {
   border: 2px solid #aae8be;
+}
+
+.custom-bg-accent-l {
+  background-color: #aae8be;
 }
 
 .custom-fs-1 {
@@ -1916,22 +1932,6 @@ textarea:not([rows]) {
   .custom-fs-6 {
     font-size: 0.875rem;
   }
-}
-
-.custom-bg-primary {
-  background-color: #ff4747;
-}
-
-.custom-bg-secondary {
-  background-color: #ff8686;
-}
-
-.custom-bg-accent {
-  background-color: #0eb242;
-}
-
-.custom-bg-accent-l {
-  background-color: #aae8be;
 }
 
 .linear-gradient-acc-100 {
@@ -2165,6 +2165,10 @@ form .btn:active {
 }
 .custom-link:hover {
   border-bottom: 2px solid #ff8686;
+}
+
+.footer-text:hover {
+  text-decoration: underline;
 }
 
 /*# sourceMappingURL=app.css.map */
