@@ -28,10 +28,10 @@ const Top_Navbar = () => {
                     <span className="top_bart-text">Sign Up</span>
                   </Link>
                   <Link
-                    to="/"
+                    to="/signUp/logIn"
                     className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
                   >
-                    <span className={`${location.pathname.includes("/a") ? "active" : "top_bar-text"}`}>Log In</span>
+                    <span className="top_bar-text">Log In</span>
                   </Link>
                 </Col>
               </Col>
@@ -81,10 +81,10 @@ const Top_Navbar = () => {
               </Col>
               <Col className="h-100">
                 <Link
-                  to="/"
+                  to="/signUp/logIn"
                   className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
                 >
-                  <span className={`${location.pathname.includes("/") ? "active" : "top_bar-text"} `}>Log In</span>
+                  <span className="top_bar-text">Log In</span>
                 </Link>
               </Col>
             </Col>

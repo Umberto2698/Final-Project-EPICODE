@@ -10,7 +10,7 @@ function App() {
       <Top_Navbar></Top_Navbar>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/signUp/*" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );
