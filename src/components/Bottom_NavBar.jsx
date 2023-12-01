@@ -27,7 +27,7 @@ const Bottom_NavBar = () => {
                   <Link
                     to="/mynetwork"
                     className={`h-100 nav-link d-flex flex-column p-0 align-items-center bottom_bar-text justify-content-center ${
-                      location.pathname === "/" ? "active-xs" : ""
+                      location.pathname === "/appointment" ? "active-xs" : ""
                     }`}
                   >
                     <Calendar2Plus size={18}></Calendar2Plus>
@@ -38,7 +38,7 @@ const Bottom_NavBar = () => {
                   <Link
                     to="/publish"
                     className={`h-100 nav-link d-flex flex-column p-0 align-items-center bottom_bar-text justify-content-center ${
-                      location.pathname === "/" ? "active-xs" : ""
+                      location.pathname === "/about" ? "active-xs" : ""
                     }`}
                   >
                     <InfoCircle size={18}></InfoCircle>
@@ -50,7 +50,7 @@ const Bottom_NavBar = () => {
                   <Link
                     to="/notifications"
                     className={`h-100 nav-link d-flex flex-column p-0 align-items-center bottom_bar-text justify-content-center ${
-                      location.pathname === "/" ? "active-xs" : ""
+                      location.pathname === "/profile" ? "active-xs" : ""
                     }`}
                   >
                     <Person size={18}></Person>

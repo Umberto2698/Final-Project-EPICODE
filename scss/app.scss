@@ -348,6 +348,14 @@ form {
   }
 }
 
+#floatingPassword + svg,
+#floatingPasswordLogIn + svg {
+  inset: 35% 0 0 90%;
+  @media (max-width: 768px) {
+    inset: 35% 0 0 90%;
+  }
+}
+
 .signUp-img {
   @media (max-width: 767px) {
     width: 400px;

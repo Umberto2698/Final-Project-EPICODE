@@ -1,4 +1,4 @@
-import { SAVE_TOKEN } from "../actions/loginActions";
+import { SAVE_TOKEN, LOGOUT } from "../actions/loginActions";
 
 const initialState = {
   respLogin: {
@@ -9,6 +9,13 @@ const initialState = {
 const LoginReducer = (state = initialState, action) => {
   switch (action.type) {
     case SAVE_TOKEN:
+      return {
+        ...state,
+        respLogin: {
+          authorizationToken: action.payload,
+        },
+      };
+    case LOGOUT:
       return {
         ...state,
         respLogin: {

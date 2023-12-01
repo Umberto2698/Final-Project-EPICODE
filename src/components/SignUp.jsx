@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import { Button, Col, FloatingLabel, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Eye, EyeSlash } from "react-bootstrap-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { fetchRegister, fetchLogin } from "../redux/actions/loginActions";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
+  const token = useSelector((state) => state.login.respLogin.authorizationToken.token);
+
+  const [passwordStyle, setPasswordStyle] = useState({
+    type: "password",
+  });
 
   const handleCallbackResponse = (response) => {
     const userObject = jwtDecode(response.credential);
@@ -25,6 +32,9 @@ const SignUp = () => {
       theme: "outline",
       size: "large",
     });
+    setNewProfile({ ...newProfile, name: "", surname: "", email: "", password: "" });
+    setOldProfile({ ...oldProfile, email: "", password: "" });
+    setPasswordStyle({ ...passwordStyle, type: "password" });
   }, [location.pathname]);
 
   const [newProfile, setNewProfile] = useState({
@@ -49,8 +59,14 @@ const SignUp = () => {
     e.preventDefault();
     if (location.pathname.includes("/logIn")) {
       dispatch(fetchLogin(oldProfile.email, oldProfile.password));
+      if (token !== "") {
+        navigate("/");
+      }
     } else {
       dispatch(fetchRegister(newProfile.name, newProfile.surname, newProfile.email, newProfile.password));
+      if (token !== "") {
+        navigate("/");
+      }
     }
   };
 
@@ -78,13 +94,13 @@ const SignUp = () => {
               <p className="fs-3">Enter credentials</p>
               <Form onSubmit={handleSubmit}>
                 <FloatingLabel
-                  controlId="floatingEmail"
+                  controlId="floatingEmailLogIn"
                   label="Email"
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
                     value={oldProfile.email}
-                    onChange={(e) => setNewProfile({ ...oldProfile, email: e.target.value })}
+                    onChange={(e) => setOldProfile({ ...oldProfile, email: e.target.value })}
                     type="email"
                     required
                     placeholder="name@example.com"
@@ -92,18 +108,33 @@ const SignUp = () => {
                   />
                 </FloatingLabel>
                 <FloatingLabel
-                  controlId="floatingPassword"
+                  controlId="floatingPasswordLogIn"
                   label="Password"
-                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                  className="mb-4 user-select-none clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
                     value={oldProfile.password}
-                    onChange={(e) => setNewProfile({ ...oldProfile, password: e.target.value })}
-                    type="password"
+                    onChange={(e) => setOldProfile({ ...oldProfile, password: e.target.value })}
+                    type={passwordStyle.type}
                     placeholder="password"
                     required
                     className="rounded-4 custom-input fs-5"
                   />
+                  {passwordStyle.type === "password" ? (
+                    <Eye
+                      role="button"
+                      onClick={() => setPasswordStyle({ ...passwordStyle, type: "text" })}
+                      className="text-black position-absolute"
+                      size={20}
+                    ></Eye>
+                  ) : (
+                    <EyeSlash
+                      role="button"
+                      onClick={() => setPasswordStyle({ ...passwordStyle, type: "password" })}
+                      className="text-black position-absolute"
+                      size={20}
+                    ></EyeSlash>
+                  )}
                 </FloatingLabel>
                 <Button className="text-white w-100 rounded-4 py-2 mb-5" type="submit">
                   Log In
@@ -176,16 +207,31 @@ const SignUp = () => {
                 <FloatingLabel
                   controlId="floatingPassword"
                   label="Password"
-                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                  className="mb-4 user-select-none position-relative clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
                     value={newProfile.password}
                     onChange={(e) => setNewProfile({ ...newProfile, password: e.target.value })}
-                    type="password"
+                    type={passwordStyle.type}
                     placeholder="password"
                     required
                     className="rounded-4 custom-input fs-5"
                   />
+                  {passwordStyle.type === "password" ? (
+                    <Eye
+                      role="button"
+                      onClick={() => setPasswordStyle({ ...passwordStyle, type: "text" })}
+                      className="text-black position-absolute"
+                      size={20}
+                    ></Eye>
+                  ) : (
+                    <EyeSlash
+                      role="button"
+                      onClick={() => setPasswordStyle({ ...passwordStyle, type: "password" })}
+                      className="text-black position-absolute"
+                      size={20}
+                    ></EyeSlash>
+                  )}
                 </FloatingLabel>
                 <Button className="text-white w-100 rounded-4 py-2 mb-5" type="submit">
                   Sign Up

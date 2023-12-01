@@ -1,9 +1,17 @@
 import { Col, Container, Navbar, Row } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import Bottom_NavBar from "./Bottom_NavBar";
+import { LOGOUT } from "../redux/actions/loginActions";
 
 const Top_Navbar = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const loginState = useSelector((state) => state.login.respLogin);
+
+  useEffect(() => {}, [loginState]);
+
   return location.pathname.includes("/signUp") ? (
     <span className="d-none"></span>
   ) : (
@@ -20,20 +28,32 @@ const Top_Navbar = () => {
                   <div className="d-inline-block rounded-droplet-sm bg-danger me-2"></div>
                   <h2 className="d-inline-block fs-5 m-0">Blood Deft</h2>
                 </Link>
-                <Col className="h-100 d-flex d-md-none align-items-center justify-content-end">
-                  <Link
-                    to="/signUp"
-                    className="h-100 mx-3 text-decoration-none text-dark d-flex align-items-center justify-content-center"
-                  >
-                    <span className="top_bart-text">Sign Up</span>
-                  </Link>
-                  <Link
-                    to="/signUp/logIn"
-                    className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
-                  >
-                    <span className="top_bar-text">Log In</span>
-                  </Link>
-                </Col>
+                {loginState.authorizationToken === "" ? (
+                  <Col className="h-100 d-flex d-md-none align-items-center justify-content-end">
+                    <Link
+                      to="/signUp"
+                      className="h-100 mx-3 text-decoration-none text-dark d-flex align-items-center justify-content-center"
+                    >
+                      <span className="top_bart-text">Sign Up</span>
+                    </Link>
+                    <Link
+                      to="/signUp/logIn"
+                      className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
+                    >
+                      <span className="top_bar-text">Log In</span>
+                    </Link>
+                  </Col>
+                ) : (
+                  <Col className="h-100 d-flex d-md-none align-items-center justify-content-end">
+                    <Link
+                      to="/"
+                      onClick={() => dispatch({ type: LOGOUT, payload: "" })}
+                      className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
+                    >
+                      <span className="top_bar-text">Log Out</span>
+                    </Link>
+                  </Col>
+                )}
               </Col>
             </Col>
             <Col md={12} lg={10} className="h-100 align-items-center d-none d-md-flex mb-md-2">
@@ -42,7 +62,7 @@ const Top_Navbar = () => {
                   to="/"
                   className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center "
                 >
-                  <span className={`${location.pathname.includes("/home") ? "active" : "top_bar-text"} `}>Home</span>
+                  <span className={`${location.pathname.includes("/") ? "active" : "top_bar-text"} `}>Home</span>
                 </Link>
               </Col>
               <Col md={3} className="h-100">
@@ -50,7 +70,7 @@ const Top_Navbar = () => {
                   to="/"
                   className="h-100 text-decoration-none text-dark d-flex  align-items-center justify-content-center"
                 >
-                  <span className={`${location.pathname.includes("/") ? "active" : "top_bar-text"} `}>
+                  <span className={`${location.pathname.includes("/appointment") ? "active" : "top_bar-text"} `}>
                     Make an appointment
                   </span>
                 </Link>
@@ -60,7 +80,7 @@ const Top_Navbar = () => {
                   to="/"
                   className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
                 >
-                  <span className={`${location.pathname.includes("/") ? "active" : "top_bar-text"} `}>About</span>
+                  <span className={`${location.pathname.includes("/about") ? "active" : "top_bar-text"} `}>About</span>
                 </Link>
               </Col>
               <Col className="h-100">
@@ -68,25 +88,41 @@ const Top_Navbar = () => {
                   to="/"
                   className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
                 >
-                  <span className={`${location.pathname.includes("/") ? "active" : "top_bar-text"} `}>Profile</span>
+                  <span className={`${location.pathname.includes("/profile") ? "active" : "top_bar-text"} `}>
+                    Profile
+                  </span>
                 </Link>
               </Col>
-              <Col className="h-100">
-                <Link
-                  to="/signUp"
-                  className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
-                >
-                  <span className="top_bar-text">Sign Up</span>
-                </Link>
-              </Col>
-              <Col className="h-100">
-                <Link
-                  to="/signUp/logIn"
-                  className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
-                >
-                  <span className="top_bar-text">Log In</span>
-                </Link>
-              </Col>
+              {loginState.authorizationToken === "" ? (
+                <>
+                  <Col className="h-100">
+                    <Link
+                      to="/signUp"
+                      className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
+                    >
+                      <span className="top_bar-text">Sign Up</span>
+                    </Link>
+                  </Col>
+                  <Col className="h-100">
+                    <Link
+                      to="/signUp/logIn"
+                      className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
+                    >
+                      <span className="top_bar-text">Log In</span>
+                    </Link>
+                  </Col>
+                </>
+              ) : (
+                <Col className="h-100">
+                  <Link
+                    to="/"
+                    onClick={() => dispatch({ type: LOGOUT, payload: "" })}
+                    className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
+                  >
+                    <span className="top_bar-text">Log Out</span>
+                  </Link>
+                </Col>
+              )}
             </Col>
             <Col className="d-md-none"></Col>
           </Row>

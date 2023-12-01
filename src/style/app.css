@@ -2143,6 +2143,17 @@ form .btn:active {
   box-shadow: 3px 8px 8px 0px rgba(0, 0, 0, 0.4);
 }
 
+#floatingPassword + svg,
+#floatingPasswordLogIn + svg {
+  inset: 35% 0 0 90%;
+}
+@media (max-width: 768px) {
+  #floatingPassword + svg,
+  #floatingPasswordLogIn + svg {
+    inset: 35% 0 0 90%;
+  }
+}
+
 @media (max-width: 767px) {
   .signUp-img {
     width: 400px;

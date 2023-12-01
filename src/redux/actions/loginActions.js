@@ -1,4 +1,5 @@
 export const SAVE_TOKEN = "SAVE_TOKEN";
+export const LOGOUT = "LOGOUT";
 
 export const fetchRegister = (name, surname, email, password) => {
   return async () => {
@@ -16,7 +17,8 @@ export const fetchRegister = (name, surname, email, password) => {
         },
       });
       if (resp.ok) {
-        console.log("utente registrato");
+        const token = await resp.json();
+        dispatch({ type: SAVE_TOKEN, payload: token });
       }
     } catch (err) {
       console.log(err);
