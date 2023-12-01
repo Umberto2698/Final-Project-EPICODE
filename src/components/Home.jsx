@@ -77,8 +77,8 @@ const Home = () => {
             <Col className="step position-relative mb-5">
               <h3 className="fw-bold fs-3 mb-3">Screening</h3>
               <p className="custom-fs-6">
-                If this is your first donation at our centers, fill out the modal by clicking
-                <Link to="/" className="fw-bold text-decoration-none text-black cursor-pointer">
+                If this is your first donation at our centers, update your profile by clicking
+                <Link to="/profile" className="fw-bold text-decoration-none text-black cursor-pointer">
                   &nbsp;here
                 </Link>
                 .
@@ -88,7 +88,7 @@ const Home = () => {
               <h3 className="fw-bold fs-3 mb-3">Donation</h3>
               <p className="custom-fs-6">
                 Book an appointment at one of our locations easily and quickly by clicking
-                <Link to="/" className="fw-bold text-decoration-none text-black cursor-pointer">
+                <Link to="/appointment" className="fw-bold text-decoration-none text-black cursor-pointer">
                   &nbsp;here
                 </Link>
                 .
