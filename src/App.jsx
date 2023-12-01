@@ -4,6 +4,7 @@ import "./style/app.css";
 import Home from "./components/Home";
 import Top_Navbar from "./components/Top_Navbar";
 import SignUp from "./components/SignUp";
+import Profile from "./components/Profile";
 function App() {
   return (
     <BrowserRouter>
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signUp/*" element={<SignUp />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );
