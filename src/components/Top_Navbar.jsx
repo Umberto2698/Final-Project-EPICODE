@@ -67,7 +67,7 @@ const Top_Navbar = () => {
               </Col>
               <Col md={3} className="h-100">
                 <Link
-                  to="/"
+                  to="/appointment"
                   className="h-100 text-decoration-none text-dark d-flex  align-items-center justify-content-center"
                 >
                   <span className={`${location.pathname.includes("/appointment") ? "active" : "top_bar-text"} `}>
@@ -77,7 +77,7 @@ const Top_Navbar = () => {
               </Col>
               <Col className="h-100">
                 <Link
-                  to="/"
+                  to="/about"
                   className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
                 >
                   <span className={`${location.pathname.includes("/about") ? "active" : "top_bar-text"} `}>About</span>
@@ -85,7 +85,7 @@ const Top_Navbar = () => {
               </Col>
               <Col className="h-100">
                 <Link
-                  to="/"
+                  to="/profile"
                   className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
                 >
                   <span className={`${location.pathname.includes("/profile") ? "active" : "top_bar-text"} `}>

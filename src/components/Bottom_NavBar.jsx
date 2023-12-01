@@ -25,7 +25,7 @@ const Bottom_NavBar = () => {
                 </Col>
                 <Col className="h-100">
                   <Link
-                    to="/mynetwork"
+                    to="/appointment"
                     className={`h-100 nav-link d-flex flex-column p-0 align-items-center bottom_bar-text justify-content-center ${
                       location.pathname === "/appointment" ? "active-xs" : ""
                     }`}
@@ -36,7 +36,7 @@ const Bottom_NavBar = () => {
                 </Col>
                 <Col className="h-100">
                   <Link
-                    to="/publish"
+                    to="/about"
                     className={`h-100 nav-link d-flex flex-column p-0 align-items-center bottom_bar-text justify-content-center ${
                       location.pathname === "/about" ? "active-xs" : ""
                     }`}
@@ -48,7 +48,7 @@ const Bottom_NavBar = () => {
 
                 <Col className="h-100">
                   <Link
-                    to="/notifications"
+                    to="/profile"
                     className={`h-100 nav-link d-flex flex-column p-0 align-items-center bottom_bar-text justify-content-center ${
                       location.pathname === "/profile" ? "active-xs" : ""
                     }`}
