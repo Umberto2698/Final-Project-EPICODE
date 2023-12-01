@@ -50,7 +50,7 @@ const Footer = () => {
             target="_blank"
             className="d-flex align-items-start justify-content-start mb-1 text-decoration-none text-black mx-2"
           >
-            <span className="custom-fs-6 footer-text">Linkedin</span>
+            <span className="custom-fs-6 footer-text">LinkedIn</span>
           </Link>
           <Link
             to="https://github.com/Umberto2698"

@@ -64,11 +64,11 @@ const Home = () => {
               <h3 className="fw-bold fs-3 mb-3">Registration</h3>
               <p className="custom-fs-6">
                 If you don't have an account yet, click on
-                <Link to="/" className="fw-bold text-decoration-none text-black cursor-pointer">
+                <Link to="/signUp" className="fw-bold text-decoration-none text-black cursor-pointer">
                   &nbsp;Sign Up&nbsp;
                 </Link>
                 and fill out the form; otherwise, click
-                <Link to="/" className="fw-bold text-decoration-none text-black cursor-pointer">
+                <Link to="/signUp/logIn" className="fw-bold text-decoration-none text-black cursor-pointer">
                   &nbsp;Log In&nbsp;
                 </Link>
                 and access your account.
@@ -143,11 +143,11 @@ const Home = () => {
               <h3 className="fw-bold fs-3 mb-2">Registration</h3>
               <p className="fs-6">
                 If you don't have an account yet, click on
-                <Link to="/" className="fw-bold text-decoration-none text-black cursor-pointer">
+                <Link to="/signUp" className="fw-bold text-decoration-none text-black cursor-pointer">
                   &nbsp;Sign Up&nbsp;
                 </Link>
                 and fill out the form; otherwise, click
-                <Link to="/" className="fw-bold text-decoration-none text-black cursor-pointer">
+                <Link to="/signUp/logIn" className="fw-bold text-decoration-none text-black cursor-pointer">
                   &nbsp;Log In&nbsp;
                 </Link>
                 and access your account.
