@@ -103,10 +103,10 @@ const Home = () => {
             </Col>
           </Row>
         </section>
-        <footer className="d-none justify-content-center align-items-center d-md-flex">
-          <Footer></Footer>
-        </footer>
       </Container>
+      <footer className="custom-bg-accent-l d-none justify-content-center align-items-center d-md-flex">
+        <Footer></Footer>
+      </footer>
       {/* MOBILE ONLY */}
       <section className="d-block d-md-none custom-section mt-5 mb-5 px-4">
         <Row className="align-items-center justify-content-md-between">
@@ -182,10 +182,10 @@ const Home = () => {
             </Col>
           </Row>
         </section>
-        <footer className="d-flex justify-content-center align-items-center d-md-none">
-          <Footer></Footer>
-        </footer>
       </Container>
+      <footer className="custom-bg-accent-l d-flex justify-content-center align-items-center d-md-none">
+        <Footer></Footer>
+      </footer>
     </main>
   );
 };

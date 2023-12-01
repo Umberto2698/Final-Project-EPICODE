@@ -153,7 +153,7 @@ const SignUp = () => {
               <p>
                 You don't have an account?&nbsp;
                 <Link to="/signUp" className="text-decoration-none custom-link  clr-primary fw-bold">
-                  <span>Sign Up</span>
+                  <span className="text-nowrap">Sign Up</span>
                 </Link>
               </p>
             </div>
