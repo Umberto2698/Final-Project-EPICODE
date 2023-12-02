@@ -11,19 +11,19 @@ const Footer = () => {
             to="/"
             className="d-flex align-items-start justify-content-start mb-1 text-decoration-none text-black mx-2 "
           >
-            <span className="custom-fs-6 footer-text">Informazioni</span>
+            <span className="custom-fs-6 footer-text">Information</span>
           </Link>
           <Link
             to="/"
             className="d-flex align-items-start justify-content-start mb-1 text-decoration-none text-black mx-2 "
           >
-            <span className="custom-fs-6 footer-text">Linee guida della community</span>
+            <span className="custom-fs-6 footer-text">Community Guidelines</span>
           </Link>
           <Link
             to="/"
             className="d-flex align-items-start justify-content-start mb-1 text-decoration-none text-black mx-2 "
           >
-            <span className="custom-fs-6 footer-text">Centro sicurezza</span>
+            <span className="custom-fs-6 footer-text">Security Center</span>
           </Link>
         </div>
       </Col>
@@ -33,13 +33,13 @@ const Footer = () => {
             to="/"
             className="w-100 d-flex align-items-start justify-content-start mb-1 text-decoration-none text-black mx-2"
           >
-            <span className="custom-fs-6 footer-text">Accessibilità </span>
+            <span className="custom-fs-6 footer-text">Accessibility</span>
           </Link>
           <Link
             to="/"
             className="w-100 d-flex align-items-start justify-content-start mb-1 text-decoration-none text-black mx-2 "
           >
-            <span className="custom-fs-6 footer-text">Mobile </span>
+            <span className="custom-fs-6 footer-text">Mobile</span>
           </Link>
         </div>
       </Col>

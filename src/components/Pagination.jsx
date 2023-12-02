@@ -71,7 +71,7 @@ const Pagination = (props) => {
         if (pageNumber === "DOTS") {
           i++;
           return (
-            <li key={i} className="pagination-item  d-flex align-items-center custom-fs-6 dots">
+            <li key={i} className="pagination-item d-flex align-items-center custom-fs-6 dots">
               &#8230;
             </li>
           );

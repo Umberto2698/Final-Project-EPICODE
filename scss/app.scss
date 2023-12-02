@@ -391,9 +391,17 @@ form {
   text-decoration: underline;
 }
 
+.profile-image {
+  width: 50px;
+  @media (max-width: 767px) {
+    width: 70px;
+  }
+}
+
 // PAGINATION
 .pagination-container {
   list-style-type: none;
+  padding-left: 0;
 
   .pagination-item {
     padding: 0 12px;
@@ -455,6 +463,9 @@ form {
         background-color: transparent;
         cursor: default;
       }
+    }
+    @media (max-width: "375px") {
+      margin: 0;
     }
   }
 }
