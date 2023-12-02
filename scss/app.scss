@@ -120,6 +120,18 @@ textarea:not([rows]) {
   }
 }
 
+.custom-bg-button:hover,
+.border-button:hover {
+  border: 2px solid $button-500;
+  background-color: $button-500;
+}
+.custom-bg-button:active,
+.border-button:active,
+#profile-btn:active {
+  border: 2px solid $button-400;
+  background-color: $button-400;
+}
+
 @each $n, $size in $custom-fs {
   .custom-fs-#{$n} {
     font-size: $size;
@@ -147,6 +159,13 @@ textarea:not([rows]) {
       font-size: calc($size * 0.4);
     }
   }
+}
+
+.ff-primary {
+  font-family: $font-family-sans-serif;
+}
+.ff-header {
+  font-family: $font-headers;
 }
 
 .custom-fs-5 {
@@ -370,4 +389,72 @@ form {
 
 .footer-text:hover {
   text-decoration: underline;
+}
+
+// PAGINATION
+.pagination-container {
+  list-style-type: none;
+
+  .pagination-item {
+    padding: 0 12px;
+    width: 32px;
+    margin: auto 4px;
+    color: rgba(0, 0, 0, 0.87);
+    box-sizing: border-box;
+    border-radius: 16px;
+    line-height: 1.43;
+    aspect-ratio: 1;
+    &:first-of-type {
+      padding: 0 10.5px;
+    }
+    &:last-of-type {
+      padding: 0 13.5px;
+    }
+    &.dots:hover {
+      background-color: transparent;
+      cursor: default;
+    }
+    &:hover {
+      background-color: $accent-100;
+      cursor: pointer;
+    }
+
+    &.selected {
+      background-color: $accent-100;
+    }
+
+    .arrow {
+      &::before {
+        position: relative;
+        content: "";
+        display: inline-block;
+        width: 0.4em;
+        height: 0.4em;
+        border-right: 0.12em solid rgba(0, 0, 0, 0.87);
+        border-top: 0.12em solid rgba(0, 0, 0, 0.87);
+      }
+
+      &.left {
+        transform: rotate(-135deg) translate(-50%);
+      }
+
+      &.right {
+        transform: rotate(45deg);
+      }
+    }
+
+    &.disabled {
+      pointer-events: none;
+
+      .arrow::before {
+        border-right: 0.12em solid rgba(0, 0, 0, 0.43);
+        border-top: 0.12em solid rgba(0, 0, 0, 0.43);
+      }
+
+      &:hover {
+        background-color: transparent;
+        cursor: default;
+      }
+    }
+  }
 }

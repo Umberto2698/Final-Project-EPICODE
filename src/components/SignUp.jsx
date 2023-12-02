@@ -19,7 +19,8 @@ const SignUp = () => {
   const handleCallbackResponse = (response) => {
     const userObject = jwtDecode(response.credential);
     console.log(userObject);
-    setGoogleProfile({ name: userObject.given_name, surname: userObject.family_name, email: userObject.email });
+    setNewProfile({ name: userObject.given_name, surname: userObject.family_name, email: userObject.email });
+    setOldProfile({ email: userObject.email });
   };
 
   useEffect(() => {
@@ -42,12 +43,6 @@ const SignUp = () => {
     surname: "",
     email: "",
     password: "",
-  });
-
-  const [googleProfile, setGoogleProfile] = useState({
-    name: "",
-    surname: "",
-    email: "",
   });
 
   const [oldProfile, setOldProfile] = useState({
@@ -82,7 +77,7 @@ const SignUp = () => {
             </div>
             <img
               className="signUp-img mx-auto"
-              src="./assets/Sign-up2.png"
+              src={`${location.pathname.includes("logIn") ? "../assets/Sign-up2.png" : "assets/Sign-up2.png"}`}
               alt="Image of a patient donating blood while doctor check on her, both smiling."
             />
           </div>

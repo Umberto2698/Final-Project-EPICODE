@@ -62,7 +62,7 @@ const Top_Navbar = () => {
                   to="/"
                   className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center "
                 >
-                  <span className={`${location.pathname.includes("/") ? "active" : "top_bar-text"} `}>Home</span>
+                  <span className={`${location.pathname === "/" ? "active" : "top_bar-text"} `}>Home</span>
                 </Link>
               </Col>
               <Col md={3} className="h-100">

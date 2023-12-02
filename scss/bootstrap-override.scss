@@ -1,4 +1,7 @@
 @import "../node_modules/bootstrap/scss/functions";
+$button-500: #dc8736;
+$button-400: #f6a254;
+$button-300: #f8b475;
 
 $primary-400: #ff4747;
 $primary-300: #ff8686;
@@ -22,6 +25,7 @@ $custom-colors: (
   "secondary": $primary-300,
   "accent": $accent-400,
   "accent-l": $accent-300,
+  "button": $button-400,
 );
 
 $font-family-sans-serif: "Sen", sans-serif;
