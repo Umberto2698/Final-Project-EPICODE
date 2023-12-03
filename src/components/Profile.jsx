@@ -1,16 +1,34 @@
 import { Button, Col, Container, Row, Spinner, Table } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { PhoneFill, EnvelopeFill, HouseDoorFill, ThreeDots, CalendarPlus } from "react-bootstrap-icons";
 import Footer from "./Footer";
 import Pagination from "./Pagination";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { getMyProfileAction, getMyAppointments } from "../redux/actions/profileAction";
 
 const Profile = () => {
   const isLoadingProfile = useSelector((state) => state.profile.isLoadingProfile);
+  const isLoadingAppointments = useSelector((state) => state.profile.isLoadingAppointments);
+  const loginState = useSelector((state) => state.login.respLogin);
+  const profile = useSelector((state) => state.profile.profile);
+  const appointments = useSelector((state) => state.profile.appointments);
+  const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  const navigate = useNavigate();
   let PageSize = 10;
+
+  useEffect(() => {
+    if (loginState.authorizationToken.token) {
+      dispatch(getMyProfileAction(loginState.authorizationToken.token));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (profile != null) {
+      dispatch(getMyAppointments(loginState.authorizationToken.token, currentPage));
+    }
+  }, [profile, currentPage]);
+
   return (
     <>
       {!isLoadingProfile ? (
@@ -22,7 +40,7 @@ const Profile = () => {
           <Container fluid="lg" className="pt-5 mb-5 flex-grow-1">
             <Row className="d-none d-sm-flex">
               <Col sm={5} md={4}>
-                <div className="d-flex flex-column justify-content-start px-4 py-2 border-primary-l rounded-5 h-100">
+                <div className="d-flex flex-column justify-content-start px-4 py-2 border-accent-l custom-info rounded-5 h-100">
                   <div className="ms-auto mb-2 me-2 mt-1">
                     <ThreeDots role="button" className="text-dark-emphasis" size={20}></ThreeDots>
                   </div>
@@ -37,22 +55,22 @@ const Profile = () => {
                   <div>
                     <h2 className="fs-4 fw-bold">Contact Details:</h2>
                     <div className="d-flex align-items-center my-3">
-                      <PhoneFill className="text-info" size={15}></PhoneFill>
+                      <PhoneFill className="text-primary" size={15}></PhoneFill>
                       <p className="custom-fs-6 m-0 ms-2">9804392032</p>
                     </div>
                     <div className="d-flex align-items-center my-3">
-                      <EnvelopeFill className="text-info" size={15}></EnvelopeFill>
+                      <EnvelopeFill className="text-primary" size={15}></EnvelopeFill>
                       <p className="custom-fs-6 m-0 ms-2">name@example.com</p>
                     </div>
                     <div className="d-flex align-items-center my-3">
-                      <HouseDoorFill className="text-info" size={15}></HouseDoorFill>
+                      <HouseDoorFill className="text-primary" size={15}></HouseDoorFill>
                       <p className="custom-fs-6 m-0 ms-2">adress, London 10121</p>
                     </div>
                   </div>
                 </div>
               </Col>
               <Col sm={7} md={8}>
-                <div className="d-flex flex-column justify-content-start px-4 py-2 border-primary-l rounded-5 h-100">
+                <div className="d-flex flex-column justify-content-start px-4 py-2 border-accent-l custom-info rounded-5 h-100">
                   <div className="d-flex align-items-center justify-content-between mb-2 mt-1 ">
                     <h2 className="fs-4 fw-bold m-0">Overview:</h2>
                     <ThreeDots role="button" className="text-dark-emphasis me-2" size={20}></ThreeDots>
@@ -88,7 +106,7 @@ const Profile = () => {
             </Row>
             <Row className="d-flex d-sm-none">
               <Col>
-                <div className="d-flex flex-column justify-content-start px-4 py-2 border-primary-l rounded-5 h-100">
+                <div className="d-flex flex-column justify-content-start px-4 py-2 border-accent-l custom-info rounded-5 h-100">
                   <div className="ms-auto mb-2 me-2 mt-1">
                     <ThreeDots role="button" className="text-dark-emphasis" size={20}></ThreeDots>
                   </div>
@@ -146,7 +164,7 @@ const Profile = () => {
             </Row>
             <Row className="mt-4">
               <Col>
-                <div className=" d-flex flex-column justify-content-start px-4 py-2 border-primary-l rounded-5 h-100">
+                <div className=" d-flex flex-column justify-content-start px-4 py-2 border-accent-l custom-info rounded-5 h-100">
                   <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between mt-1 mb-3">
                     <h2 className="fs-4 fw-bold mb-2 m-sm-0">Appointments</h2>
                     <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100">
@@ -156,48 +174,65 @@ const Profile = () => {
                           id="profile-btn"
                           className="text-white d-none d-md-block custom-bg-button border-button rounded-4 py-2"
                         >
-                          Book Appointment
+                          <Link className="text-decoration-none text-white">Book Appointment</Link>
                         </Button>
                         <Button
                           id="profile-btn"
                           className="text-white d-flex justify-content-center d-md-none custom-bg-button border-button rounded-4"
                         >
-                          <CalendarPlus size={20}></CalendarPlus>
+                          <Link to="/appoinment" className="text-decoration-none text-white">
+                            <CalendarPlus size={20}></CalendarPlus>
+                          </Link>
                         </Button>
                       </div>
                     </div>
                   </div>
-                  <Table hover responsive="lg" striped>
-                    <thead>
-                      <tr>
-                        <th className="custom-fs-6 text-nowrap">Center Location</th>
-                        <th className="custom-fs-6 text-nowrap">Chek-in</th>
-                        <th className="custom-fs-6 text-nowrap">Date</th>
-                        <th className="custom-fs-6 text-nowrap">Time</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="table-info">
-                        <td className="custom-fs-6 text-nowrap">via spagna 15</td>
-                        <td className="custom-fs-6 text-nowrap">Yes</td>
-                        <td className="custom-fs-6 text-nowrap">21/08/2011</td>
-                        <td className="custom-fs-6 text-nowrap">10:30</td>
-                      </tr>
-                      <tr className="table-info">
-                        <td className="custom-fs-6 text-nowrap">via spagna 15</td>
-                        <td className="custom-fs-6 text-nowrap">Yes</td>
-                        <td className="custom-fs-6 text-nowrap">21/08/2011</td>
-                        <td className="custom-fs-6 text-nowrap">10:30</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                  <Pagination
-                    className="pagination-bar"
-                    currentPage={currentPage}
-                    totalCount={90}
-                    pageSize={PageSize}
-                    onPageChange={(page) => setCurrentPage(page)}
-                  ></Pagination>
+                  {!isLoadingAppointments ? (
+                    <>
+                      <p className="card-text placeholder-wave mb-1">
+                        <span className="placeholder col-12"></span>
+                      </p>
+                      <p className="card-text mb-2 placeholder-wave">
+                        <span className="placeholder bg-primary col-12"></span>
+                        <span className="placeholder bg-primary col-12"></span>
+                        <span className="placeholder bg-primary col-12"></span>
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <Table hover responsive="lg" striped>
+                        <thead>
+                          <tr>
+                            <th className="custom-fs-6 text-nowrap">Center Location</th>
+                            <th className="custom-fs-6 text-nowrap">Chek-in</th>
+                            <th className="custom-fs-6 text-nowrap">Date</th>
+                            <th className="custom-fs-6 text-nowrap">Time</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="table-info">
+                            <td className="custom-fs-6 text-nowrap">via spagna 15</td>
+                            <td className="custom-fs-6 text-nowrap">Yes</td>
+                            <td className="custom-fs-6 text-nowrap">21/08/2011</td>
+                            <td className="custom-fs-6 text-nowrap">10:30</td>
+                          </tr>
+                          <tr className="table-info">
+                            <td className="custom-fs-6 text-nowrap">via spagna 15</td>
+                            <td className="custom-fs-6 text-nowrap">Yes</td>
+                            <td className="custom-fs-6 text-nowrap">21/08/2011</td>
+                            <td className="custom-fs-6 text-nowrap">10:30</td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                      <Pagination
+                        className="pagination-bar"
+                        currentPage={currentPage}
+                        totalCount={90}
+                        pageSize={PageSize}
+                        onPageChange={(page) => setCurrentPage(page)}
+                      ></Pagination>
+                    </>
+                  )}
                 </div>
               </Col>
             </Row>

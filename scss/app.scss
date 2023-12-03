@@ -1,4 +1,5 @@
 @use "sass:list";
+@use "sass:color";
 @import "./bootstrap-override.scss";
 // ********************** RESETS
 /* Box sizing rules */
@@ -122,14 +123,14 @@ textarea:not([rows]) {
 
 .custom-bg-button:hover,
 .border-button:hover {
-  border: 2px solid $button-500;
-  background-color: $button-500;
+  border: 2px solid darken($primary-400, 20%);
+  background-color: darken($primary-400, 20%);
 }
 .custom-bg-button:active,
 .border-button:active,
 #profile-btn:active {
-  border: 2px solid $button-400;
-  background-color: $button-400;
+  border: 2px solid $primary-400;
+  background-color: $primary-400;
 }
 
 @each $n, $size in $custom-fs {
@@ -396,6 +397,9 @@ form {
   @media (max-width: 767px) {
     width: 70px;
   }
+}
+.custom-info {
+  box-shadow: 3px 3px 12px 0px #707070;
 }
 
 // PAGINATION
