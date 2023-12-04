@@ -5,38 +5,38 @@ const Info = () => {
   return (
     <main className="linear-gradient-acc-100">
       <Container className="pt-5">
-        <section>
+        <section className="mb-4">
           <Row>
             <Col>
-              <h2>Importance og Blood Donation</h2>
-              <p>
+              <h2 className="fs-2 fw-bold text-primary mb-3">Importance og Blood Donation</h2>
+              <p className="fs-6">
                 Blood donation is a crucial act that saves lives and contributes to the well-being of the community.
                 There are several reasons why blood donation is so important:
               </p>
-              <ul role="list">
+              <ul role="list" className="pt-3">
                 <li>
-                  <h3>Saving Human Lives</h3>
+                  <h3 className="fs-3 mb-3">Saving Human Lives</h3>
                   <p>
                     Donated blood is essential for treating patients with severe medical conditions, including
                     accidents, surgeries, blood disorders, and other emergency situations.
                   </p>
                 </li>
                 <li>
-                  <h3>Supporting Medical Treatments</h3>
+                  <h3 className="fs-3 mb-3">Supporting Medical Treatments</h3>
                   <p>
                     Many medical therapies, such as those for cancer and chronic diseases, require blood transfusions to
                     be effective.
                   </p>
                 </li>
                 <li>
-                  <h3> Assisting Chronic Patients</h3>
+                  <h3 className="fs-3 mb-3"> Assisting Chronic Patients</h3>
                   <p>
                     Individuals with chronic illnesses, such as anemia or thalassemia, often depend on blood donations
                     to manage their health conditions.
                   </p>
                 </li>
                 <li>
-                  <h3>Responding to Disasters</h3>
+                  <h3 className="fs-3 mb-3">Responding to Disasters</h3>
                   <p>
                     In the event of natural disasters or emergency situations, the availability of donated blood is
                     crucial to quickly address medical needs.
@@ -48,23 +48,23 @@ const Info = () => {
         </section>
         <section>
           <Row>
-            <h2>Who can donate?</h2>
+            <h2 className="fs-2 fw-bold text-primary mb-3">Who can donate?</h2>
             <Col>
-              <h3>Age between 18 and 65 years</h3>
+              <h3 className="fs-3 mb-3">Age between 18 and 65 years</h3>
               <p>
                 Blood donation from regular donors over the age of 65 may be allowed (up to 70 years) following a
                 clinical evaluation of key age-related risk factors.
               </p>
             </Col>
             <Col>
-              <h3>Weigh more than 50kg</h3>
+              <h3 className="fs-3 mb-3">Weigh more than 50kg</h3>
               <p>
                 To safeguard the donor's health during blood or blood component donations, a minimum weight of 50kg is
                 required.
               </p>
             </Col>
             <Col>
-              <h3>Good health</h3>
+              <h3 className="fs-3 mb-3">Good health</h3>
               <p>
                 Those who are not in good health or engage in risky behaviors are not eligible to donate. These factors
                 may result in temporary or permanent suspension from donation to preserve the health of both the donor
@@ -74,10 +74,10 @@ const Info = () => {
           </Row>
         </section>
         <section>
-          <h2>How do we do it?</h2>
+          <h2 className="fs-2 fw-bold text-primary mb-3">How do we do it?</h2>
           <Row>
             <Col>
-              <h3>Clinical Evaluation</h3>
+              <h3 className="fs-3 mb-3">Clinical Evaluation</h3>
               <p>
                 Before donation, it is necessary to complete a medical history questionnaire and undergo an interview
                 with medical personnel. These two steps are important to ensure that the prospective donor meets the
@@ -96,7 +96,7 @@ const Info = () => {
               </p>
             </Col>
             <Col>
-              <h3>For each donation, the donor undergoes the following tests:</h3>
+              <h3 className="fs-3 mb-3">For each donation, the donor undergoes the following tests:</h3>
               <ul>
                 <li>Complete blood count.</li>
                 <li>Serological test for Treponema Pallidum (the causative agent of syphilis).</li>
@@ -111,7 +111,7 @@ const Info = () => {
                   responsible for hepatitis B).
                 </li>
               </ul>
-              <h3>Annually, the donor undergoes the following tests:</h3>
+              <h3 className="fs-3 mb-3">Annually, the donor undergoes the following tests:</h3>
               <ul>
                 <li>Blood sugar level (Glycemia).</li>
                 <li>Creatinine level.</li>
@@ -125,27 +125,27 @@ const Info = () => {
           </Row>
         </section>
         <section>
-          <h2>What to do before donating?</h2>
-          <ol>
+          <h2 className="fs-2 fw-bold text-primary mb-3">What to do before donating?</h2>
+          <ul>
             <li>Avoid staying up late: sleep is an ally for donors.</li>
             <li>Have a light breakfast, avoiding fats and dairy.</li>
             <li>Refrain from smoking close to the time of donation.</li>
-          </ol>
-          <h2>What to do during donation?</h2>
-          <ol>
+          </ul>
+          <h2 className="fs-2 fw-bold text-primary mb-3">What to do during donation?</h2>
+          <ul>
             <li>
               If you fear needles, talk to the nursing staff: they can help put you at ease.If you fear needles, talk to
               the nursing staff: they can help put you at ease.
             </li>
             <li>Clench and open the palm of the hand from which you are donating.</li>
             <li>Relax and do not cross your legs, as it may hinder blood flow.</li>
-          </ol>
-          <h2>What to do after donation?</h2>
-          <ol>
+          </ul>
+          <h2 className="fs-2 fw-bold text-primary mb-3">What to do after donation?</h2>
+          <ul>
             <li>Allow yourself a day of rest and avoid physical exertion.</li>
             <li>Avoid consuming heavy foods to prevent physical fatigue.</li>
             <li>Rehydrate: it is recommended to drink plenty of fluids throughout the day.</li>
-          </ol>
+          </ul>
         </section>
       </Container>
       <footer className="custom-bg-accent-l d-flex justify-content-center align-items-center">
