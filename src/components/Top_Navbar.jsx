@@ -56,7 +56,7 @@ const Top_Navbar = () => {
                 )}
               </Col>
             </Col>
-            <Col md={12} lg={10} className="h-100 align-items-center d-none d-md-flex mb-md-2">
+            <Col md={12} lg={10} className="h-100 align-items-center d-none d-md-flex mb-md-1 mb-lg-0">
               <Col className="h-100">
                 <Link
                   to="/"
