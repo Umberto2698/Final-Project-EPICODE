@@ -200,8 +200,8 @@ const Profile = () => {
                     </>
                   ) : (
                     <>
-                      <Table hover responsive="lg" striped>
-                        <thead>
+                      <Table hover striped borderless>
+                        <thead id="custom-table-head">
                           <tr>
                             <th className="custom-fs-6 text-nowrap">Center Location</th>
                             <th className="custom-fs-6 text-nowrap">Chek-in</th>
@@ -210,13 +210,13 @@ const Profile = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr className="table-info">
+                          <tr>
                             <td className="custom-fs-6 text-nowrap">via spagna 15</td>
                             <td className="custom-fs-6 text-nowrap">Yes</td>
                             <td className="custom-fs-6 text-nowrap">21/08/2011</td>
                             <td className="custom-fs-6 text-nowrap">10:30</td>
                           </tr>
-                          <tr className="table-info">
+                          <tr>
                             <td className="custom-fs-6 text-nowrap">via spagna 15</td>
                             <td className="custom-fs-6 text-nowrap">Yes</td>
                             <td className="custom-fs-6 text-nowrap">21/08/2011</td>

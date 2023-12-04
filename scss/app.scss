@@ -123,14 +123,14 @@ textarea:not([rows]) {
 
 .custom-bg-button:hover,
 .border-button:hover {
-  border: 2px solid darken($primary-400, 20%);
-  background-color: darken($primary-400, 20%);
+  border: 2px solid darken($primary, 20%);
+  background-color: darken($primary, 20%);
 }
 .custom-bg-button:active,
 .border-button:active,
 #profile-btn:active {
-  border: 2px solid $primary-400;
-  background-color: $primary-400;
+  border: 2px solid $primary;
+  background-color: $primary;
 }
 
 @each $n, $size in $custom-fs {
@@ -189,7 +189,7 @@ textarea:not([rows]) {
   }
 }
 .custom-section {
-  background: linear-gradient(to right, $primary-400, $red);
+  background: linear-gradient(to right, $primary, $red);
   border-top-right-radius: 100px;
   margin-left: -110px;
   @media (max-width: 767px) {
@@ -208,7 +208,7 @@ textarea:not([rows]) {
 }
 
 .sign-up-decoration {
-  background-color: $primary-400;
+  background-color: $primary;
   box-shadow: 2px 0px 10px 0px #a3a3a3;
 }
 
@@ -400,6 +400,16 @@ form {
 }
 .custom-info {
   box-shadow: 3px 3px 12px 0px #707070;
+}
+
+.table {
+  --bs-table-bg: #{$primary-300};
+  --bs-table-striped-bg: #{$primary};
+  --bs-table-border-color: #{$primary-400};
+  --bs-table-hover-bg: #{$primary-400};
+}
+#custom-table-head {
+  --bs-table-bg: white;
 }
 
 // PAGINATION

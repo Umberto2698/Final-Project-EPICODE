@@ -5,7 +5,7 @@ $button-400: #f6a254;
 $button-300: #f8b475;
 
 $primary: #ff4747;
-$primary-400: #ff4747;
+$primary-400: #ff2f2f;
 $primary-300: #ff8686;
 
 $secondary-300: #5cd4ef;
@@ -16,7 +16,7 @@ $accent-300: #aae8be;
 $accent-100: #aae8bed1;
 
 $salmons: (
-  "salmons-400": $primary-400,
+  "salmons-400": $primary,
   "salmons-300": $primary-300,
 );
 
@@ -26,14 +26,13 @@ $accents: (
 );
 
 $custom-colors: (
-  "primary": $primary-400,
   "primary-l": $primary-300,
   "info": $secondary-200,
   "info-d": $secondary-300,
   "secondary": $primary-300,
   "accent": $accent-400,
   "accent-l": $accent-300,
-  "button": $primary-400,
+  "button": $primary,
 );
 
 $font-family-sans-serif: "Sen", sans-serif;
@@ -52,18 +51,14 @@ $custom-w: (
   3: 60%,
 );
 
-$table-bg-scale: -100%;
-
-$custom-table-variants: (
-  "primary": shift-color($primary, $table-bg-scale),
-);
+$enable-grid-classes: false;
+$enable-cssgrid: true;
 
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/variables-dark";
 
 $theme-colors: map-merge($theme-colors, $custom-colors);
 $display-font-sizes: map-merge($font-sizes, $custom-fs);
-$table-variants: map-merge($table-variants, $custom-table-variants);
 
 @import "../node_modules/bootstrap/scss/maps";
 @import "../node_modules/bootstrap/scss/mixins";
