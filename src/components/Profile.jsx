@@ -200,7 +200,7 @@ const Profile = () => {
                     </>
                   ) : (
                     <>
-                      <Table hover striped borderless>
+                      <Table hover striped responsive borderless>
                         <thead id="custom-table-head">
                           <tr>
                             <th className="custom-fs-6 text-nowrap">Center Location</th>
