@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState } from "react";
 import { Button, Col, FloatingLabel, Form } from "react-bootstrap";
 import { Eye, EyeSlash } from "react-bootstrap-icons";
@@ -11,6 +12,7 @@ const SignUp = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const token = useSelector((state) => state.login.respLogin.authorizationToken.token);
+  const errorMessage = useSelector((state) => state.state.error.content);
 
   const [passwordStyle, setPasswordStyle] = useState({
     type: "password",
@@ -54,9 +56,9 @@ const SignUp = () => {
     e.preventDefault();
     if (location.pathname.includes("/logIn")) {
       dispatch(fetchLogin(oldProfile.email, oldProfile.password));
-      if (token !== "") {
-        navigate("/");
-      }
+      // if (token !== "") {
+      //   navigate("/");
+      // }
     } else {
       dispatch(fetchRegister(newProfile.name, newProfile.surname, newProfile.email, newProfile.password));
       if (token !== "") {
@@ -85,6 +87,12 @@ const SignUp = () => {
         <div className="g-col-12 g-col-md-6 d-flex align-items-center justify-content-center">
           {location.pathname.includes("/logIn") ? (
             <div className="text-black custom-w-3">
+              {errorMessage.length !== 0 && (
+                <div className="alert alert-danger d-flex align-items-center" role="alert">
+                  <div className="mx-3">{errorMessage}</div>
+                  <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              )}
               <h2 className="fw-bold custom-fs-1 mb-3">Log In</h2>
               <p className="fs-3">Enter credentials</p>
               <Form onSubmit={handleSubmit}>

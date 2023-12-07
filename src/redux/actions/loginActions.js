@@ -1,10 +1,12 @@
 export const SAVE_TOKEN = "SAVE_TOKEN";
 export const LOGOUT = "LOGOUT";
+export const LOGIN_ERROR = "LOGIN_ERROR";
+export const REGISTER_ERROR = "REGISTER_ERROR";
 
 export const fetchRegister = (name, surname, email, password) => {
-  return async () => {
+  return async (dispatch) => {
     try {
-      const resp = await fetch("ENDPOINT", {
+      const resp = await fetch("http://localhost:8080/auth/register", {
         method: "POST",
         body: JSON.stringify({
           name,
@@ -17,22 +19,21 @@ export const fetchRegister = (name, surname, email, password) => {
         },
       });
       if (resp.ok) {
-        const token = await resp.json();
-        dispatch({ type: SAVE_TOKEN, payload: token });
+        console.log("registered user");
       }
     } catch (err) {
-      console.log(err);
+      dispatch({ type: REGISTER_ERROR, payload: err.message });
     }
   };
 };
 export const fetchLogin = (email, password) => {
   return async (dispatch) => {
     try {
-      const resp = await fetch("ENDPOINT", {
+      const resp = await fetch("http://localhost:8080/auth/login", {
         method: "POST",
         body: JSON.stringify({
-          email: email,
-          password: password,
+          email,
+          password,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -41,9 +42,12 @@ export const fetchLogin = (email, password) => {
       if (resp.ok) {
         const token = await resp.json();
         dispatch({ type: SAVE_TOKEN, payload: token });
+      } else {
+        throw new Error("Sorry, server are down.");
       }
     } catch (err) {
       console.log(err);
+      dispatch({ type: LOGIN_ERROR, payload: err.message });
     }
   };
 };

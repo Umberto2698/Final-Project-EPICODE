@@ -1,5 +1,5 @@
 import { IS_LOADING } from "../actions/loadingAction";
-
+import { LOGIN_ERROR, REGISTER_ERROR } from "../actions/loginActions";
 const initialState = {
   loading: {
     content: false,
@@ -15,6 +15,20 @@ const stateReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: {
+          content: action.payload,
+        },
+      };
+    case LOGIN_ERROR:
+      return {
+        ...state,
+        error: {
+          content: action.payload,
+        },
+      };
+    case REGISTER_ERROR:
+      return {
+        ...state,
+        error: {
           content: action.payload,
         },
       };
