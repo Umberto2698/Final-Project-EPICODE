@@ -28,6 +28,7 @@ export const fetchRegister = (name, surname, email, password) => {
 };
 export const fetchLogin = (email, password) => {
   return async (dispatch) => {
+    dispatch({ type: LOGIN_ERROR, payload: "" });
     try {
       const resp = await fetch("http://localhost:8080/auth/login", {
         method: "POST",
@@ -43,10 +44,10 @@ export const fetchLogin = (email, password) => {
         const token = await resp.json();
         dispatch({ type: SAVE_TOKEN, payload: token });
       } else {
-        throw new Error("Sorry, server are down.");
+        const errMessage = await resp.json();
+        dispatch({ type: LOGIN_ERROR, payload: errMessage.message });
       }
     } catch (err) {
-      console.log(err);
       dispatch({ type: LOGIN_ERROR, payload: err.message });
     }
   };

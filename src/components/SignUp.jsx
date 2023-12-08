@@ -1,17 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState } from "react";
-import { Button, Col, FloatingLabel, Form } from "react-bootstrap";
+import { Button, Col, FloatingLabel, Form, Alert } from "react-bootstrap";
 import { Eye, EyeSlash } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { fetchRegister, fetchLogin } from "../redux/actions/loginActions";
+import { fetchRegister, fetchLogin, LOGIN_ERROR } from "../redux/actions/loginActions";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const token = useSelector((state) => state.login.respLogin.authorizationToken.token);
+  const token = useSelector((state) => state.login.respLogin.authorizationToken);
   const errorMessage = useSelector((state) => state.state.error.content);
 
   const [passwordStyle, setPasswordStyle] = useState({
@@ -20,7 +20,6 @@ const SignUp = () => {
 
   const handleCallbackResponse = (response) => {
     const userObject = jwtDecode(response.credential);
-    console.log(userObject);
     setNewProfile({ name: userObject.given_name, surname: userObject.family_name, email: userObject.email });
     setOldProfile({ email: userObject.email });
   };
@@ -38,6 +37,9 @@ const SignUp = () => {
     setNewProfile({ ...newProfile, name: "", surname: "", email: "", password: "" });
     setOldProfile({ ...oldProfile, email: "", password: "" });
     setPasswordStyle({ ...passwordStyle, type: "password" });
+    if (errorMessage !== "") {
+      dispatch({ type: LOGIN_ERROR, payload: "" });
+    }
   }, [location.pathname]);
 
   const [newProfile, setNewProfile] = useState({
@@ -56,9 +58,9 @@ const SignUp = () => {
     e.preventDefault();
     if (location.pathname.includes("/logIn")) {
       dispatch(fetchLogin(oldProfile.email, oldProfile.password));
-      // if (token !== "") {
-      //   navigate("/");
-      // }
+      if (token !== "") {
+        navigate("/");
+      }
     } else {
       dispatch(fetchRegister(newProfile.name, newProfile.surname, newProfile.email, newProfile.password));
       if (token !== "") {
@@ -88,10 +90,10 @@ const SignUp = () => {
           {location.pathname.includes("/logIn") ? (
             <div className="text-black custom-w-3">
               {errorMessage.length !== 0 && (
-                <div className="alert alert-danger d-flex align-items-center" role="alert">
-                  <div className="mx-3">{errorMessage}</div>
-                  <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                <Alert variant="danger" dismissible>
+                  <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+                  <p className="m-0">{errorMessage}</p>
+                </Alert>
               )}
               <h2 className="fw-bold custom-fs-1 mb-3">Log In</h2>
               <p className="fs-3">Enter credentials</p>
