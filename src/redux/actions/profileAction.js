@@ -5,11 +5,11 @@ export const ISLOADING_MY_APPOINTMENTS_FALSE = "ISLOADING_MY_APPOINTMENTS_FALSE"
 
 export const getMyProfileAction = (token) => {
   return async (dispatch) => {
-    const URL = "ENDPOINT";
+    const URL = "http://localhost:8080/users/me";
     const method = {
       method: "GET",
       headers: {
-        Authorization: token,
+        Authorization: "Bearer " + token,
       },
     };
 

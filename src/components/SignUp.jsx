@@ -40,6 +40,7 @@ const SignUp = () => {
     if (errorMessage !== "") {
       dispatch({ type: LOGIN_ERROR, payload: "" });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   const [newProfile, setNewProfile] = useState({
@@ -90,7 +91,7 @@ const SignUp = () => {
           {location.pathname.includes("/logIn") ? (
             <div className="text-black custom-w-3">
               {errorMessage.length !== 0 && (
-                <Alert variant="danger" dismissible>
+                <Alert className="mt-2" variant="danger" dismissible>
                   <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
                   <p className="m-0">{errorMessage}</p>
                 </Alert>
@@ -164,6 +165,12 @@ const SignUp = () => {
             </div>
           ) : (
             <div className="text-black custom-w-3">
+              {errorMessage.length !== 0 && (
+                <Alert className="mt-2" variant="danger" dismissible>
+                  <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+                  <p className="m-0">{errorMessage}</p>
+                </Alert>
+              )}
               <h2 className="fw-bold custom-fs-1 mb-3">Sign Up</h2>
               <p className="fs-3">Create Account</p>
               <Form onSubmit={handleSubmit}>
