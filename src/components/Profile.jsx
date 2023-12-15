@@ -267,7 +267,11 @@ const Profile = () => {
                     <Col className="my-3">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Last Donation Date:</h3>
                       <p className="custom-fs-6 m-0">
-                        {appointments.content.length !== 0 ? appointments.content[0].donationDate : "aaaa/MM/dd"}
+                        {isLoadingAppointments
+                          ? "aaaa/MM/dd"
+                          : appointments.content.length === 0
+                          ? "aaaa/MM/dd"
+                          : appointments.content[0].donationDate}
                       </p>
                     </Col>
                     <Col className="my-3">
@@ -333,7 +337,11 @@ const Profile = () => {
                     <Col className="my-3">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Last Donation Date:</h3>
                       <p className="custom-fs-6 m-0">
-                        {appointments.content.length !== 0 ? appointments.content[0].donationDate : "aaaa/MM/dd"}
+                        {isLoadingAppointments
+                          ? "aaaa/MM/dd"
+                          : appointments.content.length === 0
+                          ? "aaaa/MM/dd"
+                          : appointments.content[0].donationDate}
                       </p>
                     </Col>
                     <Col className="my-3">
