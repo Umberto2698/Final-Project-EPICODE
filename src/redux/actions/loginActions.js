@@ -4,7 +4,7 @@ export const LOGIN_ERROR = "LOGIN_ERROR";
 export const REGISTER_ERROR = "REGISTER_ERROR";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 
-export const fetchRegister = (name, surname, email, password) => {
+export const fetchRegister = (name, surname, region, email, password) => {
   return async (dispatch) => {
     dispatch({ type: REGISTER_ERROR, payload: "" });
     try {
@@ -13,6 +13,7 @@ export const fetchRegister = (name, surname, email, password) => {
         body: JSON.stringify({
           name,
           surname,
+          region,
           password,
           email,
         }),

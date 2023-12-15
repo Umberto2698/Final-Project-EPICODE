@@ -1888,13 +1888,16 @@ textarea:not([rows]) {
 }
 @media (max-width: 767px) {
   main {
-    padding-bottom: 60px;
+    padding-bottom: 50px;
   }
   .custom-fs-1 {
     font-size: 2.25rem;
   }
 }
 @media (max-width: 576px) {
+  main {
+    padding-bottom: 30px;
+  }
   .custom-fs-1 {
     font-size: 2rem;
   }
@@ -1915,13 +1918,16 @@ textarea:not([rows]) {
 }
 @media (max-width: 767px) {
   main {
-    padding-bottom: 60px;
+    padding-bottom: 50px;
   }
   .custom-fs-7 {
     font-size: 1.125rem;
   }
 }
 @media (max-width: 576px) {
+  main {
+    padding-bottom: 30px;
+  }
   .custom-fs-7 {
     font-size: 1rem;
   }
@@ -1942,13 +1948,16 @@ textarea:not([rows]) {
 }
 @media (max-width: 767px) {
   main {
-    padding-bottom: 60px;
+    padding-bottom: 50px;
   }
   .custom-fs-8 {
     font-size: 0.9rem;
   }
 }
 @media (max-width: 576px) {
+  main {
+    padding-bottom: 30px;
+  }
   .custom-fs-8 {
     font-size: 0.8rem;
   }
@@ -1969,13 +1978,16 @@ textarea:not([rows]) {
 }
 @media (max-width: 767px) {
   main {
-    padding-bottom: 60px;
+    padding-bottom: 50px;
   }
   .custom-fs-9 {
     font-size: 0.45rem;
   }
 }
 @media (max-width: 576px) {
+  main {
+    padding-bottom: 30px;
+  }
   .custom-fs-9 {
     font-size: 0.4rem;
   }
@@ -2186,6 +2198,10 @@ textarea:not([rows]) {
 .nav-shadow {
   background-color: white;
   box-shadow: 6px 0px 4px 6px #ffffff, -9px 0px 20px 1px rgba(170, 232, 190, 0.8196078431);
+}
+
+.form-floating > .form-select ~ label {
+  color: #ff8686;
 }
 
 form .custom-input:focus {

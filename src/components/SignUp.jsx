@@ -34,7 +34,7 @@ const SignUp = () => {
       theme: "outline",
       size: "large",
     });
-    setNewProfile({ ...newProfile, name: "", surname: "", email: "", password: "" });
+    setNewProfile({ ...newProfile, name: "", surname: "", region: "", email: "", password: "" });
     setOldProfile({ ...oldProfile, email: "", password: "" });
     setPasswordStyle({ ...passwordStyle, type: "password" });
     if (errorMessage !== "") {
@@ -46,6 +46,7 @@ const SignUp = () => {
   const [newProfile, setNewProfile] = useState({
     name: "",
     surname: "",
+    region: "",
     email: "",
     password: "",
   });
@@ -63,7 +64,9 @@ const SignUp = () => {
         navigate("/");
       }
     } else {
-      dispatch(fetchRegister(newProfile.name, newProfile.surname, newProfile.email, newProfile.password));
+      dispatch(
+        fetchRegister(newProfile.name, newProfile.surname, newProfile.region, newProfile.email, newProfile.password)
+      );
       if (token !== "") {
         navigate("/");
       }
@@ -201,6 +204,41 @@ const SignUp = () => {
                     placeholder="surname"
                     className="rounded-4 custom-input fs-5"
                   />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingSelectGrid"
+                  label="Region"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Select
+                    required
+                    size="5"
+                    className="rounded-4 custom-input fs-6"
+                    onChange={(e) => setNewProfile({ ...newProfile, region: e.target.value })}
+                    aria-label="region selector"
+                  >
+                    <option className="text-primary fw-bold">Choose a Region</option>
+                    <option value="ABRUZZO">Abruzzo</option>
+                    <option value="BASILICATA">Basilicata</option>
+                    <option value="CALABRIA">Calabria</option>
+                    <option value="CAMPANIA">Campania</option>
+                    <option value="EMILIA_ROMAGNA">Emilia-Romagna</option>
+                    <option value="FRIULI_VENEZIA_GIULIA">Friuli-Venezia-Giulia</option>
+                    <option value="LAZIO">Lazio</option>
+                    <option value="LIGURIA">Liguria</option>
+                    <option value="LOMBARDIA">Lombardy</option>
+                    <option value="MARCHE">Marche</option>
+                    <option value="MOLISE">Molise</option>
+                    <option value="PIEMONTE">Piedmont</option>
+                    <option value="PUGLIA">Apulia</option>
+                    <option value="SARDEGNA">Sardinia</option>
+                    <option value="SICILIA">Sicily</option>
+                    <option value="TOSCANA">Tuscany</option>
+                    <option value="TRENTINO_ALTO_ADIGE">Trentino-South Tyrol</option>
+                    <option value="UMBRIA">Umbria</option>
+                    <option value="VALLE_DAOSTA">Aosta Valley</option>
+                    <option value="VENETO">Veneto</option>
+                  </Form.Select>
                 </FloatingLabel>
                 <FloatingLabel
                   controlId="floatingEmail"

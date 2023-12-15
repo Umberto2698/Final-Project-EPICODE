@@ -149,13 +149,16 @@ textarea:not([rows]) {
   }
   @media (max-width: 767px) {
     main {
-      padding-bottom: 60px;
+      padding-bottom: 50px;
     }
     .custom-fs-#{$n} {
       font-size: calc($size * 0.45);
     }
   }
   @media (max-width: 576px) {
+    main {
+      padding-bottom: 30px;
+    }
     .custom-fs-#{$n} {
       font-size: calc($size * 0.4);
     }
@@ -336,6 +339,9 @@ textarea:not([rows]) {
 .nav-shadow {
   background-color: white;
   box-shadow: 6px 0px 4px 6px #ffffff, -9px 0px 20px 1px $accent-100;
+}
+.form-floating > .form-select ~ label {
+  color: $primary-300;
 }
 
 form {
