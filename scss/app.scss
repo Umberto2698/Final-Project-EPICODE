@@ -349,6 +349,13 @@ form {
     box-shadow: 0 0 0 0.25rem $primary-300;
     border-color: $primary-300;
   }
+}
+
+#form {
+  .custom-input:focus {
+    box-shadow: 0 0 0 0.25rem $primary-300;
+    border-color: $primary-300;
+  }
   .btn {
     background-color: black;
     border-color: black;

@@ -112,7 +112,7 @@ const SignUp = () => {
               )}
               <h2 className="fw-bold custom-fs-1 mb-3">Log In</h2>
               <p className="fs-3">Enter credentials</p>
-              <Form onSubmit={handleSubmit}>
+              <Form id="form" onSubmit={handleSubmit}>
                 <FloatingLabel
                   controlId="floatingEmailLogIn"
                   label="Email"
@@ -193,7 +193,7 @@ const SignUp = () => {
               )}
               <h2 className="fw-bold custom-fs-1 mb-3">Sign Up</h2>
               <p className="fs-3">Create Account</p>
-              <Form onSubmit={handleSubmit}>
+              <Form id="form" onSubmit={handleSubmit}>
                 <FloatingLabel
                   controlId="floatingName"
                   label="Name"

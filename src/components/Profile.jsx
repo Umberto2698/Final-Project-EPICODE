@@ -14,9 +14,7 @@ const Profile = () => {
   const isLoadingProfile = useSelector((state) => state.profile.isLoadingProfile);
   const isLoadingAppointments = useSelector((state) => state.profile.isLoadingAppointments);
   const loginState = useSelector((state) => state.login.respLogin);
-  const profile = useSelector((state) => {
-    return state.profile.profile;
-  });
+  const profile = useSelector((state) => state.profile.profile);
   const region = useSelector((state) => {
     if (profile != null) {
       switch (state.profile.profile.region) {
@@ -63,24 +61,90 @@ const Profile = () => {
       }
     }
   });
+  const sex = useSelector((state) => {
+    if (profile != null) {
+      switch (state.profile.profile.sex) {
+        case "MALE":
+          return "Male";
+        case "FEMALE":
+          return "Female";
+        case "NONE":
+          return "---";
+      }
+    }
+  });
+  const bloodType = useSelector((state) => {
+    if (profile != null) {
+      switch (state.profile.profile.bloodtype) {
+        case "APLUS":
+          return "A+";
+        case "AMINUS":
+          return "A-";
+        case "BPLUS":
+          return "B+";
+        case "BMINUS":
+          return "B-";
+        case "ABPLUS":
+          return "AB+";
+        case "ABMINUS":
+          return "AB-";
+        case "ZEROPLUS":
+          return "0+";
+        case "ZEROMINUS":
+          return "0-";
+        case "NONE":
+          return "--";
+      }
+    }
+  });
   const appointments = useSelector((state) => state.profile.appointments);
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [changedProfile, setChangedProfile] = useState({
     name: "",
     surname: "",
+    phone: "",
+    streetAddress: "",
+    postalCode: "",
+    city: "",
     region: "",
-    email: "",
-    password: "",
+    height: "",
+    weight: "",
+    bloodType: "",
+    birthday: "",
+    sex: "",
   });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(updateMyProfile(loginState.authorizationToken.token, changedProfile.name));
+    dispatch(
+      updateMyProfile(
+        loginState.authorizationToken.token,
+        changedProfile.bloodType,
+        changedProfile.sex,
+        changedProfile.region,
+        changedProfile.name,
+        changedProfile.surname,
+        changedProfile.phone,
+        changedProfile.streetAddress + " - " + changedProfile.postalCode + ", " + changedProfile.city,
+        changedProfile.height,
+        changedProfile.weight,
+        changedProfile.birthday
+      )
+    );
+    handleFirstClose();
+    handleSecondClose();
   };
-  const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [showFirst, setShowFirst] = useState(false);
+
+  const handleFirstClose = () => setShowFirst(false);
+  const handleFirstShow = () => setShowFirst(true);
+
+  const [showSecond, setShowSecond] = useState(false);
+
+  const handleSecondClose = () => setShowSecond(false);
+  const handleSecondShow = () => setShowSecond(true);
 
   const [showDelete, setShowDelete] = useState(false);
 
@@ -88,9 +152,11 @@ const Profile = () => {
   const handleShowDelete = () => setShowDelete(true);
 
   const handleMix = () => {
-    setShow(false);
-    setShowDelete(true);
+    handleFirstClose();
+    handleSecondClose();
+    handleShowDelete();
   };
+
   const handleProfileDelete = () => {
     dispatch(deleteMyProfile(loginState.authorizationToken.token));
     navigate("/");
@@ -103,6 +169,18 @@ const Profile = () => {
 
   useEffect(() => {
     if (profile != null) {
+      setChangedProfile({
+        ...changedProfile,
+        name: profile.name,
+        surname: profile.surname,
+        phone: profile.phone,
+        region: profile.region,
+        height: profile.height,
+        weight: profile.weight,
+        bloodType: profile.bloodtype,
+        birthday: profile.birthday,
+        sex: profile.sex,
+      });
       dispatch(getMyAppointments(loginState.authorizationToken.token, currentPage - 1));
     }
   }, [profile, currentPage]);
@@ -120,7 +198,12 @@ const Profile = () => {
               <Col sm={5} md={4}>
                 <div className="d-flex flex-column justify-content-start px-4 py-2 border-accent-l custom-info rounded-5 h-100">
                   <div className="ms-auto mb-2 me-2 mt-1">
-                    <GearFill role="button" className="text-dark-emphasis" onClick={handleShow} size={20}></GearFill>
+                    <GearFill
+                      role="button"
+                      className="text-dark-emphasis"
+                      onClick={handleFirstShow}
+                      size={20}
+                    ></GearFill>
                   </div>
                   <div className="d-flex flex-column flex-md-row align-items-center mb-4">
                     <img
@@ -142,7 +225,9 @@ const Profile = () => {
                     </div>
                     <div className="d-flex align-items-center my-3">
                       <HouseDoorFill className="text-primary" size={15}></HouseDoorFill>
-                      <p className="custom-fs-6 m-0 ms-2">{profile.address ? profile.address : "--------------"}</p>
+                      <p className="custom-fs-6 m-0 ms-2">
+                        {profile.address === null || profile.address === " - , " ? "--------------" : profile.address}
+                      </p>
                     </div>
                     <div className="d-flex align-items-center my-3">
                       <GeoAltFill className="text-primary" size={15}></GeoAltFill>
@@ -155,12 +240,17 @@ const Profile = () => {
                 <div className="d-flex flex-column justify-content-start px-4 py-2 border-accent-l custom-info rounded-5 h-100">
                   <div className="d-flex align-items-center justify-content-between mb-2 mt-1 ">
                     <h2 className="fs-4 fw-bold m-0">Overview:</h2>
-                    <GearFill role="button" className="text-dark-emphasis me-2" size={20}></GearFill>
+                    <GearFill
+                      role="button"
+                      className="text-dark-emphasis me-2"
+                      size={20}
+                      onClick={handleSecondShow}
+                    ></GearFill>
                   </div>
                   <Row className="row-cols-2 row-cols-md-3 h-100">
                     <Col className="my-3">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Sex:</h3>
-                      <p className="custom-fs-6 m-0">{profile.sex !== "NONE" ? profile.sex : "---"}</p>
+                      <p className="custom-fs-6 m-0">{sex}</p>
                     </Col>
                     <Col className="my-3">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Date of Birth:</h3>
@@ -168,7 +258,7 @@ const Profile = () => {
                     </Col>
                     <Col className="my-3">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Blood Type:</h3>
-                      <p className="custom-fs-6 m-0">{profile.bloodtype !== "NONE" ? profile.bloodtype : "--"}</p>
+                      <p className="custom-fs-6 m-0">{bloodType}</p>
                     </Col>
                     <Col className="my-3">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Height:</h3>
@@ -176,11 +266,13 @@ const Profile = () => {
                     </Col>
                     <Col className="my-3">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Last Donation Date:</h3>
-                      <p className="custom-fs-6 m-0">{profile.birthday ? profile.birthday : "dd/MM/aaaa"}</p>
+                      <p className="custom-fs-6 m-0">
+                        {appointments.content.length !== 0 ? appointments.content[0].donationDate : "aaaa/MM/dd"}
+                      </p>
                     </Col>
                     <Col className="my-3">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Weight:</h3>
-                      <p className="custom-fs-6 m-0">{profile.weight !== 0 ? profile.weight : "-- kg"}</p>
+                      <p className="custom-fs-6 m-0">{profile.weight !== 0 ? profile.weight : "-- -- kg"}</p>
                     </Col>
                   </Row>
                 </div>
@@ -194,11 +286,7 @@ const Profile = () => {
                   </div>
                   <div className="d-flex flex-column flex-md-row align-items-center mb-4">
                     <img
-                      src={`${
-                        profile.avatarUrl
-                          ? profile.avatarUrl
-                          : "https://ui-avatars.com/api/?name=" + profile.name + profile.surname
-                      }`}
+                      src={profile.avatarUrl}
                       alt="profile image"
                       className="profile-image mb-1 m-md-0 rounded-circle"
                     />
@@ -216,7 +304,9 @@ const Profile = () => {
                     </div>
                     <div className="d-flex align-items-center my-3">
                       <HouseDoorFill className="text-primary" size={15}></HouseDoorFill>
-                      <p className="custom-fs-6 m-0 ms-2">{profile.address ? profile.address : "--------------"}</p>
+                      <p className="custom-fs-6 m-0 ms-2">
+                        {profile.address === null || profile.address === " - , " ? "--------------" : profile.address}
+                      </p>
                     </div>
                     <div className="d-flex align-items-center my-3">
                       <GeoAltFill className="text-primary" size={15}></GeoAltFill>
@@ -226,7 +316,7 @@ const Profile = () => {
                   <Row className=" row-cols-2 h-100">
                     <Col className="my-3">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Sex:</h3>
-                      <p className="custom-fs-6 m-0">{profile.sex !== "NONE" ? profile.sex : "---"}</p>
+                      <p className="custom-fs-6 m-0">{sex}</p>
                     </Col>
                     <Col className="my-3">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Date of Birth:</h3>
@@ -234,7 +324,7 @@ const Profile = () => {
                     </Col>
                     <Col className="my-3">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Blood Type:</h3>
-                      <p className="custom-fs-6 m-0">{profile.bloodtype !== "NONE" ? profile.bloodtype : "--"}</p>
+                      <p className="custom-fs-6 m-0">{bloodType}</p>
                     </Col>
                     <Col className="my-3">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Height:</h3>
@@ -242,7 +332,9 @@ const Profile = () => {
                     </Col>
                     <Col className="my-3">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Last Donation Date:</h3>
-                      <p className="custom-fs-6 m-0">{profile.birthday ? profile.birthday : "dd/MM/aaaa"}</p>
+                      <p className="custom-fs-6 m-0">
+                        {appointments.content.length !== 0 ? appointments.content[0].donationDate : "aaaa/MM/dd"}
+                      </p>
                     </Col>
                     <Col className="my-3">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Weight:</h3>
@@ -268,7 +360,7 @@ const Profile = () => {
                     </>
                   ) : appointments.content.length === 0 ? (
                     <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between mt-1 mb-3">
-                      <h2 className="fs-4 fw-bold mb-2 m-sm-0">You don't have an appointment yet</h2>
+                      <h2 className="fs-4 text-center fw-bold mb-2 m-sm-0">You don't have an appointment yet</h2>
                       <Button
                         id="profile-btn"
                         className="text-white d-none d-md-block custom-bg-button border-button rounded-4 py-2"
@@ -345,13 +437,39 @@ const Profile = () => {
               </Col>
             </Row>
           </Container>
-          <Modal show={show} onHide={handleClose}>
+          <Modal show={showFirst} onHide={handleFirstClose}>
             <Modal.Header closeButton>
               <Modal.Title className="fs-4 fw-bold mb-0">Contact Details</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form>
-                {/* <FloatingLabel
+              <Form onSubmit={handleSubmit}>
+                <FloatingLabel
+                  controlId="floatingName"
+                  label="Name"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.name}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, name: e.target.value })}
+                    type="text"
+                    placeholder="name"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingSurname"
+                  label="Surname"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.surname}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, surname: e.target.value })}
+                    type="text"
+                    placeholder="surname"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
                   controlId="floatingPhone"
                   label="Phone"
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
@@ -360,36 +478,204 @@ const Profile = () => {
                     value={changedProfile.phone}
                     onChange={(e) => setChangedProfile({ ...changedProfile, phone: e.target.value })}
                     type="tel"
-                    pattern="[0-9]{3}-[0,9]{7}"
-                    required
                     placeholder="phone"
                     className="rounded-4 custom-input fs-5"
                   />
-                </FloatingLabel> */}
+                </FloatingLabel>
                 <FloatingLabel
-                  controlId="floatingSurname"
-                  label="Name"
+                  controlId="floatingStreetAddress"
+                  label="Street address"
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
-                    value={changedProfile.name}
-                    onChange={(e) => setChangedProfile({ ...changedProfile, name: e.target.value })}
+                    value={changedProfile.streetAddress}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, streetAddress: e.target.value })}
                     type="text"
                     required
-                    placeholder="name"
+                    autoComplete="street-address"
+                    placeholder="street address"
                     className="rounded-4 custom-input fs-5"
                   />
                 </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingPostalCode"
+                  label="Postal Code"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.postalCode}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, postalCode: e.target.value })}
+                    autoComplete="postal-code"
+                    required
+                    placeholder="postal code"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingCity"
+                  label="City"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.city}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, city: e.target.value })}
+                    autoComplete="address-level2"
+                    type="text"
+                    required
+                    placeholder="city"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingSelectGrid"
+                  label="Region"
+                  className="clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Select
+                    required
+                    size="5"
+                    className="rounded-4 custom-input fs-6"
+                    onChange={(e) => setChangedProfile({ ...changedProfile, region: e.target.value })}
+                    aria-label="region selector"
+                  >
+                    <option value="" className="text-primary fw-bold">
+                      Choose a Region
+                    </option>
+                    <option value="ABRUZZO">Abruzzo</option>
+                    <option value="BASILICATA">Basilicata</option>
+                    <option value="CALABRIA">Calabria</option>
+                    <option value="CAMPANIA">Campania</option>
+                    <option value="EMILIA_ROMAGNA">Emilia-Romagna</option>
+                    <option value="FRIULI_VENEZIA_GIULIA">Friuli-Venezia-Giulia</option>
+                    <option value="LAZIO">Lazio</option>
+                    <option value="LIGURIA">Liguria</option>
+                    <option value="LOMBARDIA">Lombardy</option>
+                    <option value="MARCHE">Marche</option>
+                    <option value="MOLISE">Molise</option>
+                    <option value="PIEMONTE">Piedmont</option>
+                    <option value="PUGLIA">Apulia</option>
+                    <option value="SARDEGNA">Sardinia</option>
+                    <option value="SICILIA">Sicily</option>
+                    <option value="TOSCANA">Tuscany</option>
+                    <option value="TRENTINO_ALTO_ADIGE">Trentino-South Tyrol</option>
+                    <option value="UMBRIA">Umbria</option>
+                    <option value="VALLE_DAOSTA">Aosta Valley</option>
+                    <option value="VENETO">Veneto</option>
+                  </Form.Select>
+                </FloatingLabel>
+                <div className="mt-4 d-flex align-items-center justify-content-between">
+                  <Button variant="danger" onClick={handleMix}>
+                    Delete Profile
+                  </Button>
+                  <Button variant="primary" type="submit">
+                    Save Changes
+                  </Button>
+                </div>
               </Form>
             </Modal.Body>
-            <Modal.Footer className="justify-content-between">
-              <Button variant="danger" onClick={handleMix}>
-                Delete Profile
-              </Button>
-              <Button variant="primary" onClick={handleSubmit}>
-                Save Changes
-              </Button>
-            </Modal.Footer>
+          </Modal>
+          <Modal show={showSecond} onHide={handleSecondClose}>
+            <Modal.Header closeButton>
+              <Modal.Title className="fs-4 fw-bold mb-0">Contact Details</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form onSubmit={handleSubmit}>
+                <FloatingLabel
+                  controlId="floatingSex"
+                  label="Sex"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Select
+                    required
+                    size="5"
+                    className="rounded-4 custom-input fs-6"
+                    onChange={(e) => setChangedProfile({ ...changedProfile, sex: e.target.value })}
+                    aria-label="sex selector"
+                  >
+                    <option value="" className="text-primary fw-bold">
+                      Choose your biological sex
+                    </option>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                    <option value="NONE">---</option>
+                  </Form.Select>
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingBirthday"
+                  label="Date of Birth"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.birthday}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, birthday: e.target.value })}
+                    type="date"
+                    placeholder="birthday"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingBloodType"
+                  label="Blood Type"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Select
+                    required
+                    size="5"
+                    className="rounded-4 custom-input fs-6"
+                    onChange={(e) => setChangedProfile({ ...changedProfile, bloodType: e.target.value })}
+                    aria-label="blood type selector"
+                  >
+                    <option value="" className="text-primary fw-bold">
+                      Choose your blood type
+                    </option>
+                    <option value="APLUS">A+</option>
+                    <option value="AMINUS">A-</option>
+                    <option value="BPLUS">B+</option>
+                    <option value="BMINUS">B-</option>
+                    <option value="ABPLUS">AB+</option>
+                    <option value="ABMINUS">AB-</option>
+                    <option value="ZEROPLUS">0+</option>
+                    <option value="ZEROMINUS">0-</option>
+                    <option value="NONE">--</option>
+                  </Form.Select>
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingHeight"
+                  label="Height"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.height}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, height: e.target.value })}
+                    type="number"
+                    placeholder="height"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingWeight"
+                  label="number"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.weight}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, weight: e.target.value })}
+                    type="text"
+                    placeholder="weight"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+
+                <div className="mt-4 d-flex align-items-center justify-content-between">
+                  <Button variant="danger" onClick={handleMix}>
+                    Delete Profile
+                  </Button>
+                  <Button variant="primary" type="submit">
+                    Save Changes
+                  </Button>
+                </div>
+              </Form>
+            </Modal.Body>
           </Modal>
           <Modal show={showDelete} onHide={handleCloseDelete}>
             <Modal.Header closeButton>

@@ -2208,17 +2208,22 @@ form .custom-input:focus {
   box-shadow: 0 0 0 0.25rem #ff8686;
   border-color: #ff8686;
 }
-form .btn {
+
+#form .custom-input:focus {
+  box-shadow: 0 0 0 0.25rem #ff8686;
+  border-color: #ff8686;
+}
+#form .btn {
   background-color: black;
   border-color: black;
   box-shadow: 1px 4px 7px 0px rgba(0, 0, 0, 0.4);
   font-size: 1.5rem;
 }
-form .btn:hover {
+#form .btn:hover {
   background-color: black;
   border-color: black;
 }
-form .btn:active {
+#form .btn:active {
   background-color: rgba(0, 0, 0, 0.93) !important;
   border-color: rgba(0, 0, 0, 0.93) !important;
 }

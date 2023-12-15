@@ -2,6 +2,7 @@ export const GET_MY_PROFILE = "GET_MY_PROFILE";
 export const ISLOADING_MY_PROFILES_FALSE = "ISLOADING_MY_PROFILES_FALSE";
 export const UPDATE_MY_PROFILE = "UPDATE_MY_PROFILE";
 export const ISLOADING_UPDATE_MY_PROFILE = "ISLOADING_UPDATE_MY_PROFILE";
+export const ERROR_UPDATE = "ERROR_UPDATE";
 export const DELETE_MY_PROFILE = "DELETE_MY_PROFILE";
 export const GET_MY_APPOINTMENTS = "GET_MY_APPOINTMENTS";
 export const ISLOADING_MY_APPOINTMENTS_FALSE = "ISLOADING_MY_APPOINTMENTS_FALSE";
@@ -54,17 +55,16 @@ export const getMyAppointments = (token, page) => {
 };
 export const updateMyProfile = (
   token,
+  bloodType,
+  sex,
+  region,
   name,
   surname,
-  password,
   phone,
   address,
-  region,
   height,
   weight,
-  bloodType,
-  birthday,
-  sex
+  birthday
 ) => {
   return async (dispatch) => {
     const URL = "http://localhost:8080/users/me";
@@ -73,7 +73,6 @@ export const updateMyProfile = (
       body: JSON.stringify({
         name,
         surname,
-        password,
         phone,
         address,
         region,
@@ -85,6 +84,7 @@ export const updateMyProfile = (
       }),
       headers: {
         Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
       },
     };
     try {
@@ -92,9 +92,12 @@ export const updateMyProfile = (
       if (resp.ok) {
         const myProfile = await resp.json();
         dispatch({ type: UPDATE_MY_PROFILE, payload: myProfile });
+      } else {
+        const errMessage = await resp.json();
+        dispatch({ type: ERROR_UPDATE, payload: errMessage.errorsList });
       }
     } catch (error) {
-      console.log(error);
+      dispatch({ type: ERROR_UPDATE, payload: error.errorsList });
     } finally {
       dispatch({ type: ISLOADING_UPDATE_MY_PROFILE });
     }
