@@ -1,16 +1,36 @@
-import { combineReducers } from "redux";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import { encryptTransform } from "redux-persist-transform-encrypt";
 import stateReducer from "../reducers/stateReducer";
-import { configureStore } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage";
 import loginReducer from "../reducers/loginReducer";
 import profileReducer from "../reducers/profileReducer";
+
+const persistConfig = {
+  key: "root",
+  storage,
+  transforms: [
+    encryptTransform({
+      secretKey: import.meta.env.VITE_REACT_APP_PERSIST_KEY,
+      onError: function (error) {
+        console.log(error);
+      },
+    }),
+  ],
+  whitelist: ["login"],
+};
+
 const finalReducer = combineReducers({
   state: stateReducer,
   login: loginReducer,
   profile: profileReducer,
 });
 
-const store = configureStore({
-  reducer: finalReducer,
+const persistedReducer = persistReducer(persistConfig, finalReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
 
-export default store;
+export const persistor = persistStore(store);
