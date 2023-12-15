@@ -5,14 +5,22 @@ import { Eye, EyeSlash } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { fetchRegister, fetchLogin, LOGIN_ERROR } from "../redux/actions/loginActions";
+import {
+  fetchRegister,
+  fetchLogin,
+  LOGIN_ERROR,
+  REGISTER_ERROR,
+  REGISTER_SUCCESS,
+} from "../redux/actions/loginActions";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const token = useSelector((state) => state.login.respLogin.authorizationToken);
-  const errorMessage = useSelector((state) => state.state.error.content);
+  const errorRegisterMessage = useSelector((state) => state.state.error.content);
+  const errorLoginMessage = useSelector((state) => state.state.error.content);
+  const successRegisterMessage = useSelector((state) => state.state.success.content);
 
   const [passwordStyle, setPasswordStyle] = useState({
     type: "password",
@@ -37,8 +45,14 @@ const SignUp = () => {
     setNewProfile({ ...newProfile, name: "", surname: "", region: "", email: "", password: "" });
     setOldProfile({ ...oldProfile, email: "", password: "" });
     setPasswordStyle({ ...passwordStyle, type: "password" });
-    if (errorMessage !== "") {
+    if (errorRegisterMessage !== "") {
+      dispatch({ type: REGISTER_ERROR, payload: "" });
+    }
+    if (errorLoginMessage !== "") {
       dispatch({ type: LOGIN_ERROR, payload: "" });
+    }
+    if (successRegisterMessage !== "") {
+      dispatch({ type: REGISTER_SUCCESS, payload: "" });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
@@ -67,9 +81,6 @@ const SignUp = () => {
       dispatch(
         fetchRegister(newProfile.name, newProfile.surname, newProfile.region, newProfile.email, newProfile.password)
       );
-      if (token !== "") {
-        navigate("/");
-      }
     }
   };
 
@@ -93,10 +104,10 @@ const SignUp = () => {
         <div className="g-col-12 g-col-md-6 d-flex align-items-center justify-content-center">
           {location.pathname.includes("/logIn") ? (
             <div className="text-black custom-w-3">
-              {errorMessage.length !== 0 && (
+              {errorLoginMessage.length !== 0 && (
                 <Alert className="mt-2" variant="danger" dismissible>
                   <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-                  <p className="m-0">{errorMessage}</p>
+                  <p className="m-0">{errorLoginMessage}</p>
                 </Alert>
               )}
               <h2 className="fw-bold custom-fs-1 mb-3">Log In</h2>
@@ -168,10 +179,16 @@ const SignUp = () => {
             </div>
           ) : (
             <div className="text-black custom-w-3">
-              {errorMessage.length !== 0 && (
+              {errorRegisterMessage.length !== 0 && (
                 <Alert className="mt-2" variant="danger" dismissible>
                   <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-                  <p className="m-0">{errorMessage}</p>
+                  <p className="m-0">{errorRegisterMessage}</p>
+                </Alert>
+              )}
+              {successRegisterMessage.length !== 0 && (
+                <Alert className="mt-2" variant="success" dismissible>
+                  <Alert.Heading>Registration was successful!</Alert.Heading>
+                  <p className="m-0">{successRegisterMessage}</p>
                 </Alert>
               )}
               <h2 className="fw-bold custom-fs-1 mb-3">Sign Up</h2>
@@ -217,7 +234,9 @@ const SignUp = () => {
                     onChange={(e) => setNewProfile({ ...newProfile, region: e.target.value })}
                     aria-label="region selector"
                   >
-                    <option className="text-primary fw-bold">Choose a Region</option>
+                    <option value="" className="text-primary fw-bold">
+                      Choose a Region
+                    </option>
                     <option value="ABRUZZO">Abruzzo</option>
                     <option value="BASILICATA">Basilicata</option>
                     <option value="CALABRIA">Calabria</option>

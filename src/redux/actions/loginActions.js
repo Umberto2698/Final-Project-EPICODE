@@ -22,8 +22,7 @@ export const fetchRegister = (name, surname, region, email, password) => {
         },
       });
       if (resp.ok) {
-        const body = await resp.json();
-        dispatch(fetchLogin(body.email, password));
+        dispatch({ type: REGISTER_SUCCESS, payload: "Please verify your email." });
       } else {
         const errMessage = await resp.json();
         dispatch({ type: REGISTER_ERROR, payload: errMessage.message });
