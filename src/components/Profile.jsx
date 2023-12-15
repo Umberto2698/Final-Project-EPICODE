@@ -1,21 +1,69 @@
 import { Button, Col, Container, Row, Spinner, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { PhoneFill, EnvelopeFill, HouseDoorFill, ThreeDots, CalendarPlus } from "react-bootstrap-icons";
+import { PhoneFill, EnvelopeFill, HouseDoorFill, GeoAltFill, ThreeDots, CalendarPlus } from "react-bootstrap-icons";
 import Footer from "./Footer";
 import Pagination from "./Pagination";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getMyProfileAction, getMyAppointments } from "../redux/actions/profileAction";
+import TableRow from "./TableRow";
 
 const Profile = () => {
   const isLoadingProfile = useSelector((state) => state.profile.isLoadingProfile);
   const isLoadingAppointments = useSelector((state) => state.profile.isLoadingAppointments);
   const loginState = useSelector((state) => state.login.respLogin);
-  const profile = useSelector((state) => state.profile.profile);
-  // const appointments = useSelector((state) => state.profile.appointments);
+  const profile = useSelector((state) => {
+    return state.profile.profile;
+  });
+  const region = useSelector((state) => {
+    if (profile != null) {
+      switch (state.profile.profile.region) {
+        case "ABRUZZO":
+          return "Abruzzo";
+        case "BASILICATA":
+          return "Basilicata";
+        case "CALABRIA":
+          return "Calabria";
+        case "CAMPANIA":
+          return "Campania";
+        case "EMILIA_ROMAGNA":
+          return "Emilia-Romagna";
+        case "FRIULI_VENEZIA_GIULIA":
+          return "Friuli-Venezia-Giulia";
+        case "LAZIO":
+          return "Lazio";
+        case "LIGURIA":
+          return "Liguria";
+        case "LOMBARDIA":
+          return "Lombardy";
+        case "MARCHE":
+          return "Marche";
+        case "MOLISE":
+          return "Molise";
+        case "PIEMONTE":
+          return "Piedmont";
+        case "PUGLIA":
+          return "Apulia";
+        case "SARDEGNA":
+          return "Sardinia";
+        case "SICILIA":
+          return "Sicily";
+        case "TOSCANA":
+          return "Tuscany";
+        case "TRENTINO_ALTO_ADIGE":
+          return "Trentino-South Tyrol";
+        case "UMBRIA":
+          return "Umbria";
+        case "VALLE_DAOSTA":
+          return "Aosta Valley";
+        case "VENETO":
+          return "Veneto";
+      }
+    }
+  });
+  const appointments = useSelector((state) => state.profile.appointments);
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  let PageSize = 10;
 
   useEffect(() => {
     if (loginState.authorizationToken.token) {
@@ -25,7 +73,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (profile != null) {
-      dispatch(getMyAppointments(loginState.authorizationToken.token, currentPage));
+      dispatch(getMyAppointments(loginState.authorizationToken.token, currentPage - 1));
     }
   }, [profile, currentPage]);
 
@@ -36,7 +84,7 @@ const Profile = () => {
           <Spinner animation="border" variant="primary" />
         </div>
       ) : (
-        <main className="d-flex flex-column justify-content-between" style={{ minHeight: "calc(100vh - 49.6px)" }}>
+        <main className="d-flex flex-column justify-content-between" style={{ minHeight: "calc(100vh - 40.6px)" }}>
           <Container fluid="lg" className="pt-5 mb-5 flex-grow-1">
             <Row className="d-none d-sm-flex">
               <Col sm={5} md={4}>
@@ -69,6 +117,10 @@ const Profile = () => {
                     <div className="d-flex align-items-center my-3">
                       <HouseDoorFill className="text-primary" size={15}></HouseDoorFill>
                       <p className="custom-fs-6 m-0 ms-2">{profile.address ? profile.address : "--------------"}</p>
+                    </div>
+                    <div className="d-flex align-items-center my-3">
+                      <GeoAltFill className="text-primary" size={15}></GeoAltFill>
+                      <p className="custom-fs-6 m-0 ms-2">{region}</p>
                     </div>
                   </div>
                 </div>
@@ -140,6 +192,10 @@ const Profile = () => {
                       <HouseDoorFill className="text-primary" size={15}></HouseDoorFill>
                       <p className="custom-fs-6 m-0 ms-2">{profile.address ? profile.address : "--------------"}</p>
                     </div>
+                    <div className="d-flex align-items-center my-3">
+                      <GeoAltFill className="text-primary" size={15}></GeoAltFill>
+                      <p className="custom-fs-6 m-0 ms-2">{region}</p>
+                    </div>
                   </div>
                   <Row className=" row-cols-2 h-100">
                     <Col className="my-3">
@@ -173,31 +229,7 @@ const Profile = () => {
             <Row className="mt-4">
               <Col>
                 <div className=" d-flex flex-column justify-content-start px-4 py-2 border-accent-l custom-info rounded-5 h-100">
-                  <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between mt-1 mb-3">
-                    <h2 className="fs-4 fw-bold mb-2 m-sm-0">Appointments</h2>
-                    <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100">
-                      <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100">
-                        <input className="mx-2 p-1" type="month" />
-                        <Button
-                          id="profile-btn"
-                          className="text-white d-none d-md-block custom-bg-button border-button rounded-4 py-2"
-                        >
-                          <Link to="/appointment" className="text-decoration-none text-white">
-                            Book Appointment
-                          </Link>
-                        </Button>
-                        <Button
-                          id="profile-btn"
-                          className="text-white d-flex justify-content-center d-md-none custom-bg-button border-button rounded-4"
-                        >
-                          <Link to="/appointment" className="text-decoration-none text-white">
-                            <CalendarPlus size={20}></CalendarPlus>
-                          </Link>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                  {!isLoadingAppointments ? (
+                  {isLoadingAppointments ? (
                     <>
                       <p className="card-text placeholder-wave mb-1">
                         <span className="placeholder col-12"></span>
@@ -208,37 +240,77 @@ const Profile = () => {
                         <span className="placeholder bg-primary col-12"></span>
                       </p>
                     </>
+                  ) : appointments.content.length === 0 ? (
+                    <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between mt-1 mb-3">
+                      <h2 className="fs-4 fw-bold mb-2 m-sm-0">You don't have an appointment yet</h2>
+                      <Button
+                        id="profile-btn"
+                        className="text-white d-none d-md-block custom-bg-button border-button rounded-4 py-2"
+                      >
+                        <Link to="/appointment" className="text-decoration-none text-white">
+                          Book Appointment
+                        </Link>
+                      </Button>
+                      <Button
+                        id="profile-btn"
+                        className="text-white d-flex justify-content-center d-md-none custom-bg-button border-button rounded-4"
+                      >
+                        <Link to="/appointment" className="text-decoration-none text-white">
+                          <CalendarPlus size={20}></CalendarPlus>
+                        </Link>
+                      </Button>
+                    </div>
                   ) : (
                     <>
+                      <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between mt-1 mb-3">
+                        <h2 className="fs-4 fw-bold mb-2 m-sm-0">Appointments</h2>
+                        <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100">
+                          <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100">
+                            <input className="mx-2 p-1" type="month" />
+                            <Button
+                              id="profile-btn"
+                              className="text-white d-none d-md-block custom-bg-button border-button rounded-4 py-2"
+                            >
+                              <Link to="/appointment" className="text-decoration-none text-white">
+                                Book Appointment
+                              </Link>
+                            </Button>
+                            <Button
+                              id="profile-btn"
+                              className="text-white d-flex justify-content-center d-md-none custom-bg-button border-button rounded-4"
+                            >
+                              <Link to="/appointment" className="text-decoration-none text-white">
+                                <CalendarPlus size={20}></CalendarPlus>
+                              </Link>
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
                       <Table hover striped responsive borderless>
                         <thead id="custom-table-head">
                           <tr>
-                            <th className="custom-fs-6 text-nowrap">Center Location</th>
+                            <th className="custom-fs-6 text-nowrap">Center Address</th>
                             <th className="custom-fs-6 text-nowrap">Chek-in</th>
                             <th className="custom-fs-6 text-nowrap">Date</th>
                             <th className="custom-fs-6 text-nowrap">Time</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td className="custom-fs-6 text-nowrap">via spagna 15</td>
-                            <td className="custom-fs-6 text-nowrap">Yes</td>
-                            <td className="custom-fs-6 text-nowrap">21/08/2011</td>
-                            <td className="custom-fs-6 text-nowrap">10:30</td>
-                          </tr>
-                          <tr>
-                            <td className="custom-fs-6 text-nowrap">via spagna 15</td>
-                            <td className="custom-fs-6 text-nowrap">Yes</td>
-                            <td className="custom-fs-6 text-nowrap">21/08/2011</td>
-                            <td className="custom-fs-6 text-nowrap">10:30</td>
-                          </tr>
+                          {appointments.content.map((donation) => (
+                            <TableRow
+                              key={donation.id}
+                              address={donation.center.address}
+                              check={donation.check}
+                              date={donation.donationDate}
+                            ></TableRow>
+                          ))}
                         </tbody>
                       </Table>
                       <Pagination
                         className="pagination-bar"
                         currentPage={currentPage}
-                        totalCount={90}
-                        pageSize={PageSize}
+                        totalCount={appointments.totalElements}
+                        pageSize={appointments.size}
                         onPageChange={(page) => setCurrentPage(page)}
                       ></Pagination>
                     </>

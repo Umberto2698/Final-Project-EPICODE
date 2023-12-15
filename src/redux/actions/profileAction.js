@@ -29,11 +29,11 @@ export const getMyProfileAction = (token) => {
 
 export const getMyAppointments = (token, page) => {
   return async (dispatch) => {
-    const URL = "ENDPOINT" + page;
+    const URL = "http://localhost:8080/donations/me?page=" + page;
     const method = {
       method: "GET",
       headers: {
-        Authorization: token,
+        Authorization: "Bearer " + token,
       },
     };
     try {
