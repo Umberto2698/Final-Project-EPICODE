@@ -1,6 +1,9 @@
 import {
   GET_MY_PROFILE,
   ISLOADING_MY_PROFILES_FALSE,
+  UPDATE_MY_PROFILE,
+  ISLOADING_UPDATE_MY_PROFILE,
+  DELETE_MY_PROFILE,
   GET_MY_APPOINTMENTS,
   ISLOADING_MY_APPOINTMENTS_FALSE,
 } from "../actions/profileAction";
@@ -21,6 +24,15 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         isLoadingProfile: false,
       };
+    case UPDATE_MY_PROFILE:
+      return { ...state, profile: action.payload };
+    case ISLOADING_UPDATE_MY_PROFILE:
+      return {
+        ...state,
+        isLoadingProfile: false,
+      };
+    case DELETE_MY_PROFILE:
+      return { ...state, profile: action.payload };
     case GET_MY_APPOINTMENTS:
       return {
         ...state,
