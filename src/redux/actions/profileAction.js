@@ -32,55 +32,6 @@ export const getMyProfileAction = (token) => {
   };
 };
 
-export const getMyAppointments = (token, page) => {
-  return async (dispatch) => {
-    const URL = "http://localhost:8080/donations/me?page=" + page;
-    const method = {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    };
-    try {
-      const resp = await fetch(URL, method);
-      if (resp.ok) {
-        const MyAppointments = await resp.json();
-        dispatch({ type: GET_MY_APPOINTMENTS, payload: MyAppointments });
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      dispatch({ type: ISLOADING_MY_APPOINTMENTS_FALSE });
-    }
-  };
-};
-
-export const getMyAppointmentsByYear = (token, year, page) => {
-  return async (dispatch) => {
-    const URL = "http://localhost:8080/donations/me/" + year + "?page=" + page;
-    const method = {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    };
-    try {
-      const resp = await fetch(URL, method);
-      if (resp.ok) {
-        const MyAppointments = await resp.json();
-        dispatch({ type: GET_MY_APPOINTMENTS, payload: MyAppointments });
-      } else {
-        const errMessage = await resp.json();
-        console.log(errMessage);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      dispatch({ type: ISLOADING_MY_APPOINTMENTS_FALSE });
-    }
-  };
-};
-
 export const updateMyProfile = (
   token,
   bloodType,
@@ -149,6 +100,85 @@ export const deleteMyProfile = (token) => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+
+export const getMyAppointments = (token, page) => {
+  return async (dispatch) => {
+    const URL = "http://localhost:8080/donations/me?page=" + page;
+    const method = {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
+    try {
+      const resp = await fetch(URL, method);
+      if (resp.ok) {
+        const MyAppointments = await resp.json();
+        dispatch({ type: GET_MY_APPOINTMENTS, payload: MyAppointments });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch({ type: ISLOADING_MY_APPOINTMENTS_FALSE });
+    }
+  };
+};
+
+export const getMyAppointmentsByYear = (token, year, page) => {
+  return async (dispatch) => {
+    const URL = "http://localhost:8080/donations/me/" + year + "?page=" + page;
+    const method = {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
+    try {
+      const resp = await fetch(URL, method);
+      if (resp.ok) {
+        const MyAppointments = await resp.json();
+        dispatch({ type: GET_MY_APPOINTMENTS, payload: MyAppointments });
+      } else {
+        const errMessage = await resp.json();
+        console.log(errMessage);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch({ type: ISLOADING_MY_APPOINTMENTS_FALSE });
+    }
+  };
+};
+
+export const updateMyAppointment = (token, id, donationDate, check) => {
+  return async (dispatch) => {
+    const URL = "http://localhost:8080/donations/" + id;
+    const method = {
+      method: "PUT",
+      body: JSON.stringify({
+        donationDate,
+        check,
+      }),
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const resp = await fetch(URL, method);
+      if (resp.ok) {
+        dispatch(getMyAppointments(token, 0));
+      } else {
+        const errMessage = await resp.json();
+        dispatch({ type: ERROR_UPDATE, payload: errMessage.errorsList });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch({ type: ISLOADING_MY_APPOINTMENTS_FALSE });
     }
   };
 };

@@ -407,6 +407,54 @@ const Profile = () => {
             <Row className="mt-4">
               <Col>
                 <div className=" d-flex flex-column justify-content-start px-4 py-2 border-accent-l custom-info rounded-5 h-100">
+                  <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between mt-1 mb-3">
+                    <h2 className="fs-4 fw-bold mb-3 mb-md-0  m-sm-0">Appointments:</h2>
+                    <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100">
+                      <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100">
+                        <div className="d-flex align-items-center me-3">
+                          <Form>
+                            <FloatingLabel
+                              controlId="floatingYear1"
+                              label="Filter by year:"
+                              className="clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                            >
+                              <Form.Select
+                                className="rounded-4 custom-input fs-6"
+                                onChange={(e) => setSelectedYear(e.target.value)}
+                                aria-label="year selector"
+                              >
+                                <option value="" className="text-primary fw-bold">
+                                  Choose a year
+                                </option>
+                                <option value="">No filter</option>
+                                {yearArr.map((year) => (
+                                  <option key={year} value={year}>
+                                    {year}
+                                  </option>
+                                ))}
+                              </Form.Select>
+                            </FloatingLabel>
+                          </Form>
+                        </div>
+                        <Button
+                          id="profile-btn"
+                          className="text-white d-none d-md-block custom-bg-button border-button rounded-4 py-2"
+                        >
+                          <Link to="/appointment" className="text-decoration-none text-white">
+                            Book Appointment
+                          </Link>
+                        </Button>
+                        <Button
+                          id="profile-btn"
+                          className="text-white d-flex justify-content-center d-md-none custom-bg-button border-button rounded-4"
+                        >
+                          <Link to="/appointment" className="text-decoration-none text-white">
+                            <CalendarPlus size={20}></CalendarPlus>
+                          </Link>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
                   {isLoadingAppointments ? (
                     <>
                       <p className="card-text placeholder-wave mb-1">
@@ -419,109 +467,11 @@ const Profile = () => {
                       </p>
                     </>
                   ) : appointments.content.length === 0 ? (
-                    <>
-                      <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between mt-1 mb-3">
-                        <h2 className="fs-4 fw-bold mb-3 mb-md-0  m-sm-0">Appointments:</h2>
-                        <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100">
-                          <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100">
-                            <div className="d-flex align-items-center me-3">
-                              <Form>
-                                <FloatingLabel
-                                  controlId="floatingYear1"
-                                  label="Filter by year:"
-                                  className="clr-secondary border-secondary rounded-4 fw-bold fs-6"
-                                >
-                                  <Form.Select
-                                    className="rounded-4 custom-input fs-6"
-                                    onChange={(e) => setSelectedYear(e.target.value)}
-                                    aria-label="year selector"
-                                  >
-                                    <option value="" className="text-primary fw-bold">
-                                      Choose a year
-                                    </option>
-                                    {yearArr.map((year) => (
-                                      <option key={year} value={year}>
-                                        {year}
-                                      </option>
-                                    ))}
-                                  </Form.Select>
-                                </FloatingLabel>
-                              </Form>
-                            </div>
-                            <Button
-                              id="profile-btn"
-                              className="text-white d-none d-md-block custom-bg-button border-button rounded-4 py-2"
-                            >
-                              <Link to="/appointment" className="text-decoration-none text-white">
-                                Book Appointment
-                              </Link>
-                            </Button>
-                            <Button
-                              id="profile-btn"
-                              className="text-white d-flex justify-content-center d-md-none custom-bg-button border-button rounded-4"
-                            >
-                              <Link to="/appointment" className="text-decoration-none text-white">
-                                <CalendarPlus size={20}></CalendarPlus>
-                              </Link>
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="d-flex flex-column flex-sm-row align-items-center justify-content-center ">
-                        <h2 className="fs-4 text-center fw-bold mb-3 m-sm-0">You don't have an appointment yet</h2>
-                      </div>
-                    </>
+                    <div className="d-flex flex-column flex-sm-row align-items-center justify-content-center ">
+                      <h2 className="fs-4 text-center fw-bold mb-3 m-sm-0">You don't have an appointment yet</h2>
+                    </div>
                   ) : (
                     <>
-                      <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between mt-1 mb-3">
-                        <h2 className="fs-4 fw-bold mb-3 mb-md-0 m-sm-0">Appointments:</h2>
-                        <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100">
-                          <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100">
-                            <div className="d-flex align-items-center me-3">
-                              <Form>
-                                <FloatingLabel
-                                  controlId="floatingYear"
-                                  label="Filter by year:"
-                                  className="clr-secondary border-secondary rounded-4 fw-bold fs-6"
-                                >
-                                  <Form.Select
-                                    size="5"
-                                    className="rounded-4 custom-input fs-6"
-                                    onChange={(e) => setSelectedYear(e.target.value)}
-                                    aria-label="year selector"
-                                  >
-                                    <option value="" className="text-primary fw-bold">
-                                      Choose a year
-                                    </option>
-                                    <option value="">No filter</option>
-                                    {yearArr.map((year) => (
-                                      <option key={year} value={year}>
-                                        {year}
-                                      </option>
-                                    ))}
-                                  </Form.Select>
-                                </FloatingLabel>
-                              </Form>
-                            </div>
-                            <Button
-                              id="profile-btn"
-                              className="text-white d-none d-md-block custom-bg-button border-button rounded-4 py-2"
-                            >
-                              <Link to="/appointment" className="text-decoration-none text-white">
-                                Book Appointment
-                              </Link>
-                            </Button>
-                            <Button
-                              id="profile-btn"
-                              className="text-white d-flex justify-content-center d-md-none custom-bg-button border-button rounded-4"
-                            >
-                              <Link to="/appointment" className="text-decoration-none text-white">
-                                <CalendarPlus size={20}></CalendarPlus>
-                              </Link>
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
                       <Table hover striped responsive borderless>
                         <thead id="custom-table-head">
                           <tr>
@@ -536,6 +486,7 @@ const Profile = () => {
                           {appointments.content.map((donation) => (
                             <TableRow
                               key={donation.id}
+                              id={donation.id}
                               address={donation.center.address}
                               cap={donation.center.cap}
                               city={donation.center.municipality}
