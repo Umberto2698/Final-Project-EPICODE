@@ -2265,7 +2265,9 @@ form .custom-input:focus {
 }
 
 .profile-image {
+  aspect-ratio: 1/1;
   width: 50px;
+  object-fit: cover;
 }
 @media (max-width: 767px) {
   .profile-image {

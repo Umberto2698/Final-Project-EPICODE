@@ -8,7 +8,7 @@ export const GET_MY_APPOINTMENTS = "GET_MY_APPOINTMENTS";
 export const ISLOADING_MY_APPOINTMENTS_FALSE = "ISLOADING_MY_APPOINTMENTS_FALSE";
 import { SAVE_TOKEN } from "./loginActions";
 
-export const getMyProfileAction = (token) => {
+export const getMyProfile = (token) => {
   return async (dispatch) => {
     const URL = "http://localhost:8080/users/me";
     const method = {
@@ -79,6 +79,31 @@ export const updateMyProfile = (
       dispatch({ type: ERROR_UPDATE, payload: error.errorsList });
     } finally {
       dispatch({ type: ISLOADING_UPDATE_MY_PROFILE });
+    }
+  };
+};
+
+export const updateImageProfile = (token, formData) => {
+  return async (dispatch) => {
+    const URL = `http://localhost:8080/users/upload/me`;
+    const method = {
+      method: "PATCH",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+      body: formData,
+    };
+    try {
+      const resp = await fetch(URL, method);
+      if (resp.ok) {
+        const myProfile = await resp.json();
+        dispatch({ type: GET_MY_PROFILE, payload: myProfile });
+      } else {
+        const errMessage = await resp.json();
+        dispatch({ type: ERROR_UPDATE, payload: errMessage.errorsList });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 };

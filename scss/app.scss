@@ -406,7 +406,9 @@ form {
 }
 
 .profile-image {
+  aspect-ratio: 1/1;
   width: 50px;
+  object-fit: cover;
   @media (max-width: 767px) {
     width: 70px;
   }

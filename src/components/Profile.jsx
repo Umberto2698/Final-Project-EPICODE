@@ -1,6 +1,14 @@
-import { Button, Col, Container, FloatingLabel, Form, Modal, Row, Spinner, Table } from "react-bootstrap";
+import { Button, Col, Container, FloatingLabel, Form, InputGroup, Modal, Row, Spinner, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { PhoneFill, EnvelopeFill, HouseDoorFill, GeoAltFill, GearFill, CalendarPlus } from "react-bootstrap-icons";
+import {
+  PhoneFill,
+  EnvelopeFill,
+  HouseDoorFill,
+  GeoAltFill,
+  GearFill,
+  CalendarPlus,
+  AspectRatio,
+} from "react-bootstrap-icons";
 import Footer from "./Footer";
 import Pagination from "./Pagination";
 import TableRow from "./TableRow";
@@ -9,7 +17,8 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   updateMyProfile,
   deleteMyProfile,
-  getMyProfileAction,
+  getMyProfile,
+  updateImageProfile,
   getMyAppointments,
   getMyAppointmentsByYear,
 } from "../redux/actions/profileAction";
@@ -123,6 +132,20 @@ const Profile = () => {
     sex: "",
   });
 
+  const [formData, setFormData] = useState(new FormData());
+
+  const onFileChange = (e) => {
+    if (e.target && e.target.files[0]) {
+      formData.append("avatar", e.target.files[0]);
+      setFormData(formData);
+    }
+  };
+
+  const [showImage, setShowImage] = useState(false);
+
+  const handleImageClose = () => setShowImage(false);
+  const handleImageShow = () => setShowImage(true);
+
   const [showFirst, setShowFirst] = useState(false);
 
   const handleFirstClose = () => setShowFirst(false);
@@ -187,9 +210,15 @@ const Profile = () => {
     dispatch(deleteMyProfile(loginState.authorizationToken.token));
   };
 
+  const handleImageSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(updateImageProfile(loginState.authorizationToken.token, formData));
+    handleImageClose();
+  };
+
   useEffect(() => {
     if (loginState.authorizationToken.token !== null && loginState.authorizationToken.token !== "") {
-      dispatch(getMyProfileAction(loginState.authorizationToken.token));
+      dispatch(getMyProfile(loginState.authorizationToken.token));
     }
     let arr = [];
     for (let i = 2010; i <= selectedYear + 2; i++) {
@@ -257,13 +286,17 @@ const Profile = () => {
                       size={20}
                     ></GearFill>
                   </div>
-                  <div className="d-flex flex-column flex-md-row align-items-center mb-4">
+                  <div className="d-flex flex-column flex-md-row align-items-center  mb-4">
                     <img
+                      role="button"
+                      onClick={handleImageShow}
                       src={profile.avatarUrl}
                       alt="profile image"
                       className="profile-image mb-1 m-md-0 rounded-circle"
                     />
-                    <p className="fw-bold m-0 ms-2 fs-5 ff-header">{profile.name + " " + profile.surname}</p>
+                    <p className="fw-bold text-center m-0 ms-md-2 fs-5 ff-header">
+                      {profile.name + " " + profile.surname}
+                    </p>
                   </div>
                   <div>
                     <h2 className="fs-4 fw-bold">Contact Details:</h2>
@@ -771,6 +804,41 @@ const Profile = () => {
               <Button variant="danger" onClick={handleProfileDelete}>
                 Delete
               </Button>
+            </Modal.Footer>
+          </Modal>
+          <Modal show={showImage} onHide={handleImageClose}>
+            <Modal.Header closeButton>
+              <Modal.Title className="fs-4 fw-bold mb-0">Profile Picture</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="d-flex align-items-center justify-content-center">
+                <img
+                  src={profile.avatarUrl}
+                  alt="profile image"
+                  className="rounded-circle w-50 object-fit-cover"
+                  style={{ aspectRatio: 1 / 1 }}
+                />
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Form className="w-100" onSubmit={handleImageSubmit}>
+                <InputGroup className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6">
+                  <Form.Control
+                    type="file"
+                    placeholder="choose file"
+                    onChange={(e) => onFileChange(e)}
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </InputGroup>
+                <div className="mt-4 d-flex align-items-center justify-content-between">
+                  <Button variant="secondary" onClick={handleImageClose}>
+                    Close
+                  </Button>
+                  <Button variant="primary" type="submit">
+                    Update Profile Picture
+                  </Button>
+                </div>
+              </Form>
             </Modal.Footer>
           </Modal>
           <footer className="custom-bg-accent-l d-flex justify-content-center align-items-center">

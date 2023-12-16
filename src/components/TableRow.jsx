@@ -21,7 +21,10 @@ const TableRow = (props) => {
   };
   return (
     <>
-      <tr role={Date.now() <= Date.parse(date) && "button"} onClick={Date.now() <= Date.parse(date) && handleShow}>
+      <tr
+        role={Date.now() <= Date.parse(date) && "button"}
+        onClick={Date.now() <= Date.parse(date) ? handleShow : null}
+      >
         <td className="custom-fs-6 text-nowrap">{address}</td>
         <td className="custom-fs-6 text-nowrap">{cap}</td>
         <td className="custom-fs-6 text-nowrap">{city}</td>
