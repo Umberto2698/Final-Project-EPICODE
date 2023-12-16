@@ -7,6 +7,7 @@ export const DELETE_MY_PROFILE = "DELETE_MY_PROFILE";
 export const GET_MY_APPOINTMENTS = "GET_MY_APPOINTMENTS";
 export const ISLOADING_MY_APPOINTMENTS_FALSE = "ISLOADING_MY_APPOINTMENTS_FALSE";
 import { SAVE_TOKEN } from "./loginActions";
+
 export const getMyProfileAction = (token) => {
   return async (dispatch) => {
     const URL = "http://localhost:8080/users/me";
@@ -53,6 +54,33 @@ export const getMyAppointments = (token, page) => {
     }
   };
 };
+
+export const getMyAppointmentsByYear = (token, year, page) => {
+  return async (dispatch) => {
+    const URL = "http://localhost:8080/donations/me/" + year + "?page=" + page;
+    const method = {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
+    try {
+      const resp = await fetch(URL, method);
+      if (resp.ok) {
+        const MyAppointments = await resp.json();
+        dispatch({ type: GET_MY_APPOINTMENTS, payload: MyAppointments });
+      } else {
+        const errMessage = await resp.json();
+        console.log(errMessage);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch({ type: ISLOADING_MY_APPOINTMENTS_FALSE });
+    }
+  };
+};
+
 export const updateMyProfile = (
   token,
   bloodType,
@@ -117,7 +145,7 @@ export const deleteMyProfile = (token) => {
       const resp = await fetch(URL, method);
       if (resp.ok) {
         dispatch({ type: DELETE_MY_PROFILE, payload: null });
-        dispatch({ type: SAVE_TOKEN, payload: "" });
+        dispatch({ type: SAVE_TOKEN, payload: { token: "" } });
       }
     } catch (error) {
       console.log(error);

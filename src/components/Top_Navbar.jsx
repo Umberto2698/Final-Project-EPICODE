@@ -28,7 +28,7 @@ const Top_Navbar = () => {
                   <div className="d-inline-block rounded-droplet-sm bg-danger me-2"></div>
                   <h2 className="d-inline-block fs-5 m-0">Blood Deft</h2>
                 </Link>
-                {loginState.authorizationToken === "" ? (
+                {loginState.authorizationToken.token === null || loginState.authorizationToken.token === "" ? (
                   <Col className="h-100 d-flex d-md-none align-items-center justify-content-end">
                     <Link
                       to="/signUp"
@@ -93,7 +93,7 @@ const Top_Navbar = () => {
                   </span>
                 </Link>
               </Col>
-              {loginState.authorizationToken === "" ? (
+              {loginState.authorizationToken.token === null || loginState.authorizationToken.token === "" ? (
                 <>
                   <Col className="h-100">
                     <Link

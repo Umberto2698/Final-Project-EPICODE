@@ -2,7 +2,7 @@ import { SAVE_TOKEN, LOGOUT } from "../actions/loginActions";
 
 const initialState = {
   respLogin: {
-    authorizationToken: "",
+    authorizationToken: { token: null },
   },
 };
 

@@ -3,11 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { PhoneFill, EnvelopeFill, HouseDoorFill, GeoAltFill, GearFill, CalendarPlus } from "react-bootstrap-icons";
 import Footer from "./Footer";
 import Pagination from "./Pagination";
+import TableRow from "./TableRow";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getMyProfileAction, getMyAppointments } from "../redux/actions/profileAction";
-import TableRow from "./TableRow";
-import { updateMyProfile, deleteMyProfile } from "../redux/actions/profileAction";
+import {
+  updateMyProfile,
+  deleteMyProfile,
+  getMyProfileAction,
+  getMyAppointments,
+  getMyAppointmentsByYear,
+} from "../redux/actions/profileAction";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -99,12 +104,15 @@ const Profile = () => {
   });
   const appointments = useSelector((state) => state.profile.appointments);
   const dispatch = useDispatch();
+  const [selectedYear, setSelectedYear] = useState(new Date(Date.now()).getFullYear());
+  const [yearArr, setYearArr] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [changedProfile, setChangedProfile] = useState({
     name: "",
     surname: "",
     phone: "",
     streetAddress: "",
+    houseNumber: "",
     postalCode: "",
     city: "",
     region: "",
@@ -161,19 +169,39 @@ const Profile = () => {
     dispatch(deleteMyProfile(loginState.authorizationToken.token));
     navigate("/");
   };
+
   useEffect(() => {
-    if (loginState.authorizationToken.token) {
+    if (loginState.authorizationToken.token !== null && loginState.authorizationToken.token !== "") {
       dispatch(getMyProfileAction(loginState.authorizationToken.token));
     }
+    let arr = [];
+    for (let i = 2010; i <= selectedYear + 2; i++) {
+      arr.push(i);
+    }
+    setYearArr(arr);
   }, []);
 
   useEffect(() => {
-    if (profile != null) {
+    if (profile !== null) {
+      if (selectedYear === "") {
+        dispatch(getMyAppointments(loginState.authorizationToken.token, currentPage - 1));
+      } else {
+        dispatch(getMyAppointmentsByYear(loginState.authorizationToken.token, selectedYear, currentPage - 1));
+      }
+    }
+  }, [selectedYear]);
+
+  useEffect(() => {
+    if (profile !== null) {
       setChangedProfile({
         ...changedProfile,
         name: profile.name,
         surname: profile.surname,
         phone: profile.phone,
+        // streetAddress: profile.address.split(",")[0].trim(),
+        // houseNumber: profile.address.split(",")[1].split("-")[0].trim(),
+        // postalCode: profile.address.split(",")[1].split("-")[1].trim(),
+        // city: profile.address.split(",")[2].trim(),
         region: profile.region,
         height: profile.height,
         weight: profile.weight,
@@ -187,8 +215,15 @@ const Profile = () => {
 
   return (
     <>
-      {isLoadingProfile ? (
-        <div className="d-flex justify-content-center w-100 align-items-center" style={{ height: "100vh" }}>
+      {loginState.authorizationToken.token === null || loginState.authorizationToken.token === "" ? (
+        <div className="d-flex justify-content-center w-100 align-items-center px-1" style={{ height: "94vh" }}>
+          <h2 className="fs-4 text-center fw-bold">
+            If you don't have an account yet, click on Sign Up and fill out the form; otherwise, click Log In and access
+            your account.
+          </h2>
+        </div>
+      ) : isLoadingProfile ? (
+        <div className="d-flex justify-content-center w-100 align-items-center" style={{ height: "94vh" }}>
           <Spinner animation="border" variant="primary" />
         </div>
       ) : (
@@ -239,7 +274,7 @@ const Profile = () => {
               <Col sm={7} md={8}>
                 <div className="d-flex flex-column justify-content-start px-4 py-2 border-accent-l custom-info rounded-5 h-100">
                   <div className="d-flex align-items-center justify-content-between mb-2 mt-1 ">
-                    <h2 className="fs-4 fw-bold m-0">Overview:</h2>
+                    <h2 className="fs-4 fw-bold m-0 ms-2">Overview:</h2>
                     <GearFill
                       role="button"
                       className="text-dark-emphasis me-2"
@@ -248,25 +283,25 @@ const Profile = () => {
                     ></GearFill>
                   </div>
                   <Row className="row-cols-2 row-cols-md-3 h-100">
-                    <Col className="my-3">
-                      <h3 className="fw-bold mb-1 mt-2 fs-5">Sex:</h3>
-                      <p className="custom-fs-6 m-0">{sex}</p>
+                    <Col className="my-3 d-flex flex-column justify-content-center ">
+                      <h3 className="fw-bold ms-2  mb-1 mt-2 fs-5">Sex:</h3>
+                      <p className="custom-fs-6 ms-2 m-0">{sex}</p>
                     </Col>
-                    <Col className="my-3">
-                      <h3 className="fw-bold mb-1 mt-2 fs-5">Date of Birth:</h3>
-                      <p className="custom-fs-6 m-0">{profile.birthday ? profile.birthday : "dd/MM/aaaa"}</p>
+                    <Col className="my-3 d-flex flex-column justify-content-center ">
+                      <h3 className="fw-bold ms-2 mb-1 mt-2 fs-5">Date of Birth:</h3>
+                      <p className="custom-fs-6 ms-2 m-0">{profile.birthday ? profile.birthday : "dd/MM/aaaa"}</p>
                     </Col>
-                    <Col className="my-3">
-                      <h3 className="fw-bold mb-1 mt-2 fs-5">Blood Type:</h3>
-                      <p className="custom-fs-6 m-0">{bloodType}</p>
+                    <Col className="my-3 d-flex flex-column justify-content-center ">
+                      <h3 className="fw-bold ms-2 mb-1 mt-2 fs-5">Blood Type:</h3>
+                      <p className="custom-fs-6 ms-2 m-0">{bloodType}</p>
                     </Col>
-                    <Col className="my-3">
-                      <h3 className="fw-bold mb-1 mt-2 fs-5">Height:</h3>
-                      <p className="custom-fs-6 m-0">{profile.height !== 0 ? profile.height : "- -- m"}</p>
+                    <Col className="my-3 d-flex flex-column justify-content-center ">
+                      <h3 className="fw-bold ms-2 mb-1 mt-2 fs-5">Height:</h3>
+                      <p className="custom-fs-6 ms-2 m-0">{profile.height !== 0 ? profile.height : "- -- m"}</p>
                     </Col>
-                    <Col className="my-3">
-                      <h3 className="fw-bold mb-1 mt-2 fs-5">Last Donation Date:</h3>
-                      <p className="custom-fs-6 m-0">
+                    <Col className="my-3 d-flex flex-column justify-content-center ">
+                      <h3 className="fw-bold ms-2 mb-1 mt-2 fs-5">Last Donation Date:</h3>
+                      <p className="custom-fs-6 ms-2 m-0">
                         {isLoadingAppointments
                           ? "aaaa/MM/dd"
                           : appointments.content.length === 0
@@ -274,9 +309,9 @@ const Profile = () => {
                           : appointments.content[0].donationDate}
                       </p>
                     </Col>
-                    <Col className="my-3">
-                      <h3 className="fw-bold mb-1 mt-2 fs-5">Weight:</h3>
-                      <p className="custom-fs-6 m-0">{profile.weight !== 0 ? profile.weight : "-- -- kg"}</p>
+                    <Col className="my-3 d-flex flex-column justify-content-center ">
+                      <h3 className="fw-bold ms-2 mb-1 mt-2 fs-5">Weight:</h3>
+                      <p className="custom-fs-6 ms-2 m-0">{profile.weight !== 0 ? profile.weight : "-- -- kg"}</p>
                     </Col>
                   </Row>
                 </div>
@@ -318,23 +353,23 @@ const Profile = () => {
                     </div>
                   </div>
                   <Row className=" row-cols-2 h-100">
-                    <Col className="my-3">
+                    <Col className="my-3 ">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Sex:</h3>
                       <p className="custom-fs-6 m-0">{sex}</p>
                     </Col>
-                    <Col className="my-3">
+                    <Col className="my-3 ">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Date of Birth:</h3>
                       <p className="custom-fs-6 m-0">{profile.birthday ? profile.birthday : "dd/MM/aaaa"}</p>
                     </Col>
-                    <Col className="my-3">
+                    <Col className="my-3 ">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Blood Type:</h3>
                       <p className="custom-fs-6 m-0">{bloodType}</p>
                     </Col>
-                    <Col className="my-3">
+                    <Col className="my-3 ">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Height:</h3>
                       <p className="custom-fs-6 m-0">{profile.height !== 0 ? profile.height : "- -- m"}</p>
                     </Col>
-                    <Col className="my-3">
+                    <Col className="my-3 ">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Last Donation Date:</h3>
                       <p className="custom-fs-6 m-0">
                         {isLoadingAppointments
@@ -344,7 +379,7 @@ const Profile = () => {
                           : appointments.content[0].donationDate}
                       </p>
                     </Col>
-                    <Col className="my-3">
+                    <Col className="my-3 ">
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Weight:</h3>
                       <p className="custom-fs-6 m-0">{profile.weight !== 0 ? profile.weight : "-- kg"}</p>
                     </Col>
@@ -367,32 +402,90 @@ const Profile = () => {
                       </p>
                     </>
                   ) : appointments.content.length === 0 ? (
-                    <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between mt-1 mb-3">
-                      <h2 className="fs-4 text-center fw-bold mb-2 m-sm-0">You don't have an appointment yet</h2>
-                      <Button
-                        id="profile-btn"
-                        className="text-white d-none d-md-block custom-bg-button border-button rounded-4 py-2"
-                      >
-                        <Link to="/appointment" className="text-decoration-none text-white">
-                          Book Appointment
-                        </Link>
-                      </Button>
-                      <Button
-                        id="profile-btn"
-                        className="text-white d-flex justify-content-center d-md-none custom-bg-button border-button rounded-4"
-                      >
-                        <Link to="/appointment" className="text-decoration-none text-white">
-                          <CalendarPlus size={20}></CalendarPlus>
-                        </Link>
-                      </Button>
-                    </div>
+                    <>
+                      <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between mt-1 mb-3">
+                        <h2 className="fs-4 fw-bold mb-3 mb-md-0  m-sm-0">Appointments:</h2>
+                        <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100">
+                          <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100">
+                            <div className="d-flex align-items-center me-3">
+                              <Form>
+                                <FloatingLabel
+                                  controlId="floatingYear1"
+                                  label="Filter by year:"
+                                  className="clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                                >
+                                  <Form.Select
+                                    className="rounded-4 custom-input fs-6"
+                                    onChange={(e) => setSelectedYear(e.target.value)}
+                                    aria-label="year selector"
+                                  >
+                                    <option value="" className="text-primary fw-bold">
+                                      Choose a year
+                                    </option>
+                                    {yearArr.map((year) => (
+                                      <option key={year} value={year}>
+                                        {year}
+                                      </option>
+                                    ))}
+                                  </Form.Select>
+                                </FloatingLabel>
+                              </Form>
+                            </div>
+                            <Button
+                              id="profile-btn"
+                              className="text-white d-none d-md-block custom-bg-button border-button rounded-4 py-2"
+                            >
+                              <Link to="/appointment" className="text-decoration-none text-white">
+                                Book Appointment
+                              </Link>
+                            </Button>
+                            <Button
+                              id="profile-btn"
+                              className="text-white d-flex justify-content-center d-md-none custom-bg-button border-button rounded-4"
+                            >
+                              <Link to="/appointment" className="text-decoration-none text-white">
+                                <CalendarPlus size={20}></CalendarPlus>
+                              </Link>
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="d-flex flex-column flex-sm-row align-items-center justify-content-center ">
+                        <h2 className="fs-4 text-center fw-bold mb-3 m-sm-0">You don't have an appointment yet</h2>
+                      </div>
+                    </>
                   ) : (
                     <>
                       <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between mt-1 mb-3">
-                        <h2 className="fs-4 fw-bold mb-2 m-sm-0">Appointments</h2>
+                        <h2 className="fs-4 fw-bold mb-3 mb-md-0 m-sm-0">Appointments:</h2>
                         <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100">
                           <div className="d-flex align-items-center justify-content-between justify-content-sm-end w-100">
-                            <input className="mx-2 p-1" type="month" />
+                            <div className="d-flex align-items-center me-3">
+                              <Form>
+                                <FloatingLabel
+                                  controlId="floatingYear"
+                                  label="Filter by year:"
+                                  className="clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                                >
+                                  <Form.Select
+                                    size="5"
+                                    className="rounded-4 custom-input fs-6"
+                                    onChange={(e) => setSelectedYear(e.target.value)}
+                                    aria-label="year selector"
+                                  >
+                                    <option value="" className="text-primary fw-bold">
+                                      Choose a year
+                                    </option>
+                                    <option value="">No filter</option>
+                                    {yearArr.map((year) => (
+                                      <option key={year} value={year}>
+                                        {year}
+                                      </option>
+                                    ))}
+                                  </Form.Select>
+                                </FloatingLabel>
+                              </Form>
+                            </div>
                             <Button
                               id="profile-btn"
                               className="text-white d-none d-md-block custom-bg-button border-button rounded-4 py-2"
@@ -416,9 +509,10 @@ const Profile = () => {
                         <thead id="custom-table-head">
                           <tr>
                             <th className="custom-fs-6 text-nowrap">Center Address</th>
-                            <th className="custom-fs-6 text-nowrap">Chek-in</th>
+                            <th className="custom-fs-6 text-nowrap">CAP</th>
+                            <th className="custom-fs-6 text-nowrap">City</th>
+                            <th className="custom-fs-6 text-nowrap">Check-in</th>
                             <th className="custom-fs-6 text-nowrap">Date</th>
-                            <th className="custom-fs-6 text-nowrap">Time</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -426,6 +520,8 @@ const Profile = () => {
                             <TableRow
                               key={donation.id}
                               address={donation.center.address}
+                              cap={donation.center.cap}
+                              city={donation.center.municipality}
                               check={donation.check}
                               date={donation.donationDate}
                             ></TableRow>
@@ -500,8 +596,21 @@ const Profile = () => {
                     onChange={(e) => setChangedProfile({ ...changedProfile, streetAddress: e.target.value })}
                     type="text"
                     required
-                    autoComplete="street-address"
                     placeholder="street address"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingHouseNumber"
+                  label="House number"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.houseNumber}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, houseNumber: e.target.value })}
+                    type="number"
+                    required
+                    placeholder="house number"
                     className="rounded-4 custom-input fs-5"
                   />
                 </FloatingLabel>

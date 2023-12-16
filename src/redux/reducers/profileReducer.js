@@ -32,7 +32,7 @@ const profileReducer = (state = initialState, action) => {
         isLoadingProfile: false,
       };
     case DELETE_MY_PROFILE:
-      return { ...state, profile: action.payload };
+      return { ...state, profile: action.payload, isLoadingProfile: true };
     case GET_MY_APPOINTMENTS:
       return {
         ...state,
