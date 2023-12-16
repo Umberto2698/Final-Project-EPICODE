@@ -16,6 +16,7 @@ import {
 
 const Profile = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const isLoadingProfile = useSelector((state) => state.profile.isLoadingProfile);
   const isLoadingAppointments = useSelector((state) => state.profile.isLoadingAppointments);
   const loginState = useSelector((state) => state.login.respLogin);
@@ -103,7 +104,6 @@ const Profile = () => {
     }
   });
   const appointments = useSelector((state) => state.profile.appointments);
-  const dispatch = useDispatch();
   const [selectedYear, setSelectedYear] = useState(new Date(Date.now()).getFullYear());
   const [yearArr, setYearArr] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -122,27 +122,6 @@ const Profile = () => {
     birthday: "",
     sex: "",
   });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    dispatch(
-      updateMyProfile(
-        loginState.authorizationToken.token,
-        changedProfile.bloodType,
-        changedProfile.sex,
-        changedProfile.region,
-        changedProfile.name,
-        changedProfile.surname,
-        changedProfile.phone,
-        changedProfile.streetAddress + " - " + changedProfile.postalCode + ", " + changedProfile.city,
-        changedProfile.height,
-        changedProfile.weight,
-        changedProfile.birthday
-      )
-    );
-    handleFirstClose();
-    handleSecondClose();
-  };
 
   const [showFirst, setShowFirst] = useState(false);
 
@@ -165,9 +144,47 @@ const Profile = () => {
     handleShowDelete();
   };
 
-  const handleProfileDelete = () => {
-    dispatch(deleteMyProfile(loginState.authorizationToken.token));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(
+      updateMyProfile(
+        loginState.authorizationToken.token,
+        changedProfile.bloodType,
+        changedProfile.sex,
+        changedProfile.region,
+        changedProfile.name,
+        changedProfile.surname,
+        changedProfile.phone,
+        changedProfile.streetAddress + " - " + changedProfile.postalCode + ", " + changedProfile.city,
+        changedProfile.height,
+        changedProfile.weight,
+        changedProfile.birthday
+      )
+    );
+    handleFirstClose();
+    handleSecondClose();
+  };
+
+  const handleProfileDelete = async (e) => {
+    e.preventDefault();
+    setChangedProfile({
+      ...changedProfile,
+      name: "",
+      surname: "",
+      phone: "",
+      streetAddress: "",
+      houseNumber: "",
+      postalCode: "",
+      city: "",
+      region: "",
+      height: "",
+      weight: "",
+      bloodType: "",
+      birthday: "",
+      sex: "",
+    });
     navigate("/");
+    dispatch(deleteMyProfile(loginState.authorizationToken.token));
   };
 
   useEffect(() => {
