@@ -299,7 +299,7 @@ const Profile = () => {
                     </p>
                   </div>
                   <div>
-                    <h2 className="fs-4 fw-bold">Contact Details:</h2>
+                    <h2 className="fs-4 fw-bold">Profile Details:</h2>
                     <div className="d-flex align-items-center my-3">
                       <PhoneFill className="text-primary" size={15}></PhoneFill>
                       <p className="custom-fs-6 m-0 ms-2">{profile.phone ? profile.phone : "--- -------"}</p>
@@ -382,7 +382,7 @@ const Profile = () => {
                     <p className="fw-bold m-0 ms-2 fs-5 ff-header">{profile.name + " " + profile.surname}</p>
                   </div>
                   <div>
-                    <h2 className="fs-4 fw-bold">Contact Details:</h2>
+                    <h2 className="fs-4 fw-bold">Profile Details:</h2>
                     <div className="d-flex align-items-center my-3">
                       <PhoneFill className="text-primary" size={15}></PhoneFill>
                       <p className="custom-fs-6 m-0 ms-2">{profile.phone ? profile.phone : "--- -------"}</p>
@@ -544,7 +544,7 @@ const Profile = () => {
           </Container>
           <Modal show={showFirst} onHide={handleFirstClose}>
             <Modal.Header closeButton>
-              <Modal.Title className="fs-4 fw-bold mb-0">Contact Details</Modal.Title>
+              <Modal.Title className="fs-4 fw-bold mb-0">Profile Details</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form onSubmit={handleSubmit}>
@@ -694,7 +694,7 @@ const Profile = () => {
           </Modal>
           <Modal show={showSecond} onHide={handleSecondClose}>
             <Modal.Header closeButton>
-              <Modal.Title className="fs-4 fw-bold mb-0">Contact Details</Modal.Title>
+              <Modal.Title className="fs-4 fw-bold mb-0">Profile Details</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form onSubmit={handleSubmit}>
