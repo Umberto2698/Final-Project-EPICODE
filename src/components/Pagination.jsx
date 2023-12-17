@@ -80,10 +80,10 @@ const Pagination = (props) => {
         return (
           <li
             key={i}
-            className={`${
-              currentPage === pageNumber ? "selected " : ""
-            }pagination-item  d-flex align-items-center custom-fs-6`}
+            className={`${currentPage === pageNumber ? "selected " : ""}
+            pagination-item d-flex align-items-center custom-fs-6`}
             onClick={() => onPageChange(pageNumber)}
+            style={pageNumber >= 10 ? { padding: "0 7.5px" } : {}}
           >
             {pageNumber}
           </li>

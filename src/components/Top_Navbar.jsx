@@ -116,7 +116,7 @@ const Top_Navbar = () => {
                 <Col className="h-100">
                   <Link
                     to="/"
-                    onClick={() => dispatch({ type: LOGOUT, payload: "" })}
+                    onClick={() => dispatch({ type: LOGOUT, payload: { token: null } })}
                     className="h-100 text-decoration-none text-dark d-flex align-items-center justify-content-center"
                   >
                     <span className="top_bar-text">Log Out</span>

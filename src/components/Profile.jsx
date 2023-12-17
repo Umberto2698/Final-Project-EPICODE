@@ -113,7 +113,7 @@ const Profile = () => {
     }
   });
   const appointments = useSelector((state) => state.profile.appointments);
-  const [selectedYear, setSelectedYear] = useState(new Date(Date.now()).getFullYear());
+  const [selectedYear, setSelectedYear] = useState("");
   const [yearArr, setYearArr] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [changedProfile, setChangedProfile] = useState({
@@ -221,7 +221,7 @@ const Profile = () => {
       dispatch(getMyProfile(loginState.authorizationToken.token));
     }
     let arr = [];
-    for (let i = 2010; i <= selectedYear + 2; i++) {
+    for (let i = 2010; i <= new Date(Date.now()).getFullYear() + 2; i++) {
       arr.push(i);
     }
     setYearArr(arr);
@@ -230,8 +230,10 @@ const Profile = () => {
   useEffect(() => {
     if (profile !== null) {
       if (selectedYear === "") {
+        setCurrentPage(1);
         dispatch(getMyAppointments(loginState.authorizationToken.token, currentPage - 1));
       } else {
+        setCurrentPage(1);
         dispatch(getMyAppointmentsByYear(loginState.authorizationToken.token, selectedYear, currentPage - 1));
       }
     }
@@ -244,10 +246,10 @@ const Profile = () => {
         name: profile.name,
         surname: profile.surname,
         phone: profile.phone,
-        // streetAddress: profile.address.split(",")[0].trim(),
-        // houseNumber: profile.address.split(",")[1].split("-")[0].trim(),
-        // postalCode: profile.address.split(",")[1].split("-")[1].trim(),
-        // city: profile.address.split(",")[2].trim(),
+        streetAddress: profile.address.split(",")[0].trim(),
+        houseNumber: profile.address.split(",")[1].split("-")[0].trim(),
+        postalCode: profile.address.split(",")[1].split("-")[1].trim(),
+        city: profile.address.split(",")[2].trim(),
         region: profile.region,
         height: profile.height,
         weight: profile.weight,
@@ -255,7 +257,11 @@ const Profile = () => {
         birthday: profile.birthday,
         sex: profile.sex,
       });
-      dispatch(getMyAppointments(loginState.authorizationToken.token, currentPage - 1));
+      if (selectedYear === "") {
+        dispatch(getMyAppointments(loginState.authorizationToken.token, currentPage - 1));
+      } else {
+        dispatch(getMyAppointmentsByYear(loginState.authorizationToken.token, selectedYear, currentPage - 1));
+      }
     }
   }, [profile, currentPage]);
 
@@ -311,7 +317,7 @@ const Profile = () => {
                     <div className="d-flex align-items-center my-3">
                       <HouseDoorFill className="text-primary" size={15}></HouseDoorFill>
                       <p className="custom-fs-6 m-0 ms-2">
-                        {profile.address === null || profile.address === " - , " ? "--------------" : profile.address}
+                        {profile.address === null || profile.address === ",-," ? "--------------" : profile.address}
                       </p>
                     </div>
                     <div className="d-flex align-items-center my-3">
@@ -353,9 +359,9 @@ const Profile = () => {
                       <h3 className="fw-bold ms-2 mb-1 mt-2 fs-5">Last Donation Date:</h3>
                       <p className="custom-fs-6 ms-2 m-0">
                         {isLoadingAppointments
-                          ? "aaaa/MM/dd"
+                          ? "dd/MM/aaaa"
                           : appointments.content.length === 0
-                          ? "aaaa/MM/dd"
+                          ? "dd/MM/aaaa"
                           : appointments.content[0].donationDate}
                       </p>
                     </Col>
@@ -394,7 +400,7 @@ const Profile = () => {
                     <div className="d-flex align-items-center my-3">
                       <HouseDoorFill className="text-primary" size={15}></HouseDoorFill>
                       <p className="custom-fs-6 m-0 ms-2">
-                        {profile.address === null || profile.address === " - , " ? "--------------" : profile.address}
+                        {profile.address === null || profile.address === ",-," ? "--------------" : profile.address}
                       </p>
                     </div>
                     <div className="d-flex align-items-center my-3">
@@ -423,9 +429,9 @@ const Profile = () => {
                       <h3 className="fw-bold mb-1 mt-2 fs-5">Last Donation Date:</h3>
                       <p className="custom-fs-6 m-0">
                         {isLoadingAppointments
-                          ? "aaaa/MM/dd"
+                          ? "dd/MM/aaaa"
                           : appointments.content.length === 0
-                          ? "aaaa/MM/dd"
+                          ? "dd/MM/aaaa"
                           : appointments.content[0].donationDate}
                       </p>
                     </Col>

@@ -17,7 +17,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const token = useSelector((state) => state.login.respLogin.authorizationToken);
+  const token = useSelector((state) => state.login.respLogin.authorizationToken.token);
   const errorRegisterMessage = useSelector((state) => state.state.error.content);
   const errorLoginMessage = useSelector((state) => state.state.error.content);
   const successRegisterMessage = useSelector((state) => state.state.success.content);
@@ -57,6 +57,12 @@ const SignUp = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
+  useEffect(() => {
+    if (token !== null && token !== "") {
+      navigate("/");
+    }
+  }, [token]);
+
   const [newProfile, setNewProfile] = useState({
     name: "",
     surname: "",
@@ -74,9 +80,6 @@ const SignUp = () => {
     e.preventDefault();
     if (location.pathname.includes("/logIn")) {
       dispatch(fetchLogin(oldProfile.email, oldProfile.password));
-      if (token !== "") {
-        navigate("/");
-      }
     } else {
       dispatch(
         fetchRegister(newProfile.name, newProfile.surname, newProfile.region, newProfile.email, newProfile.password)
