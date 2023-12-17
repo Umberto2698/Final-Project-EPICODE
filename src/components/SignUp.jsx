@@ -245,7 +245,7 @@ const SignUp = () => {
                     <option value="CALABRIA">Calabria</option>
                     <option value="CAMPANIA">Campania</option>
                     <option value="EMILIA_ROMAGNA">Emilia-Romagna</option>
-                    <option value="FRIULI_VENEZIA_GIULIA">Friuli-Venezia-Giulia</option>
+                    <option value="FRIULI_VENEZIA_GIULIA">Friuli-Venezia Giulia</option>
                     <option value="LAZIO">Lazio</option>
                     <option value="LIGURIA">Liguria</option>
                     <option value="LOMBARDIA">Lombardy</option>
