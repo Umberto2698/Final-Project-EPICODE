@@ -1,6 +1,8 @@
 export const ISLOADING_CENTERS = "ISLOADING_CENTERS";
 export const GET_DONATION_CENTERS = "GET_DONATION_CENTERS";
 export const GET_DONATION_CENTERS_ERROR = "GET_DONATION_CENTERS_ERROR";
+export const DONATION_SUCCESS = "DONATION_SUCCESS";
+export const DONATION_ERROR = "DONATION_ERROR";
 
 export const getDonationCenters = (token, region) => {
   return async (dispatch) => {
@@ -25,6 +27,33 @@ export const getDonationCenters = (token, region) => {
       dispatch({ type: GET_DONATION_CENTERS_ERROR, payload: error.message });
     } finally {
       dispatch({ type: ISLOADING_CENTERS, payload: false });
+    }
+  };
+};
+
+export const submitDonation = (token, id, donationDate) => {
+  return async (dispatch) => {
+    const URL = "http://localhost:8080/donations/me/" + id;
+    const method = {
+      method: "POST",
+      body: JSON.stringify({
+        donationDate,
+      }),
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const resp = await fetch(URL, method);
+      if (resp.ok) {
+        dispatch({ type: DONATION_SUCCESS, payload: "Booking made successfully" });
+      } else {
+        const error = await resp.json();
+        dispatch({ type: DONATION_ERROR, payload: error.message });
+      }
+    } catch (error) {
+      dispatch({ type: DONATION_ERROR, payload: error.message });
     }
   };
 };

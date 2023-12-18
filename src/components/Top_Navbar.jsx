@@ -26,7 +26,7 @@ const Top_Navbar = () => {
                   className="text-decoration-none text-dark d-flex align-items-center justify-content-center"
                 >
                   <div className="d-inline-block rounded-droplet-sm bg-danger me-2"></div>
-                  <h2 className="d-inline-block fs-5 m-0">Blood Deft</h2>
+                  <h2 className="d-inline-block fs-5 m-0">BloodItaly</h2>
                 </Link>
                 {loginState.authorizationToken.token === null || loginState.authorizationToken.token === "" ? (
                   <Col className="h-100 d-flex d-md-none align-items-center justify-content-end">
@@ -71,7 +71,7 @@ const Top_Navbar = () => {
                   className="h-100 text-decoration-none text-dark d-flex  align-items-center justify-content-center"
                 >
                   <span className={`${location.pathname.includes("/appointment") ? "active" : "top_bar-text"} `}>
-                    Make an appointment
+                    Book an appointment
                   </span>
                 </Link>
               </Col>

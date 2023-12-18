@@ -1,5 +1,6 @@
 import { ERROR_UPDATE } from "../actions/profileAction";
-import { GET_DONATION_CENTERS_ERROR } from "../actions/donationCenterAction.js";
+
+import { GET_DONATION_CENTERS_ERROR, DONATION_SUCCESS } from "../actions/donationCenterAction.js";
 import { LOGIN_ERROR, REGISTER_ERROR, REGISTER_SUCCESS } from "../actions/loginActions";
 const initialState = {
   error: {
@@ -47,6 +48,13 @@ const stateReducer = (state = initialState, action) => {
       return {
         ...state,
         errorList: {
+          content: action.payload,
+        },
+      };
+    case DONATION_SUCCESS:
+      return {
+        ...state,
+        success: {
           content: action.payload,
         },
       };
