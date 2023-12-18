@@ -1,14 +1,6 @@
 import { Button, Col, Container, FloatingLabel, Form, InputGroup, Modal, Row, Spinner, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  PhoneFill,
-  EnvelopeFill,
-  HouseDoorFill,
-  GeoAltFill,
-  GearFill,
-  CalendarPlus,
-  AspectRatio,
-} from "react-bootstrap-icons";
+import { PhoneFill, EnvelopeFill, HouseDoorFill, GeoAltFill, GearFill, CalendarPlus } from "react-bootstrap-icons";
 import Footer from "./Footer";
 import Pagination from "./Pagination";
 import TableRow from "./TableRow";
@@ -44,7 +36,7 @@ const Profile = () => {
         case "EMILIA_ROMAGNA":
           return "Emilia-Romagna";
         case "FRIULI_VENEZIA_GIULIA":
-          return "Friuli-Venezia-Giulia";
+          return "Friuli-Venezia Giulia";
         case "LAZIO":
           return "Lazio";
         case "LIGURIA":
@@ -217,9 +209,6 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (loginState.authorizationToken.token !== null && loginState.authorizationToken.token !== "") {
-      dispatch(getMyProfile(loginState.authorizationToken.token));
-    }
     let arr = [];
     for (let i = 2010; i <= new Date(Date.now()).getFullYear() + 2; i++) {
       arr.push(i);
@@ -246,10 +235,10 @@ const Profile = () => {
         name: profile.name,
         surname: profile.surname,
         phone: profile.phone,
-        streetAddress: profile.address.split(",")[0].trim(),
-        houseNumber: profile.address.split(",")[1].split("-")[0].trim(),
-        postalCode: profile.address.split(",")[1].split("-")[1].trim(),
-        city: profile.address.split(",")[2].trim(),
+        // streetAddress: profile.address.split(",")[0].trim(),
+        // houseNumber: profile.address.split(",")[1].split("-")[0].trim(),
+        // postalCode: profile.address.split(",")[1].split("-")[1].trim(),
+        // city: profile.address.split(",")[2].trim(),
         region: profile.region,
         height: profile.height,
         weight: profile.weight,
@@ -296,7 +285,11 @@ const Profile = () => {
                     <img
                       role="button"
                       onClick={handleImageShow}
-                      src={profile.avatarUrl}
+                      src={
+                        profile.avatarUrl
+                          ? profile.avatarUrl
+                          : "https://ui-avatars.com/api/?name=" + profile.name + "+" + profile.surname
+                      }
                       alt="profile image"
                       className="profile-image mb-1 m-md-0 rounded-circle"
                     />
@@ -560,7 +553,7 @@ const Profile = () => {
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
-                    value={changedProfile.name}
+                    value={changedProfile.name ? changedProfile.name : ""}
                     onChange={(e) => setChangedProfile({ ...changedProfile, name: e.target.value })}
                     type="text"
                     placeholder="name"
@@ -573,7 +566,7 @@ const Profile = () => {
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
-                    value={changedProfile.surname}
+                    value={changedProfile.surname ? changedProfile.surname : ""}
                     onChange={(e) => setChangedProfile({ ...changedProfile, surname: e.target.value })}
                     type="text"
                     placeholder="surname"
@@ -586,7 +579,7 @@ const Profile = () => {
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
-                    value={changedProfile.phone}
+                    value={changedProfile.phone ? changedProfile.phone : ""}
                     onChange={(e) => setChangedProfile({ ...changedProfile, phone: e.target.value })}
                     type="tel"
                     placeholder="phone"
@@ -599,7 +592,7 @@ const Profile = () => {
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
-                    value={changedProfile.streetAddress}
+                    value={changedProfile.streetAddress ? changedProfile.streetAddress : ""}
                     onChange={(e) => setChangedProfile({ ...changedProfile, streetAddress: e.target.value })}
                     type="text"
                     required
@@ -613,7 +606,7 @@ const Profile = () => {
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
-                    value={changedProfile.houseNumber}
+                    value={changedProfile.houseNumber ? changedProfile.houseNumber : ""}
                     onChange={(e) => setChangedProfile({ ...changedProfile, houseNumber: e.target.value })}
                     type="number"
                     required
@@ -627,7 +620,7 @@ const Profile = () => {
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
-                    value={changedProfile.postalCode}
+                    value={changedProfile.postalCode ? changedProfile.postalCode : ""}
                     onChange={(e) => setChangedProfile({ ...changedProfile, postalCode: e.target.value })}
                     autoComplete="postal-code"
                     required
@@ -641,7 +634,7 @@ const Profile = () => {
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
-                    value={changedProfile.city}
+                    value={changedProfile.city ? changedProfile.city : ""}
                     onChange={(e) => setChangedProfile({ ...changedProfile, city: e.target.value })}
                     autoComplete="address-level2"
                     type="text"
@@ -730,7 +723,7 @@ const Profile = () => {
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
-                    value={changedProfile.birthday}
+                    value={changedProfile.birthday ? changedProfile.birthday : ""}
                     onChange={(e) => setChangedProfile({ ...changedProfile, birthday: e.target.value })}
                     type="date"
                     placeholder="birthday"
@@ -769,7 +762,7 @@ const Profile = () => {
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
-                    value={changedProfile.height}
+                    value={changedProfile.height ? changedProfile.height : ""}
                     onChange={(e) => setChangedProfile({ ...changedProfile, height: e.target.value })}
                     type="number"
                     placeholder="height"
@@ -782,7 +775,7 @@ const Profile = () => {
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
-                    value={changedProfile.weight}
+                    value={changedProfile.weight ? changedProfile.weight : ""}
                     onChange={(e) => setChangedProfile({ ...changedProfile, weight: e.target.value })}
                     type="text"
                     placeholder="weight"
@@ -831,6 +824,7 @@ const Profile = () => {
                 <InputGroup className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6">
                   <Form.Control
                     type="file"
+                    required
                     placeholder="choose file"
                     onChange={(e) => onFileChange(e)}
                     className="rounded-4 custom-input fs-5"

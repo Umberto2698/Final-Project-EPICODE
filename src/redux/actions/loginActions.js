@@ -3,6 +3,7 @@ export const LOGOUT = "LOGOUT";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const REGISTER_ERROR = "REGISTER_ERROR";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+import { getMyProfile } from "./profileAction";
 
 export const fetchRegister = (name, surname, region, email, password) => {
   return async (dispatch) => {
@@ -23,6 +24,7 @@ export const fetchRegister = (name, surname, region, email, password) => {
       });
       if (resp.ok) {
         dispatch({ type: REGISTER_SUCCESS, payload: "Please verify your email." });
+        dispatch(getMyProfile(token));
       } else {
         const errMessage = await resp.json();
         dispatch({ type: REGISTER_ERROR, payload: errMessage.message });
@@ -49,6 +51,7 @@ export const fetchLogin = (email, password) => {
       if (resp.ok) {
         const token = await resp.json();
         dispatch({ type: SAVE_TOKEN, payload: token });
+        dispatch(getMyProfile(token.token));
       } else {
         const errMessage = await resp.json();
         dispatch({ type: LOGIN_ERROR, payload: errMessage.message });

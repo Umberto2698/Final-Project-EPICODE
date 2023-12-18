@@ -1775,6 +1775,18 @@ textarea:not([rows]) {
   }
 }
 
+.clr-primary {
+  color: #ff4747;
+}
+
+.border-primary {
+  border: 2px solid #ff4747;
+}
+
+.custom-bg-primary {
+  background-color: #ff4747;
+}
+
 .clr-primary-l {
   color: #ff8686;
 }
@@ -2176,6 +2188,35 @@ textarea:not([rows]) {
   }
 }
 
+.heart {
+  display: inline-block;
+  aspect-ratio: 1/1;
+  position: relative;
+  top: 0;
+  transform: rotate(-45deg);
+  width: 200px;
+}
+
+.heart:before,
+.heart:after {
+  content: "";
+  background-color: #ff4747;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  position: absolute;
+  width: 200px;
+}
+
+.heart:before {
+  top: -100px;
+  left: 0;
+}
+
+.heart:after {
+  left: 100px;
+  top: 0;
+}
+
 .active {
   border-bottom: 2px solid #0eb242;
 }
@@ -2288,6 +2329,33 @@ form .custom-input:focus {
 
 #custom-table-head {
   --bs-table-bg: white;
+}
+
+.card {
+  transition: all 250ms;
+}
+.card > img {
+  height: 260px;
+}
+@media (max-width: 991px) {
+  .card > img {
+    height: 200px;
+  }
+}
+@media (max-width: 575px) {
+  .card > img {
+    height: 300px;
+  }
+}
+@media (max-width: 425px) {
+  .card > img {
+    height: 250px;
+  }
+}
+.card:hover {
+  scale: 1.1;
+  z-index: 1;
+  box-shadow: 3px 3px 20px 0px #5a5a5a;
 }
 
 .pagination-container {

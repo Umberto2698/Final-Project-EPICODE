@@ -318,6 +318,35 @@ textarea:not([rows]) {
   }
 }
 
+.heart {
+  display: inline-block;
+  aspect-ratio: 1/1;
+  position: relative;
+  top: 0;
+  transform: rotate(-45deg);
+  width: 200px;
+}
+
+.heart:before,
+.heart:after {
+  content: "";
+  background-color: $primary;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  position: absolute;
+  width: 200px;
+}
+
+.heart:before {
+  top: -100px;
+  left: 0;
+}
+
+.heart:after {
+  left: 100px;
+  top: 0;
+}
+
 .active {
   border-bottom: 2px solid $accent-400;
 }
@@ -425,6 +454,27 @@ form {
 }
 #custom-table-head {
   --bs-table-bg: white;
+}
+
+.card {
+  transition: all 250ms;
+  > img {
+    height: 260px;
+    @media (max-width: 991px) {
+      height: 200px;
+    }
+    @media (max-width: 575px) {
+      height: 300px;
+    }
+    @media (max-width: 425px) {
+      height: 250px;
+    }
+  }
+  &:hover {
+    scale: 1.1;
+    z-index: 1;
+    box-shadow: 3px 3px 20px 0px #5a5a5a;
+  }
 }
 
 // PAGINATION
