@@ -5,7 +5,7 @@ import stateReducer from "../reducers/stateReducer";
 import storage from "redux-persist/lib/storage";
 import loginReducer from "../reducers/loginReducer";
 import profileReducer from "../reducers/profileReducer";
-
+import donationCenterReducer from "../reducers/donationCenterReducer";
 const persistConfig = {
   key: "root",
   storage,
@@ -24,6 +24,7 @@ const finalReducer = combineReducers({
   state: stateReducer,
   login: loginReducer,
   profile: profileReducer,
+  centers: donationCenterReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, finalReducer);

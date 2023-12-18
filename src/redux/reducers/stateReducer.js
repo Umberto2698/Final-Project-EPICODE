@@ -1,10 +1,7 @@
-import { IS_LOADING } from "../actions/loadingAction";
 import { ERROR_UPDATE } from "../actions/profileAction";
+import { GET_DONATION_CENTERS_ERROR } from "../actions/donationCenterAction.js";
 import { LOGIN_ERROR, REGISTER_ERROR, REGISTER_SUCCESS } from "../actions/loginActions";
 const initialState = {
-  loading: {
-    content: false,
-  },
   error: {
     content: "",
   },
@@ -18,14 +15,14 @@ const initialState = {
 
 const stateReducer = (state = initialState, action) => {
   switch (action.type) {
-    case IS_LOADING:
+    case LOGIN_ERROR:
       return {
         ...state,
-        loading: {
+        error: {
           content: action.payload,
         },
       };
-    case LOGIN_ERROR:
+    case GET_DONATION_CENTERS_ERROR:
       return {
         ...state,
         error: {
