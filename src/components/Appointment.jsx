@@ -61,8 +61,9 @@ const Appointment = () => {
                     make a difference.
                   </p>
                   <p>Thank you for being a part of this important mission!</p>
-                  <p>
-                    With gratitude, <strong>BloodItaly</strong>.
+                  <p className="d-flex align-items-center">
+                    <strong>With gratitude,&nbsp;BloodItaly.</strong>
+                    <span className="heart"></span>
                   </p>
                 </Col>
               </Row>
@@ -70,7 +71,7 @@ const Appointment = () => {
             <section>
               <h1 className="fw-bold mb-3 mb-md-2">Book an appointment</h1>
               <div className="d-md-flex align-items-center mb-3">
-                <h4 className="fs-4 me-2 mb-2 mb-md-0">
+                <h4 className="fs-4 me-md-2 mb-2 mb-md-0">
                   Choose a center in your region or view other options with the appropriate button:
                 </h4>
                 <Col className="col-md-4">
@@ -88,7 +89,7 @@ const Appointment = () => {
                         aria-label="region selector"
                       >
                         <option value={region} className="text-primary fw-bold">
-                          My region
+                          Your region
                         </option>
                         <option value="ABRUZZO">Abruzzo</option>
                         <option value="BASILICATA">Basilicata</option>
@@ -133,6 +134,7 @@ const Appointment = () => {
                           cap={center.cap}
                           municipalityAbbr={center.provinceAbbreviation}
                           denomination={center.denomination}
+                          image={`/assets/donationCenter-${Math.floor(Math.random() * 4) + 1}.jpg`}
                         ></CenterCard>
                       </Col>
                     );

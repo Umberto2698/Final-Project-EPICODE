@@ -319,12 +319,13 @@ textarea:not([rows]) {
 }
 
 .heart {
+  background-color: $primary;
   display: inline-block;
   aspect-ratio: 1/1;
+  margin-left: 15px;
   position: relative;
-  top: 0;
   transform: rotate(-45deg);
-  width: 200px;
+  width: 20px;
 }
 
 .heart:before,
@@ -334,16 +335,16 @@ textarea:not([rows]) {
   border-radius: 50%;
   aspect-ratio: 1/1;
   position: absolute;
-  width: 200px;
+  width: 20px;
 }
 
 .heart:before {
-  top: -100px;
+  top: -10px;
   left: 0;
 }
 
 .heart:after {
-  left: 100px;
+  left: 10px;
   top: 0;
 }
 
