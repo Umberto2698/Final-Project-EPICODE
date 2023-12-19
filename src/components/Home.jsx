@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import Footer from "./Footer";
 const Home = () => {
   return (
-    <main className="linear-gradient-acc-100">
-      <Container className="pt-5">
+    <main>
+      <Container className="pt-3 pt-sm-5">
         <section>
           <Row>
             <Col className="d-flex align-items-center justify-content-center">

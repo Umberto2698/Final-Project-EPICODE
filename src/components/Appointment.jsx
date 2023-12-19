@@ -41,10 +41,7 @@ const Appointment = () => {
           </h2>
         </div>
       ) : (
-        <main
-          className="d-flex flex-column justify-content-between linear-gradient-acc-100"
-          style={{ minHeight: "calc(100vh - 40.6px)" }}
-        >
+        <main className="d-flex flex-column justify-content-between" style={{ minHeight: "calc(100vh - 40.6px)" }}>
           <Container className="mb-3 pt-4">
             <section className="mb-4">
               <Row>

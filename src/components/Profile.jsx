@@ -505,8 +505,8 @@ const Profile = () => {
                       </p>
                     </>
                   ) : appointments.content.length === 0 ? (
-                    <div className="d-flex flex-column flex-sm-row align-items-center justify-content-center ">
-                      <h2 className="fs-4 text-center fw-bold mb-3 m-sm-0">You don't have an appointment yet</h2>
+                    <div className="d-flex flex-column flex-sm-row align-items-center justify-content-center mb-2">
+                      <h2 className="fs-4 text-center fw-bold m-0">You don't have an appointment yet</h2>
                     </div>
                   ) : (
                     <>
@@ -731,17 +731,21 @@ const Profile = () => {
                 >
                   <Form.Control
                     value={
-                      changedProfile.birthday
+                      changedProfile.birthday.includes("/")
                         ? changedProfile.birthday.split("/")[2] +
                           "-" +
                           changedProfile.birthday.split("/")[1] +
                           "-" +
                           changedProfile.birthday.split("/")[0]
+                        : changedProfile.birthday.includes("-")
+                        ? changedProfile.birthday
                         : ""
                     }
                     onChange={(e) => setChangedProfile({ ...changedProfile, birthday: e.target.value })}
                     type="date"
-                    max={`${new Date(Date.now()).getFullYear() - 18}-12-31`}
+                    max={`${new Date(Date.now()).getFullYear() - 18}-${new Date(Date.now()).getMonth() + 1}-${new Date(
+                      Date.now()
+                    ).getDate()}`}
                     placeholder="birthday"
                     className="rounded-4 custom-input fs-5"
                   />
@@ -774,7 +778,7 @@ const Profile = () => {
                 </FloatingLabel>
                 <FloatingLabel
                   controlId="floatingHeight"
-                  label="Height"
+                  label="Height (cm)"
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
@@ -787,13 +791,13 @@ const Profile = () => {
                 </FloatingLabel>
                 <FloatingLabel
                   controlId="floatingWeight"
-                  label="number"
+                  label="Weight (g)"
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
                     value={changedProfile.weight ? changedProfile.weight : ""}
                     onChange={(e) => setChangedProfile({ ...changedProfile, weight: e.target.value })}
-                    type="text"
+                    type="number"
                     placeholder="weight"
                     className="rounded-4 custom-input fs-5"
                   />
