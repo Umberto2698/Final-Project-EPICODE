@@ -9,7 +9,6 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   updateMyProfile,
   deleteMyProfile,
-  getMyProfile,
   updateImageProfile,
   getMyAppointments,
   getMyAppointmentsByYear,
@@ -265,8 +264,8 @@ const Profile = () => {
       {loginState.authorizationToken.token === null || loginState.authorizationToken.token === "" ? (
         <div className="d-flex justify-content-center w-100 align-items-center px-1" style={{ height: "94vh" }}>
           <h2 className="fs-4 text-center fw-bold">
-            If you don't have an account yet, click on Sign Up and fill out the form; otherwise, click Log In and access
-            your account.
+            If you don&apos;t have an account yet, click on Sign Up and fill out the form; otherwise, click Log In and
+            access your account.
           </h2>
         </div>
       ) : isLoadingProfile ? (
@@ -506,7 +505,7 @@ const Profile = () => {
                     </>
                   ) : appointments.content.length === 0 ? (
                     <div className="d-flex flex-column flex-sm-row align-items-center justify-content-center mb-2">
-                      <h2 className="fs-4 text-center fw-bold m-0">You don't have an appointment yet</h2>
+                      <h2 className="fs-4 text-center fw-bold m-0">You don&apos;t have an appointment yet</h2>
                     </div>
                   ) : (
                     <>
@@ -731,14 +730,16 @@ const Profile = () => {
                 >
                   <Form.Control
                     value={
-                      changedProfile.birthday.includes("/")
-                        ? changedProfile.birthday.split("/")[2] +
-                          "-" +
-                          changedProfile.birthday.split("/")[1] +
-                          "-" +
-                          changedProfile.birthday.split("/")[0]
-                        : changedProfile.birthday.includes("-")
-                        ? changedProfile.birthday
+                      changedProfile.birthday !== null
+                        ? changedProfile.birthday.includes("/")
+                          ? changedProfile.birthday.split("/")[2] +
+                            "-" +
+                            changedProfile.birthday.split("/")[1] +
+                            "-" +
+                            changedProfile.birthday.split("/")[0]
+                          : changedProfile.birthday.includes("-")
+                          ? changedProfile.birthday
+                          : ""
                         : ""
                     }
                     onChange={(e) => setChangedProfile({ ...changedProfile, birthday: e.target.value })}
