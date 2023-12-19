@@ -7,7 +7,9 @@ const TableRow = (props) => {
   const dispatch = useDispatch();
   const loginState = useSelector((state) => state.login.respLogin);
   const { id, address, cap, city, abbreviation, check, date } = props;
-  const [selectedDate, setSelectedDate] = useState(props.date);
+  const [selectedDate, setSelectedDate] = useState(
+    props.date.split("/")[2] + "-" + props.date.split("/")[1] + "-" + props.date.split("/")[0]
+  );
   const [selectedCheck, setSelectedCheck] = useState(props.check);
   const [show, setShow] = useState(false);
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Card, FloatingLabel, Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { submitDonation } from "../redux/actions/donationCenterAction.js";
+import { Link } from "react-router-dom";
 
 const CenterCard = (props) => {
   const dispatch = useDispatch();
@@ -91,7 +92,16 @@ const CenterCard = (props) => {
             <Modal.Header closeButton>
               <Modal.Title className="fw-bold m-0 text-success">Success!!</Modal.Title>
             </Modal.Header>
-            <Modal.Body className="fw-bold">{successMessage}</Modal.Body>
+            <Modal.Body>
+              <p className="fw-bold">{successMessage}</p>
+              <p className="m-0">
+                Go in your&nbsp;
+                <Link className="fw-bold text-black text-decoration-none" to="/profile">
+                  Profile
+                </Link>
+                &nbsp;and update the check-in status.
+              </p>
+            </Modal.Body>
           </>
         ) : (
           <>

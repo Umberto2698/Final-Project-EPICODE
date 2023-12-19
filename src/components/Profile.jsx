@@ -170,7 +170,13 @@ const Profile = () => {
         changedProfile.name,
         changedProfile.surname,
         changedProfile.phone,
-        changedProfile.streetAddress + " - " + changedProfile.postalCode + ", " + changedProfile.city,
+        changedProfile.streetAddress +
+          ", " +
+          changedProfile.houseNumber +
+          " - " +
+          changedProfile.postalCode +
+          ", " +
+          changedProfile.city,
         changedProfile.height,
         changedProfile.weight,
         changedProfile.birthday
@@ -310,7 +316,7 @@ const Profile = () => {
                     <div className="d-flex align-items-center my-3">
                       <HouseDoorFill className="text-primary" size={15}></HouseDoorFill>
                       <p className="custom-fs-6 m-0 ms-2">
-                        {profile.address === null || profile.address === ",-," ? "--------------" : profile.address}
+                        {profile.address === null || profile.address === ",  - , " ? "--------------" : profile.address}
                       </p>
                     </div>
                     <div className="d-flex align-items-center my-3">
@@ -393,7 +399,7 @@ const Profile = () => {
                     <div className="d-flex align-items-center my-3">
                       <HouseDoorFill className="text-primary" size={15}></HouseDoorFill>
                       <p className="custom-fs-6 m-0 ms-2">
-                        {profile.address === null || profile.address === ",-," ? "--------------" : profile.address}
+                        {profile.address === null || profile.address === ",  - , " ? "--------------" : profile.address}
                       </p>
                     </div>
                     <div className="d-flex align-items-center my-3">
@@ -724,7 +730,15 @@ const Profile = () => {
                   className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
                 >
                   <Form.Control
-                    value={changedProfile.birthday ? changedProfile.birthday : ""}
+                    value={
+                      changedProfile.birthday
+                        ? changedProfile.birthday.split("/")[2] +
+                          "-" +
+                          changedProfile.birthday.split("/")[1] +
+                          "-" +
+                          changedProfile.birthday.split("/")[0]
+                        : ""
+                    }
                     onChange={(e) => setChangedProfile({ ...changedProfile, birthday: e.target.value })}
                     type="date"
                     max={`${new Date(Date.now()).getFullYear() - 18}-12-31`}

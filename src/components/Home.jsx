@@ -14,7 +14,7 @@ const Home = () => {
                 <p className="fs-6 fst-italic mb-3 mb-sm-5">
                   With a drop of love, give hope: donate your blood, give life.
                 </p>
-                <Link to="/" className="text-decoration-none cursor-pointer">
+                <Link to="/appointment" className="text-decoration-none cursor-pointer">
                   <button className="d-flex align-items-center border-0 rounded-start-pill custom-border-radius fw-bold me-4 me-sm-0 ms-auto ms-sm-3 mt-0 mt-sm-4 p-2 ps-3">
                     <span className="fs-6">Donate Now</span>
                     <div className="d-flex align-items-center justify-content-center ms-3 rounded-droplet-md text-white">
@@ -43,7 +43,7 @@ const Home = () => {
               </div>
             </Col>
             <Col md={2} lg={3} className="d-flex align-items-center justify-content-center">
-              <Link to="/" className="text-decoration-none cursor-pointer">
+              <Link to="/appointment" className="text-decoration-none cursor-pointer">
                 <button className="d-flex align-items-center border-0 rounded-start-pill custom-border-radius fw-bold ms-auto p-2 ps-lg-3">
                   <span className="fs-6 d-none d-lg-inline">Donate Now</span>
                   <div className="d-flex align-items-center justify-content-center ms-0 ms-lg-3 rounded-droplet-md text-white">
@@ -121,7 +121,7 @@ const Home = () => {
             </div>
           </Col>
           <Col className="d-flex align-items-center justify-content-center mb-3">
-            <Link to="/" className="text-decoration-none cursor-pointer">
+            <Link to="/appointment" className="text-decoration-none cursor-pointer">
               <button className="d-flex align-items-center border-0 rounded-start-pill custom-border-radius fw-bold ms-auto p-2">
                 <span className="fs-6">Donate Now</span>
                 <div className="d-flex align-items-center justify-content-center ms-3 rounded-droplet-md text-white">
