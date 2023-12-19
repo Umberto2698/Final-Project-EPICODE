@@ -69,8 +69,8 @@ const Info = () => {
                 <div className="p-3 d-flex flex-column h-100">
                   <h3 className="fs-3 fw-bold mb-3">Weigh more than 50kg</h3>
                   <p className="mt-auto m-0">
-                    To safeguard the donor's health during blood or blood component donations, a minimum weight of 50kg
-                    is required.
+                    To safeguard the donor&apos;s health during blood or blood component donations, a minimum weight of
+                    50kg is required.
                   </p>
                 </div>
               </Col>
@@ -97,7 +97,7 @@ const Info = () => {
                 requirements for donation and to determine the most suitable type of donation.
               </p>
               <ol>
-                <li>Verification of the donor's identity.</li>
+                <li>Verification of the donor&apos;s identity.</li>
                 <li>Completion of a questionnaire.</li>
                 <li>Interview with a doctor and assessment of overall health conditions.</li>
                 <li>Obtaining informed consent for donation.</li>

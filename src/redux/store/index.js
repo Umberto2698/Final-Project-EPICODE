@@ -6,6 +6,7 @@ import storage from "redux-persist/lib/storage";
 import loginReducer from "../reducers/loginReducer";
 import profileReducer from "../reducers/profileReducer";
 import donationCenterReducer from "../reducers/donationCenterReducer";
+import donationReducer from "../reducers/donationReducer";
 const persistConfig = {
   key: "root",
   storage,
@@ -25,6 +26,7 @@ const finalReducer = combineReducers({
   login: loginReducer,
   profile: profileReducer,
   centers: donationCenterReducer,
+  donations: donationReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, finalReducer);

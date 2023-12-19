@@ -1,4 +1,4 @@
-import { ISLOADING_CENTERS, GET_DONATION_CENTERS } from "../actions/donationCenterAction.js";
+import { ISLOADING_CENTERS, GET_DONATION_CENTERS } from "../actions/donationCenterAction";
 
 const initialState = {
   loading: {

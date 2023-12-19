@@ -1,14 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "./Footer";
-import { Alert, Col, Container, FloatingLabel, Form, Row, Spinner } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { Col, Container, FloatingLabel, Form, Row, Spinner } from "react-bootstrap";
+import { useEffect } from "react";
 import { getDonationCenters } from "../redux/actions/donationCenterAction.js";
+import { getDonationsCount } from "../redux/actions/donationAction.js";
 import CenterCard from "./CenterCard.jsx";
 const Appointment = () => {
   const dispatch = useDispatch();
   const loginState = useSelector((state) => state.login.respLogin);
   const isLoadingCenters = useSelector((state) => state.centers.loading.content);
   const profile = useSelector((state) => state.profile.profile);
+  const count = useSelector((state) => state.donations.count.content);
   const region = useSelector((state) => {
     if (profile !== null) {
       return state.profile.profile.region;
@@ -23,6 +25,7 @@ const Appointment = () => {
       profile !== null
     ) {
       dispatch(getDonationCenters(loginState.authorizationToken.token, region));
+      dispatch(getDonationsCount(loginState.authorizationToken.token));
     }
   }, [profile]);
 
@@ -36,8 +39,8 @@ const Appointment = () => {
       {loginState.authorizationToken.token === null || loginState.authorizationToken.token === "" ? (
         <div className="d-flex justify-content-center w-100 align-items-center px-1" style={{ height: "94vh" }}>
           <h2 className="fs-4 text-center fw-bold">
-            If you don't have an account yet, click on Sign Up and fill out the form; otherwise, click Log In and access
-            your account.
+            If you don&apos;t have an account yet, click on Sign Up and fill out the form; otherwise, click Log In and
+            access your account.
           </h2>
         </div>
       ) : (
@@ -46,7 +49,7 @@ const Appointment = () => {
             <section className="mb-4">
               <Row>
                 <Col>
-                  <h2 className="fs-2 fw-bold">Total donations:</h2>
+                  <h2 className="fs-2 fw-bold">Total donations: {count}</h2>
                   <p>
                     Thank you so much to everyone who has donated their precious blood at our centers! Your generous
                     gesture has made a significant impact on the lives of those in need.
