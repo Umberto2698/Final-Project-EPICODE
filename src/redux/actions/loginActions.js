@@ -24,7 +24,6 @@ export const fetchRegister = (name, surname, region, email, password) => {
       });
       if (resp.ok) {
         dispatch({ type: REGISTER_SUCCESS, payload: "Please verify your email." });
-        dispatch(getMyProfile(token));
       } else {
         const errMessage = await resp.json();
         dispatch({ type: REGISTER_ERROR, payload: errMessage.message });

@@ -6,7 +6,8 @@ import { submitDonation } from "../redux/actions/donationCenterAction.js";
 const CenterCard = (props) => {
   const dispatch = useDispatch();
   const successMessage = useSelector((state) => state.state.success.content);
-  const { token, id, address, municipality, cap, municipalityAbbr, denomination } = props;
+  const errorMessage = useSelector((state) => state.state.error.content);
+  const { token, id, address, municipality, cap, municipalityAbbr, denomination, image } = props;
   const [date, setDate] = useState("");
 
   const [show, setShow] = useState(false);
@@ -16,7 +17,7 @@ const CenterCard = (props) => {
 
   const [showMessage, setShowMessage] = useState(false);
 
-  const handleMesageClose = () => setShowMessage(false);
+  const handleMessageClose = () => setShowMessage(false);
   const handleMessageShow = () => setShowMessage(true);
 
   const handleMix = () => {
@@ -33,7 +34,7 @@ const CenterCard = (props) => {
   return (
     <>
       <Card className="custom-info h-100">
-        <Card.Img variant="top" src={`/assets/donationCenter-${Math.floor(Math.random() * 4) + 1}.jpg`} />
+        <Card.Img variant="top" src={image} />
         <Card.Body className="d-flex flex-column justify-content-end">
           <Card.Title>{denomination}</Card.Title>
           <Card.Text className="mb-4">
@@ -62,13 +63,13 @@ const CenterCard = (props) => {
               <Form.Control
                 type="date"
                 required
-                onChange={(e) => setDate(e.target.value)}
+                onChange={(e) => {
+                  setDate(e.target.value);
+                }}
                 min={`${new Date(Date.now()).getFullYear()}-${new Date(Date.now()).getMonth() + 1}-${
                   new Date(Date.now()).getDate() + 1
                 }`}
-                max={`${new Date(Date.now()).getFullYear() + 2}-${new Date(Date.now()).getMonth() + 1}-${new Date(
-                  Date.now()
-                ).getDate()}`}
+                max={`${new Date(Date.now()).getFullYear() + 2}-12-31`}
                 placeholder="appointment date"
                 className="rounded-4  custom-input fs-5"
               />
@@ -84,11 +85,22 @@ const CenterCard = (props) => {
           </Form>
         </Modal.Body>
       </Modal>
-      <Modal show={showMessage} onHide={handleMesageClose}>
-        <Modal.Header closeButton>
-          <Modal.Title className="fw-bold m-0 text-success">Success!!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="fw-bold">{successMessage}</Modal.Body>
+      <Modal show={showMessage} onHide={handleMessageClose}>
+        {successMessage !== "" ? (
+          <>
+            <Modal.Header closeButton>
+              <Modal.Title className="fw-bold m-0 text-success">Success!!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="fw-bold">{successMessage}</Modal.Body>
+          </>
+        ) : (
+          <>
+            <Modal.Header closeButton>
+              <Modal.Title className="fw-bold m-0 text-danger">Error!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="fw-bold">{errorMessage}</Modal.Body>
+          </>
+        )}
       </Modal>
     </>
   );

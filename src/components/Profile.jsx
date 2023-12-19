@@ -235,10 +235,10 @@ const Profile = () => {
         name: profile.name,
         surname: profile.surname,
         phone: profile.phone,
-        // streetAddress: profile.address.split(",")[0].trim(),
-        // houseNumber: profile.address.split(",")[1].split("-")[0].trim(),
-        // postalCode: profile.address.split(",")[1].split("-")[1].trim(),
-        // city: profile.address.split(",")[2].trim(),
+        streetAddress: profile.address.split(",")[0].trim(),
+        houseNumber: profile.address.split(",")[1].split("-")[0].trim(),
+        postalCode: profile.address.split(",")[1].split("-")[1].trim(),
+        city: profile.address.split(",")[2].trim(),
         region: profile.region,
         height: profile.height,
         weight: profile.weight,
@@ -378,7 +378,7 @@ const Profile = () => {
                       alt="profile image"
                       className="profile-image mb-1 m-md-0 rounded-circle"
                     />
-                    <p className="fw-bold m-0 ms-2 fs-5 ff-header">{profile.name + " " + profile.surname}</p>
+                    <p className="fw-bold m-0 fs-5 ff-header">{profile.name + " " + profile.surname}</p>
                   </div>
                   <div>
                     <h2 className="fs-4 fw-bold">Profile Details:</h2>
@@ -522,6 +522,7 @@ const Profile = () => {
                               address={donation.center.address}
                               cap={donation.center.cap}
                               city={donation.center.municipality}
+                              abbreviation={donation.center.provinceAbbreviation}
                               check={donation.check}
                               date={donation.donationDate}
                             ></TableRow>
@@ -726,6 +727,7 @@ const Profile = () => {
                     value={changedProfile.birthday ? changedProfile.birthday : ""}
                     onChange={(e) => setChangedProfile({ ...changedProfile, birthday: e.target.value })}
                     type="date"
+                    max={`${new Date(Date.now()).getFullYear() - 18}-12-31`}
                     placeholder="birthday"
                     className="rounded-4 custom-input fs-5"
                   />
