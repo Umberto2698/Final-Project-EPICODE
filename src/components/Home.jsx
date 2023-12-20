@@ -2,6 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { ArrowRight } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
+import hero_img from "../assets/hero_img.jpg";
 
 const Home = () => {
   return (
@@ -23,11 +24,15 @@ const Home = () => {
                     </div>
                   </button>
                 </Link>
-                <div className="d-sm-none mx-auto mt-4 rounded-droplet-lg hero-image"></div>
+                <div className="d-sm-none mx-auto mt-4 rounded-droplet-lg overflow-hidden hero-image">
+                  <img src={hero_img} className="h-100 object-fit-cover" alt="" />
+                </div>
               </div>
             </Col>
             <Col className="d-none d-sm-flex align-items-center justify-content-center">
-              <div className="rounded-droplet-lg hero-image"></div>
+              <div className="rounded-droplet-lg overflow-hidden hero-image">
+                <img src={hero_img} className="h-100 object-fit-cover" alt="" />
+              </div>
             </Col>
           </Row>
         </section>
