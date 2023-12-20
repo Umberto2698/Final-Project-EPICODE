@@ -2252,7 +2252,7 @@ textarea:not([rows]) {
 }
 
 .hero-image {
-  background-image: url(../assets/hero_img.jpg);
+  background-image: url(../src/assets/hero_img.jpg);
   background-size: cover;
   background-position: center;
   box-shadow: -15px 15px 0px 0px #dc3545;

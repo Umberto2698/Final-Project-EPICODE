@@ -12,6 +12,7 @@ import {
   REGISTER_ERROR,
   REGISTER_SUCCESS,
 } from "../redux/actions/loginActions";
+import Sign_up2 from "../assets/Sign_up2.png";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -99,7 +100,7 @@ const SignUp = () => {
             </div>
             <img
               className="signUp-img mx-auto"
-              src={`${location.pathname.includes("logIn") ? "../assets/Sign-up2.png" : "assets/Sign-up2.png"}`}
+              src={Sign_up2}
               alt="Image of a patient donating blood while doctor check on her, both smiling."
             />
           </div>

@@ -5,7 +5,13 @@ import { useEffect } from "react";
 import { getDonationCenters } from "../redux/actions/donationCenterAction.js";
 import { getDonationsCount } from "../redux/actions/donationAction.js";
 import CenterCard from "./CenterCard.jsx";
+import donationCenter_5 from "../assets/donationCenter-5.jpg";
+import donationCenter_4 from "../assets/donationCenter-4.jpg";
+import donationCenter_3 from "../assets/donationCenter-3.jpg";
+import donationCenter_2 from "../assets/donationCenter-2.jpg";
+import donationCenter_1 from "../assets/donationCenter-1.jpg";
 const Appointment = () => {
+  const images = [donationCenter_1, donationCenter_2, donationCenter_3, donationCenter_4, donationCenter_5];
   const dispatch = useDispatch();
   const loginState = useSelector((state) => state.login.respLogin);
   const isLoadingCenters = useSelector((state) => state.centers.loading.content);
@@ -134,7 +140,7 @@ const Appointment = () => {
                           cap={center.cap}
                           municipalityAbbr={center.provinceAbbreviation}
                           denomination={center.denomination}
-                          image={`/assets/donationCenter-${Math.floor(Math.random() * 4) + 1}.jpg`}
+                          image={images[Math.floor(Math.random() * 4) + 1]}
                         ></CenterCard>
                       </Col>
                     );
