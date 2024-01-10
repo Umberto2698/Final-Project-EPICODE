@@ -36,7 +36,7 @@ const SignUp = () => {
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
-      client_id: "599974988971-h22f3b3fpjq0dl5s7faadh1u37aanb4l.apps.googleusercontent.com",
+      client_id: "1003331449505-u2r18j67oghar12ku1k3434ve8t9a1pn.apps.googleusercontent.com",
       callback: handleCallbackResponse,
     });
     google.accounts.id.renderButton(document.getElementById("goggleBtn"), {

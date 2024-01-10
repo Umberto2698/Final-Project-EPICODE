@@ -147,6 +147,11 @@ const Profile = () => {
   const handleSecondClose = () => setShowSecond(false);
   const handleSecondShow = () => setShowSecond(true);
 
+  const [showMobile, setShowMobile] = useState(false);
+
+  const handleMobileClose = () => setShowMobile(false);
+  const handleMobileShow = () => setShowMobile(true);
+
   const [showDelete, setShowDelete] = useState(false);
 
   const handleCloseDelete = () => setShowDelete(false);
@@ -155,6 +160,7 @@ const Profile = () => {
   const handleMix = () => {
     handleFirstClose();
     handleSecondClose();
+    handleMobileClose();
     handleShowDelete();
   };
 
@@ -375,7 +381,12 @@ const Profile = () => {
               <Col>
                 <div className="d-flex flex-column justify-content-start px-4 py-2 border-accent-l custom-info rounded-5 h-100">
                   <div className="ms-auto mb-2 me-2 mt-1">
-                    <GearFill role="button" className="text-dark-emphasis" size={20}></GearFill>
+                    <GearFill
+                      role="button"
+                      className="text-dark-emphasis"
+                      size={20}
+                      onClick={handleMobileShow}
+                    ></GearFill>
                   </div>
                   <div className="d-flex flex-column flex-md-row align-items-center mb-4">
                     <img
@@ -703,6 +714,257 @@ const Profile = () => {
             </Modal.Header>
             <Modal.Body>
               <Form onSubmit={handleSubmit}>
+                <FloatingLabel
+                  controlId="floatingSex"
+                  label="Sex"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Select
+                    required
+                    size="5"
+                    className="rounded-4 custom-input fs-6"
+                    onChange={(e) => setChangedProfile({ ...changedProfile, sex: e.target.value })}
+                    aria-label="sex selector"
+                  >
+                    <option value="" className="text-primary fw-bold">
+                      Choose your biological sex
+                    </option>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                    <option value="NONE">---</option>
+                  </Form.Select>
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingBirthday"
+                  label="Date of Birth"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={
+                      changedProfile.birthday !== null
+                        ? changedProfile.birthday.includes("/")
+                          ? changedProfile.birthday.split("/")[2] +
+                            "-" +
+                            changedProfile.birthday.split("/")[1] +
+                            "-" +
+                            changedProfile.birthday.split("/")[0]
+                          : changedProfile.birthday.includes("-")
+                          ? changedProfile.birthday
+                          : ""
+                        : ""
+                    }
+                    onChange={(e) => setChangedProfile({ ...changedProfile, birthday: e.target.value })}
+                    type="date"
+                    max={`${new Date(Date.now()).getFullYear() - 18}-${new Date(Date.now()).getMonth() + 1}-${new Date(
+                      Date.now()
+                    ).getDate()}`}
+                    placeholder="birthday"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingBloodType"
+                  label="Blood Type"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Select
+                    required
+                    size="5"
+                    className="rounded-4 custom-input fs-6"
+                    onChange={(e) => setChangedProfile({ ...changedProfile, bloodType: e.target.value })}
+                    aria-label="blood type selector"
+                  >
+                    <option value="" className="text-primary fw-bold">
+                      Choose your blood type
+                    </option>
+                    <option value="APLUS">A+</option>
+                    <option value="AMINUS">A-</option>
+                    <option value="BPLUS">B+</option>
+                    <option value="BMINUS">B-</option>
+                    <option value="ABPLUS">AB+</option>
+                    <option value="ABMINUS">AB-</option>
+                    <option value="ZEROPLUS">0+</option>
+                    <option value="ZEROMINUS">0-</option>
+                    <option value="NONE">--</option>
+                  </Form.Select>
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingHeight"
+                  label="Height (cm)"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.height ? changedProfile.height : ""}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, height: e.target.value })}
+                    type="number"
+                    placeholder="height"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingWeight"
+                  label="Weight (g)"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.weight ? changedProfile.weight : ""}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, weight: e.target.value })}
+                    type="number"
+                    placeholder="weight"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+
+                <div className="mt-4 d-flex align-items-center justify-content-between">
+                  <Button variant="danger" onClick={handleMix}>
+                    Delete Profile
+                  </Button>
+                  <Button variant="primary" type="submit">
+                    Save Changes
+                  </Button>
+                </div>
+              </Form>
+            </Modal.Body>
+          </Modal>
+          <Modal show={showMobile} onHide={handleMobileClose}>
+            <Modal.Header closeButton>
+              <Modal.Title className="fs-4 fw-bold mb-0">Profile Details</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form onSubmit={handleSubmit}>
+                <FloatingLabel
+                  controlId="floatingName"
+                  label="Name"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.name ? changedProfile.name : ""}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, name: e.target.value })}
+                    type="text"
+                    placeholder="name"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingSurname"
+                  label="Surname"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.surname ? changedProfile.surname : ""}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, surname: e.target.value })}
+                    type="text"
+                    placeholder="surname"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingPhone"
+                  label="Phone"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.phone ? changedProfile.phone : ""}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, phone: e.target.value })}
+                    type="tel"
+                    placeholder="phone"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingStreetAddress"
+                  label="Street address"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.streetAddress ? changedProfile.streetAddress : ""}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, streetAddress: e.target.value })}
+                    type="text"
+                    required
+                    placeholder="street address"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingHouseNumber"
+                  label="House number"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.houseNumber ? changedProfile.houseNumber : ""}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, houseNumber: e.target.value })}
+                    type="number"
+                    required
+                    placeholder="house number"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingPostalCode"
+                  label="Postal Code"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.postalCode ? changedProfile.postalCode : ""}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, postalCode: e.target.value })}
+                    autoComplete="postal-code"
+                    required
+                    placeholder="postal code"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingCity"
+                  label="City"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Control
+                    value={changedProfile.city ? changedProfile.city : ""}
+                    onChange={(e) => setChangedProfile({ ...changedProfile, city: e.target.value })}
+                    autoComplete="address-level2"
+                    type="text"
+                    required
+                    placeholder="city"
+                    className="rounded-4 custom-input fs-5"
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingSelectGrid"
+                  label="Region"
+                  className="mb-4 clr-secondary border-secondary rounded-4 fw-bold fs-6"
+                >
+                  <Form.Select
+                    required
+                    size="5"
+                    className="rounded-4 custom-input fs-6"
+                    onChange={(e) => setChangedProfile({ ...changedProfile, region: e.target.value })}
+                    aria-label="region selector"
+                  >
+                    <option value="" className="text-primary fw-bold">
+                      Choose a Region
+                    </option>
+                    <option value="ABRUZZO">Abruzzo</option>
+                    <option value="BASILICATA">Basilicata</option>
+                    <option value="CALABRIA">Calabria</option>
+                    <option value="CAMPANIA">Campania</option>
+                    <option value="EMILIA_ROMAGNA">Emilia-Romagna</option>
+                    <option value="FRIULI_VENEZIA_GIULIA">Friuli-Venezia-Giulia</option>
+                    <option value="LAZIO">Lazio</option>
+                    <option value="LIGURIA">Liguria</option>
+                    <option value="LOMBARDIA">Lombardy</option>
+                    <option value="MARCHE">Marche</option>
+                    <option value="MOLISE">Molise</option>
+                    <option value="PIEMONTE">Piedmont</option>
+                    <option value="PUGLIA">Apulia</option>
+                    <option value="SARDEGNA">Sardinia</option>
+                    <option value="SICILIA">Sicily</option>
+                    <option value="TOSCANA">Tuscany</option>
+                    <option value="TRENTINO_ALTO_ADIGE">Trentino-South Tyrol</option>
+                    <option value="UMBRIA">Umbria</option>
+                    <option value="VALLE_DAOSTA">Aosta Valley</option>
+                    <option value="VENETO">Veneto</option>
+                  </Form.Select>
+                </FloatingLabel>
                 <FloatingLabel
                   controlId="floatingSex"
                   label="Sex"

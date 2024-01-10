@@ -69,7 +69,7 @@ const Home = () => {
             <Col className="step position-relative mb-5">
               <h3 className="fw-bold fs-3 mb-3">Registration</h3>
               <p className="custom-fs-6">
-                If you don't have an account yet, click on
+                If you don&apos;t have an account yet, click on
                 <Link to="/signUp" className="fw-bold text-decoration-none text-black cursor-pointer">
                   &nbsp;Sign Up&nbsp;
                 </Link>
@@ -148,7 +148,7 @@ const Home = () => {
             <Col className="step position-relative mt-5 mb-5">
               <h3 className="fw-bold fs-3 mb-2">Registration</h3>
               <p className="fs-6">
-                If you don't have an account yet, click on
+                If you don&apos;t have an account yet, click on
                 <Link to="/signUp" className="fw-bold text-decoration-none text-black cursor-pointer">
                   &nbsp;Sign Up&nbsp;
                 </Link>
